@@ -30,7 +30,6 @@ public class HttpConnector {
 
     @Retry
     @CircuitBreaker
-    @Fallback(fallbackMethod = "fallback")
     public String executeHTTPGet(String url) throws IOException {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
