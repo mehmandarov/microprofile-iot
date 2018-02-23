@@ -1,7 +1,6 @@
 package no.cx.iot.philipshueapi.hueController.rest.infrastructure;
 
 import no.cx.iot.philipshueapi.hueController.rest.Controller;
-import no.cx.iot.philipshueapi.hueController.rest.clockInputProvider.ClockInputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.weatherInputProvider.YrInputProvider;
 
 import javax.annotation.PostConstruct;
@@ -20,15 +19,10 @@ public class RootResource {
 
     @Inject
     @SuppressWarnings("unused")
-    private ClockInputProvider clockInputProvider;
-
-    @Inject
-    @SuppressWarnings("unused")
     private YrInputProvider yrInputProvider;
 
     @PostConstruct
     public void registerInputProviders() {
-        controller.registerInputProvider(clockInputProvider);
         controller.registerInputProvider(yrInputProvider);
     }
 
