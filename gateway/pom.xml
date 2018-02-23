@@ -52,28 +52,6 @@
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>microprofile</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>cdi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>cdi-config</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jaxrs</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>microprofile-fault-tolerance</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>microprofile-config</artifactId>
-      <version>1.2.1</version>
-    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
@@ -105,14 +83,6 @@
       <version>1.16.20</version>
       <scope>provided</scope>
     </dependency>
-
-
-
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jaxrs-jsonp</artifactId>
-    </dependency>
-
 
     <dependency>
     <groupId>com.fasterxml.jackson.dataformat</groupId>
