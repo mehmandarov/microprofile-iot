@@ -1,4 +1,4 @@
-package no.iot.timeservice.timeservice.rest;
+package no.iot.timeservice.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -1,4 +1,4 @@
-package no.iot.timeservice.timeservice.supplier;
+package no.iot.timeservice.supplier;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDateTime;

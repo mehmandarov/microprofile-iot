@@ -1,7 +1,7 @@
-package no.iot.timeservice.timeservice.rest;
+package no.iot.timeservice.rest;
 
 
-import no.iot.timeservice.timeservice.supplier.LocalDateTimeNowSupplier;
+import no.iot.timeservice.supplier.LocalDateTimeNowSupplier;
 
 import javax.inject.Inject;
 import javax.ws.rs.Path;
