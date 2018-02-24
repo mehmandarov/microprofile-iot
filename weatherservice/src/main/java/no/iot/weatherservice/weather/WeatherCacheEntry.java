@@ -11,29 +11,30 @@ public class WeatherCacheEntry {
         this.temperature = temperature;
     }
 
-    public WeatherCacheEntry(){}
-
-    public void setPlace(String place) {
-        this.place = place;
+    public WeatherCacheEntry() {
     }
 
     public String getPlace() {
         return place;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public String getTime() {
         return time;
     }
 
-    public void setTemperature(String temperature) {
-        this.temperature = temperature;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getTemperature() {
         return temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature;
     }
 }

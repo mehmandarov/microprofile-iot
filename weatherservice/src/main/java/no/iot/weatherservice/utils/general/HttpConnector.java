@@ -21,18 +21,20 @@ public class HttpConnector {
 
     @Retry
     @CircuitBreaker
+    @Fallback(fallbackMethod= "fallback")
     public String executeHTTPGet(String url) throws IOException {
-        logger.info("Invoking " + url);
+        logger.info(String.format("Invoking %s", url));
         HttpUriRequest request = new HttpGet(url);
         CloseableHttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         InputStream content = httpResponse.getEntity().getContent();
-        String responsetext = IOUtils.toString(content);
+        String responseText = IOUtils.toString(content, "UTF-8");
         httpResponse.close();
 
-        return responsetext;
+        return responseText;
     }
 
-    private String fallback() {
-        return "Could not connect";
+
+    private String fallback(String url) {
+        return "ERROR: Could not connect to: " + url;
     }
 }

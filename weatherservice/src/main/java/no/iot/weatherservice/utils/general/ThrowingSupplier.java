@@ -8,8 +8,7 @@ public interface ThrowingSupplier<T> {
     default T get() {
         try {
             return toOverride();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
