@@ -5,7 +5,6 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 
@@ -20,8 +19,8 @@ public class HttpConnector {
     private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
     @Retry
-    @CircuitBreaker
-    @Fallback(fallbackMethod= "fallback")
+    //@CircuitBreaker
+    @Fallback(fallbackMethod = "fallback")
     public String executeHTTPGet(String url) throws IOException {
         logger.info(String.format("Invoking %s", url));
         HttpUriRequest request = new HttpGet(url);
@@ -29,7 +28,6 @@ public class HttpConnector {
         InputStream content = httpResponse.getEntity().getContent();
         String responseText = IOUtils.toString(content, "UTF-8");
         httpResponse.close();
-
         return responseText;
     }
 

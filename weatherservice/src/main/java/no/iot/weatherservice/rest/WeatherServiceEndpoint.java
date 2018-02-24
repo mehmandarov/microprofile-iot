@@ -17,6 +17,14 @@ public class WeatherServiceEndpoint {
     @GET
     @Produces("text/plain")
     public Response doGet() {
-        return Response.ok(yrInputProvider.getTemperature()).build();
+        String temp = yrInputProvider.getTemperature();
+        try {
+            Double.parseDouble(temp);
+            return Response.ok(yrInputProvider.getTemperature()).build();
+        } catch (NumberFormatException ex) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                    .entity("We were not able to get the temperature for this location right now.")
+                    .build();
+        }
     }
 }
