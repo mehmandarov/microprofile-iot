@@ -1,6 +1,5 @@
 package no.iot.timeservice.rest;
 
-
 import no.iot.timeservice.supplier.LocalDateTimeNowSupplier;
 
 import javax.inject.Inject;
