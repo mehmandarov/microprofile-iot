@@ -46,6 +46,7 @@ public class Controller {
                 .collect(Collectors.joining("\n"));
     }
 
+    // TODO: This gives Caused by: java.lang.NumberFormatException: For input string: "ERROR: Could not connect to: lights" if API-facade is not running...
     private int getAllLights() {
         return wrapExceptions(connector::getAllLights);
     }

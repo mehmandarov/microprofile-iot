@@ -17,7 +17,8 @@ import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.Exceptio
          * But atm it's good enough
          */
 @SuppressWarnings("unused")
-public class YrInputProvider implements InputProvider {
+// TODO This generic should probably not be String
+public class YrInputProvider implements InputProvider<String> {
 
     @Inject
     private HttpConnector connector;
@@ -38,11 +39,17 @@ public class YrInputProvider implements InputProvider {
         if (temperatureFromNewlyUpdatedCache.isPresent()) {
             return temperatureFromNewlyUpdatedCache.get();
         }
-
-        String temperature = xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURL)));
+        String temperature = getDataForLight(lightIndex);
         yrCacheHandler.updateCache(currentLocation, temperature);
         return getLightState(temperature);
     }
+
+
+    @Override
+    public String getDataForLight(int lightIndex) {
+        return xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURL)));
+    }
+
     private LightState getLightState(String temperatureStr) {
         Double temperature = Double.valueOf(temperatureStr);
         int newBrightness = (int) Math.round(temperature);

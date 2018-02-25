@@ -24,6 +24,8 @@ public class HttpConnector {
     @Inject
     private Logger logger;
 
+    @Retry
+    @Fallback(fallbackMethod = "fallback")
     String executeHTTPGetOnHue(String path) throws IOException {
         return executeHTTPGet(hueURL.getFullURL() + path);
     }

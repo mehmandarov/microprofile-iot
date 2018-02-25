@@ -1,6 +1,6 @@
 package no.cx.iot.philipshueapi.hueController.rest.rest;
 
-import no.cx.iot.philipshueapi.hueController.rest.TimeRestConnector;
+import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
