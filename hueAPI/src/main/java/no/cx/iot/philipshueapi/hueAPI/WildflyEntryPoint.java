@@ -22,7 +22,8 @@ public class WildflyEntryPoint {
 	@Inject
 	private SDKFacade sdk;
 
-	private Logger logger = Logger.getLogger(getClass().getSimpleName());
+	@Inject
+	private Logger logger;
 
 	@GET
 	@Produces("text/plain")

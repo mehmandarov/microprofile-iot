@@ -28,7 +28,8 @@ public class Listener implements PHSDKListener {
     @Inject
     private BridgeConnector bridgeConnector;
 
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+    @Inject
+    private Logger logger;
 
     @Override
     public void onCacheUpdated(List<Integer> list, PHBridge phBridge) {

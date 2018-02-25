@@ -26,7 +26,8 @@ class BridgeConnector {
     @Inject
     private HueProperties hueProperties;
 
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+    @Inject
+    private Logger logger;
 
     public void connectToLastKnownAccessPoint() {
         Optional<String> username = Optional.ofNullable(hueProperties.getUsername());

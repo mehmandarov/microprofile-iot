@@ -21,7 +21,8 @@ public class PhilipsHueController {
     @Inject
     private SetupController setupController;
 
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+    @Inject
+    private Logger logger;
 
     public void setup() {
         setupController.setup();
@@ -43,7 +44,7 @@ public class PhilipsHueController {
         return lastKnownLightState;
     }
 
-    PHLight getGivenLight(PHBridge bridge, int lightIndex) {
+    private PHLight getGivenLight(PHBridge bridge, int lightIndex) {
         return getAllLights(bridge).get(lightIndex);
     }
 
