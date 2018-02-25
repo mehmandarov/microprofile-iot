@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.infrastructure;
+package no.cx.iot.philipshueapi.hueController.rest.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

@@ -16,8 +16,9 @@ public class Brightness {
     private Logger logger;
 
     public Brightness(int brightness) {
-        this.brightness = brightness < 0 ? 0 : (brightness > 254 ? 254 : brightness);
-        if (brightness < 0 || brightness > 254) {
+        int maxColour = 254;
+        this.brightness = brightness < 0 ? 0 : (brightness > maxColour ? maxColour : brightness);
+        if (brightness < 0 || brightness > maxColour) {
             logger.info("Input brightness was " + brightness +", adjusted to " + this.brightness);
         }
     }

@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.infrastructure;
+package no.cx.iot.philipshueapi.hueController.rest.rest;
 
 import no.cx.iot.philipshueapi.hueController.rest.Controller;
 import no.cx.iot.philipshueapi.hueController.rest.weatherInputProvider.YrInputProvider;
