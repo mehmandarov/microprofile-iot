@@ -1,12 +1,11 @@
 package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
 
-import com.google.common.base.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -30,19 +29,20 @@ public class HttpConnector {
     }
 
     @Retry
-    @CircuitBreaker
+    @Fallback(fallbackMethod = "fallback")
+    // TODO: This one should be replaced with the rest client, but it doesn't seem like that one is included in Wildfly Swarm yet
     public String executeHTTPGet(String url) throws IOException {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
         CloseableHttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         InputStream content = httpResponse.getEntity().getContent();
-        String responsetext = IOUtils.toString(content, Charsets.UTF_8);
+        String responsetext = IOUtils.toString(content, "UTF-8");
         httpResponse.close();
 
         return responsetext;
     }
 
-    private String fallback() {
-        return "Could not connect";
+    private String fallback(String url) {
+        return "ERROR: Could not connect to: " + url;
     }
 }
