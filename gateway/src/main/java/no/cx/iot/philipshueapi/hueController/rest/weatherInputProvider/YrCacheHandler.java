@@ -1,7 +1,7 @@
 package no.cx.iot.philipshueapi.hueController.rest.weatherInputProvider;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.cx.iot.philipshueapi.hueController.rest.LightState;
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;

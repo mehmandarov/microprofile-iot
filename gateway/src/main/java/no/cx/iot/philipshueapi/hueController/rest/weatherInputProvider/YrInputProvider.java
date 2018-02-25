@@ -1,8 +1,8 @@
 package no.cx.iot.philipshueapi.hueController.rest.weatherInputProvider;
 
-import no.cx.iot.philipshueapi.hueController.rest.Brightness;
+import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
-import no.cx.iot.philipshueapi.hueController.rest.LightState;
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
 
 import javax.enterprise.context.ApplicationScoped;

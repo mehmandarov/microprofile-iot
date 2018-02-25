@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest;
+package no.cx.iot.philipshueapi.hueController.rest.lights;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

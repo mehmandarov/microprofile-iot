@@ -1,6 +1,6 @@
 package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
 
-import no.cx.iot.philipshueapi.hueController.rest.LightState;
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

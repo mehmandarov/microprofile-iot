@@ -1,6 +1,7 @@
-package no.cx.iot.philipshueapi.hueController.rest;
+package no.cx.iot.philipshueapi.hueController.rest.lights;
 
 import lombok.Data;
+import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 
 import java.awt.*;
 
