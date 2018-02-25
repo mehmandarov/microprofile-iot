@@ -3,6 +3,7 @@ package no.cx.iot.philipshueapi.hueController.rest;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import javax.inject.Inject;
 import java.util.logging.Logger;
 
 @EqualsAndHashCode
@@ -11,7 +12,8 @@ public class Brightness {
     @Getter
     private final int brightness;
 
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+    @Inject
+    private Logger logger;
 
     public Brightness(int brightness) {
         this.brightness = brightness < 0 ? 0 : (brightness > 254 ? 254 : brightness);

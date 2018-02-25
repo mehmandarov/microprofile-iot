@@ -22,7 +22,9 @@ public class Controller {
     private PhilipsHueConnector connector;
 
     private Set<InputProvider> inputProviders;
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+
+    @Inject
+    private Logger logger;
 
     public Controller() {
         inputProviders = new HashSet<>();

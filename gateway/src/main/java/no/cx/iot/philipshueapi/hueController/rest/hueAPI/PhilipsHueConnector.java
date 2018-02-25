@@ -13,7 +13,8 @@ public class PhilipsHueConnector {
     @Inject
     private HttpConnector httpConnector;
 
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+    @Inject
+    private Logger logger;
 
     public int getAllLights() throws IOException {
         String responseText = getResponseText("lights");
