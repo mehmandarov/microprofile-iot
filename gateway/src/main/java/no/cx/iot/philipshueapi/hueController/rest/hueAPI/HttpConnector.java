@@ -44,6 +44,7 @@ public class HttpConnector {
         CloseableHttpResponse response = HttpClientBuilder.create().build().execute(request);
         InputStream content = response.getEntity().getContent();
         String responsetext = IOUtils.toString(content, "UTF-8");
+        logger.info("Received " + responsetext);
         response.close();
         return responsetext;
     }

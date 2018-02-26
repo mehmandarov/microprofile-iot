@@ -45,7 +45,7 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     }
 
     private LocalDateTime getTime() throws IOException {
-        return connector.executeHTTPGet(getFullURL(), LocalDateTime.class);
+        return connector.executeHTTPGet(getFullURL(), TimeDTO.class).getLocalDateTime();
     }
 
     @Override
