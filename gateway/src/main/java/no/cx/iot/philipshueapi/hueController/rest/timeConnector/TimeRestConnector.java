@@ -44,14 +44,13 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
         }
     }
 
-    private String getTime() throws IOException {
-        return connector.executeHTTPGet(getFullURL());
+    private LocalDateTime getTime() throws IOException {
+        return connector.executeHTTPGet(getFullURL(), LocalDateTime.class);
     }
 
-    //TODO: The hard-wiring to LocalDateTime here is somewhat shady. Should be encoded somewhere
     @Override
     public LocalDateTime getDataForLight(int lightIndex) {
-        return LocalDateTime.parse(wrapExceptions(this::getTime));
+        return wrapExceptions(this::getTime);
     }
 
     @Override

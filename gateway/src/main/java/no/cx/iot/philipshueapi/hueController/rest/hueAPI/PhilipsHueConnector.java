@@ -17,17 +17,16 @@ public class PhilipsHueConnector {
     private Logger logger;
 
     public int getAllLights() throws IOException {
-        String responseText = getResponseText("lights");
-        return Integer.valueOf(responseText);
+        return getResponseText("lights", Integer.class);
     }
 
     public String switchStateOfLight(int lightIndex, LightState newLightState) throws IOException {
         String path = "light/" + lightIndex + "/brightness/" + newLightState.getBrightness();
-        return getResponseText(path);
+        return getResponseText(path, String.class);
     }
 
-    private String getResponseText(String path) throws IOException {
-        String responsetext = httpConnector.executeHTTPGetOnHue(path);
+    private <T> T getResponseText(String path, Class<T> clazz) throws IOException {
+        T responsetext = httpConnector.executeHTTPGetOnHue(path, clazz);
         logger.fine("Responsetext: " + responsetext);
         return responsetext;
     }

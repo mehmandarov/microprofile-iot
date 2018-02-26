@@ -47,7 +47,7 @@ public class YrInputProvider implements InputProvider<String> {
 
     @Override
     public String getDataForLight(int lightIndex) {
-        return xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURL)));
+        return xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURL, String.class)));
     }
 
     private LightState getLightState(String temperatureStr) {

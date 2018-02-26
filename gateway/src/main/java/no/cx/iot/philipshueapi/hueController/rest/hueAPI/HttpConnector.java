@@ -1,5 +1,6 @@
 package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,25 +27,27 @@ public class HttpConnector {
 
     @Retry
     @Fallback(fallbackMethod = "fallback")
-    String executeHTTPGetOnHue(String path) throws IOException {
-        return executeHTTPGet(hueURL.getFullURL() + path);
+    <T> T executeHTTPGetOnHue(String path, Class<T> clazz) throws IOException {
+        return executeHTTPGet(hueURL.getFullURL() + path, clazz);
     }
 
     @Retry
     @Fallback(fallbackMethod = "fallback")
     // TODO: This one should be replaced with the rest client, but it doesn't seem like that one is included in Wildfly Swarm yet
-    public String executeHTTPGet(String url) throws IOException {
+    public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
         CloseableHttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
         InputStream content = httpResponse.getEntity().getContent();
+        ObjectMapper objectMapper = new ObjectMapper();
         String responsetext = IOUtils.toString(content, "UTF-8");
+        T value = objectMapper.readValue(responsetext, clazz);
         httpResponse.close();
 
-        return responsetext;
+        return value;
     }
 
-    private String fallback(String url) {
+    private <T> T fallback(String url, Class<T> clazz) {
         return "ERROR: Could not connect to: " + url;
     }
 }
