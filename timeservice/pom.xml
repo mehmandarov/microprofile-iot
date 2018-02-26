@@ -43,12 +43,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <properties>
-                        <swarm.http.port>8082</swarm.http.port>
-                        <swarm.management.http.port>9991</swarm.management.http.port>
-                    </properties>
-                </configuration>
             </plugin>
         </plugins>
     </build>
