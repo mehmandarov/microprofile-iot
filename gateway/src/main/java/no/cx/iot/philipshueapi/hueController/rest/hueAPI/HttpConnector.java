@@ -25,29 +25,30 @@ public class HttpConnector {
     @Inject
     private Logger logger;
 
-    @Retry
-    @Fallback(fallbackMethod = "fallback")
     <T> T executeHTTPGetOnHue(String path, Class<T> clazz) throws IOException {
         return executeHTTPGet(hueURL.getFullURL() + path, clazz);
+    }
+
+    public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
+        String responsetext = getCloseableHttpResponse(url);
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(responsetext, clazz);
     }
 
     @Retry
     @Fallback(fallbackMethod = "fallback")
     // TODO: This one should be replaced with the rest client, but it doesn't seem like that one is included in Wildfly Swarm yet
-    public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
+    private String getCloseableHttpResponse(String url) throws IOException {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
-        CloseableHttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
-        InputStream content = httpResponse.getEntity().getContent();
-        ObjectMapper objectMapper = new ObjectMapper();
+        CloseableHttpResponse response = HttpClientBuilder.create().build().execute(request);
+        InputStream content = response.getEntity().getContent();
         String responsetext = IOUtils.toString(content, "UTF-8");
-        T value = objectMapper.readValue(responsetext, clazz);
-        httpResponse.close();
-
-        return value;
+        response.close();
+        return responsetext;
     }
 
-    private <T> T fallback(String url, Class<T> clazz) {
+    private String fallback(String url) {
         return "ERROR: Could not connect to: " + url;
     }
 }
