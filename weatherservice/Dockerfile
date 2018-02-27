@@ -1,5 +1,10 @@
 FROM openjdk:8-jre
 
-EXPOSE 8080
-ADD target/weatherservice-swarm.jar /opt/weatherservice-swarm.jar
-ENTRYPOINT java -jar /opt/weatherservice-swarm.jar -Djava.net.preferIPv4Stack=true
+ARG JAR_FILE
+ARG PORT_NUMBER=8080
+ENV MY_JAR_FILE=${JAR_FILE}
+ENV MY_PORT_NUMBER=${PORT_NUMBER}
+
+EXPOSE ${MY_PORT_NUMBER}
+ADD target/${MY_JAR_FILE} /opt/${MY_JAR_FILE}
+ENTRYPOINT java -jar /opt/${MY_JAR_FILE} -Djava.net.preferIPv4Stack=true
