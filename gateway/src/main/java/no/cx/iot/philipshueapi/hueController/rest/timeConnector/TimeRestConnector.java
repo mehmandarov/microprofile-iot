@@ -2,7 +2,6 @@ package no.cx.iot.philipshueapi.hueController.rest.timeConnector;
 
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
-import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -28,6 +27,9 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     @ConfigProperty(name = "timePath", defaultValue = "timeservice")
     private String path;
 
+    @Inject
+    private TimeToLightStateConverter converter;
+
     private String getFullURL() {
         return "http://" + host + ":" + port +"/" + path;
     }
@@ -44,20 +46,17 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
         }
     }
 
-    private String getTime() throws IOException {
-        return connector.executeHTTPGet(getFullURL());
+    private LocalDateTime getTime() throws IOException {
+        return connector.executeHTTPGet(getFullURL(), TimeDTO.class).getLocalDateTime();
     }
 
-    //TODO: The hard-wiring to LocalDateTime here is somewhat shady. Should be encoded somewhere
     @Override
     public LocalDateTime getDataForLight(int lightIndex) {
-        return LocalDateTime.parse(wrapExceptions(this::getTime));
+        return wrapExceptions(this::getTime);
     }
 
     @Override
     public LightState getNewStateForLight(int lightIndex) {
-        LocalDateTime dataForLight = getDataForLight(lightIndex);
-        int newBrightness = dataForLight.getNano() % 255; // TODO: Yes, a bit nonsensical and magical
-        return new LightState(new Brightness(newBrightness), null);
+        return converter.convert(getDataForLight(lightIndex));
     }
 }
