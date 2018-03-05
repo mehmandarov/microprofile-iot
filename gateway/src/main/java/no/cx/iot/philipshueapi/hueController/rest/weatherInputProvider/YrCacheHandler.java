@@ -1,10 +1,5 @@
 package no.cx.iot.philipshueapi.hueController.rest.weatherInputProvider;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,12 +11,24 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
 public class YrCacheHandler {
+
+    @Inject
+    private ObjectMapper mapper;
 
     private Path path;
 
@@ -33,22 +40,23 @@ public class YrCacheHandler {
         if (!Files.exists(path)) {
             wrapExceptions(() -> Files.createFile(path));
         }
-        Optional.ofNullable(wrapExceptions(this::readCache)).ifPresent(entry ->
-                cache.put(entry.getPlace(), new Tuple<>(LocalDateTime.parse(entry.getTime()), entry.getTemperature())));
+        wrapExceptions(this::readCache).ifPresent(addEntryToCache());
     }
 
-    private CacheEntry readCache() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    private Consumer<CacheEntry> addEntryToCache() {
+        return entry -> cache.put(entry.getPlace(), new Tuple<>(LocalDateTime.parse(entry.getTime()), entry.getTemperature()));
+    }
+
+    private Optional<CacheEntry> readCache() throws IOException {
         if (Files.size(path) == 0) {
-            return null;
+            return Optional.empty();
         }
 
-        return objectMapper.readValue(path.toFile(), CacheEntry.class);
+        return Optional.ofNullable(mapper.readValue(path.toFile(), CacheEntry.class));
     }
 
     private boolean save(String currentLocation, LocalDateTime now, String temperature) throws IOException {
         CacheEntry cacheEntries = new CacheEntry(currentLocation, now.toString(), temperature);
-        ObjectMapper mapper = new ObjectMapper();
         if (path == null) {
             createCacheIfNotExisting();
         }
@@ -57,8 +65,7 @@ public class YrCacheHandler {
         return true;
     }
 
-    Optional<LightState> getFromNewlyUpdatedCache(String currentLocation,
-            Function<String, LightState> toLightState) {
+    Optional<LightState> getFromNewlyUpdatedCache(String currentLocation, Function<String, LightState> toLightState) {
         if (cache.containsKey(currentLocation)) {
             Tuple<LocalDateTime, String> tuple = cache.get(currentLocation);
             if (isNewlyUpdatedSoUseCache(tuple.getFirst())) {
@@ -69,7 +76,11 @@ public class YrCacheHandler {
     }
 
     private boolean isNewlyUpdatedSoUseCache(LocalDateTime cacheEntryUpdateTime) {
-        return cacheEntryUpdateTime.isAfter(LocalDateTime.now().minus(Duration.ofHours(1)));
+        return cacheEntryUpdateTime.isAfter(LocalDateTime.now().minus(getCachePeriod()));
+    }
+
+    private Duration getCachePeriod() {
+        return Duration.ofHours(1);
     }
 
     void updateCache(String currentLocation, String temperature) {
