@@ -36,6 +36,7 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     @Inject
     private HttpConnector connector;
 
+    @Override
     public String canConnect() {
         try {
             return "OK, the current time is " + getTime();

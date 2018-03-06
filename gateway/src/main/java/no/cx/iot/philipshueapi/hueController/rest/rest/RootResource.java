@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 
 import no.cx.iot.philipshueapi.hueController.rest.Controller;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
-import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.YrRestConnector;
+import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
 @Path("/")
 public class RootResource {
@@ -20,7 +20,7 @@ public class RootResource {
 
     @Inject
     @SuppressWarnings("unused")
-    private YrRestConnector yrInputProvider;
+    private WeatherRestConnector yrInputProvider;
 
     @Inject
     private TimeRestConnector timeInputProvider;

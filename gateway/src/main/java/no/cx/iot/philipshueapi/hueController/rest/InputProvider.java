@@ -16,6 +16,8 @@ public interface InputProvider<T> {
         return getConverter().convert(getDataForLight(lightIndex));
     }
 
+    String canConnect();
+
     String getHost();
 
     String getPort();

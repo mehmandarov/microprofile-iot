@@ -11,7 +11,7 @@ import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @Getter
-public class YrRestConnector implements InputProvider<Weather> {
+public class WeatherRestConnector implements InputProvider<Weather> {
 
     @Inject
     @ConfigProperty(name = "weatherHost", defaultValue = "localhost")
@@ -34,6 +34,16 @@ public class YrRestConnector implements InputProvider<Weather> {
     @Override
     public Weather getDataForLight(int lightIndex) {
         return getWeather();
+    }
+
+    @Override
+    public String canConnect() {
+        try {
+            return "OK, the current weather is " + getWeather();
+        }
+        catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     private Weather getWeather() {
