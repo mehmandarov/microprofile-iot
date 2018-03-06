@@ -8,6 +8,10 @@ public class WeatherToLightStateConverter implements Converter<Weather> {
 
     @Override
     public LightState convert(Weather temperature) {
-        return new LightState(new Brightness(0), null);
+        return new LightState(new Brightness(getBrightnessStrength(temperature)), null);
+    }
+
+    private int getBrightnessStrength(Weather temperature) {
+        return 254 - Math.abs(temperature.getTemperatureInt());
     }
 }

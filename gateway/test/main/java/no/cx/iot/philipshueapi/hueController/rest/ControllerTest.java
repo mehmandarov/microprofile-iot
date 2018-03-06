@@ -1,13 +1,16 @@
 package no.cx.iot.philipshueapi.hueController.rest;
 
-import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
+import java.io.IOException;
+import java.util.logging.Logger;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.IOException;
+import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightStateComputer;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -19,6 +22,12 @@ public class ControllerTest {
 
     @Mock
     private PhilipsHueConnector connector;
+
+    @Mock
+    private LightStateComputer lightStateComputer;
+
+    @Mock
+    private Logger logger;
 
     @InjectMocks
     private Controller controller;
