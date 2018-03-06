@@ -1,18 +1,21 @@
 package no.cx.iot.philipshueapi.hueController.rest.timeConnector;
 
-import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
-import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.io.IOException;
-import java.time.LocalDateTime;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import lombok.Getter;
+import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
+import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
+@Getter
 public class TimeRestConnector implements InputProvider<LocalDateTime> {
 
     @Inject
@@ -29,10 +32,6 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
 
     @Inject
     private TimeToLightStateConverter converter;
-
-    private String getFullURL() {
-        return "http://" + host + ":" + port +"/" + path;
-    }
 
     @Inject
     private HttpConnector connector;
@@ -53,10 +52,5 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     @Override
     public LocalDateTime getDataForLight(int lightIndex) {
         return wrapExceptions(this::getTime);
-    }
-
-    @Override
-    public LightState getNewStateForLight(int lightIndex) {
-        return converter.convert(getDataForLight(lightIndex));
     }
 }
