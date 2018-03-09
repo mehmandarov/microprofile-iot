@@ -23,4 +23,6 @@ public interface InputProvider<T> {
     String getPort();
 
     String getPath();
+
+    int getPriority();
 }

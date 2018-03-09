@@ -4,8 +4,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -36,18 +36,16 @@ public class ProposedLightStatesFinder {
     }
 
     LightState getNewStateForLight(int lightIndex) {
-        Set<LightState> proposedLightStates = getProposedLightStates(lightIndex);
-        return proposedLightStates.stream()
+        return inputProviders.stream()
+                .sorted(Comparator.comparing(InputProvider::getPriority))
+                .map(inputProvider -> inputProvider.getNewStateForLight(lightIndex))
                 .filter(Objects::nonNull)
-                .max(Comparator.comparing(a -> a.getInputSource().getPriority()))
-                .orElseGet(() -> new LightState(InputSource.COMPUTED, Brightness.getMaxBrightness(), null));
+                .limit(1)
+                .findAny()
+                .orElseGet(getDefaultLightState());
     }
 
-    private Set<LightState> getProposedLightStates(int lightIndex) {
-        return inputProviders.stream()
-                .peek(inputProvider -> logger.info(inputProvider.toString()))
-                .map(inputProvider -> inputProvider.getNewStateForLight(lightIndex))
-                .peek(state -> logger.info("Inputprovider suggested " + state + " for light " + lightIndex))
-                .collect(Collectors.toSet());
+    private Supplier<LightState> getDefaultLightState() {
+        return () -> new LightState(InputSource.COMPUTED, Brightness.getMaxBrightness(), null);
     }
 }

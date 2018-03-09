@@ -6,6 +6,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import lombok.Getter;
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
+import no.cx.iot.philipshueapi.hueController.rest.InputSource;
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
@@ -44,6 +45,11 @@ public class WeatherRestConnector implements InputProvider<Weather> {
         catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+    @Override
+    public int getPriority() {
+        return InputSource.WEATHER.getPriority();
     }
 
     private Weather getWeather() {

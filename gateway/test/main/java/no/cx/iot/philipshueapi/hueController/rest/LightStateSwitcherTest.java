@@ -25,6 +25,9 @@ public class LightStateSwitcherTest {
     private PhilipsHueConnector connector;
 
     @Mock
+    private ProposedLightStatesFinder lightStatesFinder;
+
+    @Mock
     private LightStateComputer lightStateComputer;
 
     @Mock
@@ -42,15 +45,6 @@ public class LightStateSwitcherTest {
         lightStateSwitcher.switchStateOfLights();
         verify(connector).switchStateOfLight(eq(0), any());
         verify(connector).switchStateOfLight(eq(1), any());
-    }
-
-    @Test
-    public void usesTheProposedLightStateFromTheLightStateComputer() throws IOException {
-        doReturn(1).when(connector).getAllLights();
-        doReturn(lightState).when(lightStateComputer).getNewStateForLight(any());
-
-        lightStateSwitcher.switchStateOfLights();
-        verify(connector).switchStateOfLight(0, lightState);
     }
 
 }
