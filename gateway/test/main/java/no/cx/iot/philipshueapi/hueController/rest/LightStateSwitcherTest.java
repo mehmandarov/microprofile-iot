@@ -19,7 +19,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ControllerTest {
+public class LightStateSwitcherTest {
 
     @Mock
     private PhilipsHueConnector connector;
@@ -31,7 +31,7 @@ public class ControllerTest {
     private Logger logger;
 
     @InjectMocks
-    private Controller controller;
+    private LightStateSwitcher lightStateSwitcher;
 
     @Mock
     private LightState lightState;
@@ -39,7 +39,7 @@ public class ControllerTest {
     @Test
     public void forwardsToController() throws IOException {
         doReturn(2).when(connector).getAllLights();
-        controller.switchStateOfLights();
+        lightStateSwitcher.switchStateOfLights();
         verify(connector).switchStateOfLight(eq(0), any());
         verify(connector).switchStateOfLight(eq(1), any());
     }
@@ -49,7 +49,7 @@ public class ControllerTest {
         doReturn(1).when(connector).getAllLights();
         doReturn(lightState).when(lightStateComputer).getNewStateForLight(any());
 
-        controller.switchStateOfLights();
+        lightStateSwitcher.switchStateOfLights();
         verify(connector).switchStateOfLight(0, lightState);
     }
 

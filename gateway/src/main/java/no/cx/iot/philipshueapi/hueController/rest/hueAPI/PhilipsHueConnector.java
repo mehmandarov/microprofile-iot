@@ -1,12 +1,14 @@
 package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
 
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
+
+@SuppressWarnings("unused")
 @ApplicationScoped
 public class PhilipsHueConnector {
 
