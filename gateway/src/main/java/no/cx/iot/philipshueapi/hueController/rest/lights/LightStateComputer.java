@@ -1,11 +1,15 @@
 package no.cx.iot.philipshueapi.hueController.rest.lights;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.awt.*;
+import java.awt.Color;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import no.cx.iot.philipshueapi.hueController.rest.InputSource;
 
 @ApplicationScoped
 public class LightStateComputer {
@@ -18,7 +22,14 @@ public class LightStateComputer {
         Brightness newBrightness = getNewBrightness(proposedLightStates);
         Color newColour = getNewColour(proposedLightStates);
 
-        return new LightState(newBrightness, newColour);
+        return new LightState(getUsedSource(proposedLightStates), newBrightness, newColour);
+    }
+
+    private InputSource getUsedSource(Set<LightState> proposedLightStates) {
+        return proposedLightStates.stream()
+                .map(LightState::getInputSource)
+                .min(Comparator.comparing(InputSource::getPriority))
+                .orElse(null);
     }
 
     private Brightness getNewBrightness(Set<LightState> proposedLightStates) {
