@@ -19,7 +19,7 @@ WORKDIR /hue
 EXPOSE 8080
 
 # install
-RUN mvn clean install
+RUN mvn clean install -e -B
 
 ADD /target/philips-hue-api-swarm.jar philips-hue-api-swarm.jar
 
