@@ -1,5 +1,14 @@
 version: '3'
 services:
+  gateway:
+    image: "iot:gateway"
+    ports:
+      - "8084:8080"
+    build:
+      context: ./gateway
+      args:
+        JAR_FILE: gateway-swarm.jar
+        PORT_NUMBER: 8080
   facade:
     image: "iot:facade"
     ports:
