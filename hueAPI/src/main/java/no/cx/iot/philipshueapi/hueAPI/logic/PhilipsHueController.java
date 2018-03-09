@@ -1,15 +1,17 @@
 package no.cx.iot.philipshueapi.hueAPI.logic;
 
-import com.philips.lighting.model.PHBridge;
-import com.philips.lighting.model.PHLight;
-import com.philips.lighting.model.PHLightState;
-import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.List;
-import java.util.logging.Logger;
+
+import com.philips.lighting.model.PHBridge;
+import com.philips.lighting.model.PHLight;
+import com.philips.lighting.model.PHLightState;
+
+import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
+import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @ApplicationScoped
 @SuppressWarnings("unused")
@@ -44,7 +46,7 @@ public class PhilipsHueController {
         return lastKnownLightState;
     }
 
-    private PHLight getGivenLight(PHBridge bridge, int lightIndex) {
+    PHLight getGivenLight(PHBridge bridge, int lightIndex) {
         return getAllLights(bridge).get(lightIndex);
     }
 

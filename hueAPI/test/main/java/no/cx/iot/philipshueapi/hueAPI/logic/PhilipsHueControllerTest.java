@@ -1,12 +1,5 @@
 package no.cx.iot.philipshueapi.hueAPI.logic;
 
-import com.philips.lighting.hue.sdk.PHNotificationManager;
-import com.philips.lighting.hue.sdk.utilities.impl.Color;
-import com.philips.lighting.model.PHLight;
-import com.philips.lighting.model.PHLightState;
-import no.mop.philipshueapi.hueAPI.rest.HueAPIException;
-import no.mop.philipshueapi.hueAPI.rest.HueProperties;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,10 +11,23 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.philips.lighting.hue.sdk.PHNotificationManager;
+import com.philips.lighting.hue.sdk.utilities.impl.Color;
+import com.philips.lighting.model.PHLight;
+import com.philips.lighting.model.PHLightState;
+
+import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
+import no.cx.iot.philipshueapi.hueAPI.HueProperties;
+import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PhilipsHueControllerTest {
