@@ -1,6 +1,8 @@
 package no.cx.iot.philipshueapi.hueController.rest;
 
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -8,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightStateComputer;
 
@@ -34,7 +37,10 @@ public class ProposedLightStatesFinder {
 
     LightState getNewStateForLight(int lightIndex) {
         Set<LightState> proposedLightStates = getProposedLightStates(lightIndex);
-        return lightStateComputer.getNewStateForLight(proposedLightStates);
+        return proposedLightStates.stream()
+                .filter(Objects::nonNull)
+                .max(Comparator.comparing(a -> a.getInputSource().getPriority()))
+                .orElseGet(() -> new LightState(InputSource.COMPUTED, Brightness.getMaxBrightness(), null));
     }
 
     private Set<LightState> getProposedLightStates(int lightIndex) {

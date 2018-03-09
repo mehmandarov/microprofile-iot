@@ -18,6 +18,12 @@ public class Brightness {
     @Inject
     private Logger logger;
 
+    public static final int maxBrightess = 254;
+
+    public static Brightness getMaxBrightness() {
+        return new Brightness(maxBrightess);
+    }
+
     public Brightness(int brightness) {
         setBrightness(brightness);
     }
@@ -28,9 +34,8 @@ public class Brightness {
     }
 
     void setBrightness(int brightness) {
-        int maxColour = 254;
-        this.brightness = Math.max(0, Math.min(brightness, maxColour));
-        if (brightness < 0 || brightness > maxColour) {
+        this.brightness = Math.max(0, Math.min(brightness, maxBrightess));
+        if (brightness < 0 || brightness > maxBrightess) {
             logger.info("Input brightness was " + brightness +", adjusted to " + this.brightness);
         }
     }

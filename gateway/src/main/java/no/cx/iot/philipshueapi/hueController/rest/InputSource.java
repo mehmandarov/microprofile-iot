@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum InputSource {
-    WEATHER(1), TIME(2);
+    WEATHER(20), TIME(10), COMPUTED(0);
 
     private final Integer priority;
 }
