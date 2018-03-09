@@ -24,7 +24,7 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     private String host;
 
     @Inject
-    @ConfigProperty(name = "timePort", defaultValue = "8082")
+    @ConfigProperty(name = "timePort", defaultValue = "8081")
     private String port;
 
     @Inject

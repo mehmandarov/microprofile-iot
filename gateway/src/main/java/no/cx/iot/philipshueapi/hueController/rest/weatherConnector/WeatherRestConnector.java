@@ -19,7 +19,7 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     private String host;
 
     @Inject
-    @ConfigProperty(name = "weatherPort", defaultValue = "8083")
+    @ConfigProperty(name = "weatherPort", defaultValue = "8082")
     private String port;
 
     @Inject
