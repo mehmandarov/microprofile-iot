@@ -13,8 +13,8 @@ import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 public class TimeToLightStateConverter implements Converter<LocalDateTime> {
 
     @Override
-    public LightState convert(LocalDateTime localDateTime) {
+    public LightState convert(int lightIndex, LocalDateTime localDateTime) {
         int newBrightness = localDateTime.getNano() % 255; // TODO: Yes, a bit nonsensical and magical
-        return new LightState(InputSource.TIME, new Brightness(newBrightness), null);
+        return new LightState(lightIndex, InputSource.TIME, new Brightness(newBrightness), null);
     }
 }

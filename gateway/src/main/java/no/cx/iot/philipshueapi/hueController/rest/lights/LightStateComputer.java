@@ -18,11 +18,11 @@ public class LightStateComputer {
     @Inject
     private Logger logger;
 
-    public LightState getNewStateForLight(Set<LightState> proposedLightStates) {
+    public LightState getNewStateForLight(int lightIndex, Set<LightState> proposedLightStates) {
         Brightness newBrightness = getNewBrightness(proposedLightStates);
         Integer newColour = getNewColour(proposedLightStates);
 
-        return new LightState(getUsedSource(proposedLightStates), newBrightness, newColour);
+        return new LightState(lightIndex, getUsedSource(proposedLightStates), newBrightness, newColour);
     }
 
     private InputSource getUsedSource(Set<LightState> proposedLightStates) {

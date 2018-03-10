@@ -13,18 +13,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import no.cx.iot.philipshueapi.hueAPI.logic.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.logic.PhilipsHueController;
+import no.cx.iot.philipshueapi.hueAPI.logic.SDKBridge;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 
 @Path("/hue")
+@SuppressWarnings("unused")
 public class WildflyEntryPoint {
 
-	@SuppressWarnings("unused")
 	@Inject
 	private PhilipsHueController philipsHueController;
 
-	@SuppressWarnings("unused")
 	@Inject
 	private SDKFacade sdk;
 
@@ -34,17 +35,21 @@ public class WildflyEntryPoint {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("text/plain")
-	@Path("/light/{light}/brightness/{brightness}")
-	public Response switchStateOfLight(@PathParam("light") int lightIndex, @PathParam("brightness") int brightness) {
+	@Path("/light/{light}/brightness/{brightness}/color/{color}")
+	public Response switchStateOfLight(@PathParam("light") int lightIndex,
+									   @PathParam("brightness") int brightness,
+									   @PathParam("color") int color) {
 		philipsHueController.setup();
-
 		waitUntilBridgeIsSelected();
-        return doCall(() ->
-                        philipsHueController.switchStateOfGivenLight(sdk.getSelectedBridge(), lightIndex, brightness)
-				);
+        return doCall(() -> philipsHueController.switchStateOfGivenLight(getBridge(), lightIndex, brightness, color));
     }
 
-    @GET
+	private Bridge getBridge() {
+		boolean useRealBridge = false;
+		return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge(sdk.getSelectedBridge());
+	}
+
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("text/plain")
 	@Path("/lights")
@@ -65,7 +70,7 @@ public class WildflyEntryPoint {
 			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if (counter++ > 60) {
+			if (counter++ > 100) {
 				throw new HueAPIException("Waited too long for bridgeselection");
 			}
 		}

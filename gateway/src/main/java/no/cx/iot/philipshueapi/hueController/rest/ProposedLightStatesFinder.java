@@ -1,6 +1,5 @@
 package no.cx.iot.philipshueapi.hueController.rest;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -37,15 +36,15 @@ public class ProposedLightStatesFinder {
 
     LightState getNewStateForLight(int lightIndex) {
         return inputProviders.stream()
-                .sorted(Comparator.comparing(InputProvider::getPriority))
+                .sorted((a, b) -> Integer.compare(b.getPriority(), a.getPriority()))
                 .map(inputProvider -> inputProvider.getNewStateForLight(lightIndex))
                 .filter(Objects::nonNull)
                 .limit(1)
                 .findAny()
-                .orElseGet(getDefaultLightState());
+                .orElseGet(getDefaultLightState(lightIndex));
     }
 
-    private Supplier<LightState> getDefaultLightState() {
-        return () -> new LightState(InputSource.COMPUTED, Brightness.getMaxBrightness(), null);
+    private Supplier<LightState> getDefaultLightState(int lightIndex) {
+        return () -> new LightState(lightIndex, InputSource.COMPUTED, Brightness.getMaxBrightness(), null);
     }
 }

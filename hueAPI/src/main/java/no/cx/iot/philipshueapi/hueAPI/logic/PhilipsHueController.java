@@ -34,20 +34,28 @@ public class PhilipsHueController {
         setupController.setup();
     }
 
-    public LightState switchStateOfGivenLight(PHBridge bridge, int lightIndex, int brightness) {
+    public LightState switchStateOfGivenLight(Bridge bridge, int lightIndex, int brightness, int color) {
         PHLight light = getGivenLight(bridge, lightIndex);
         PHLightState lastKnownLightState = getLastKnownLightState(lightIndex, light);
         logger.fine("New brightness: " + brightness);
         lastKnownLightState.setBrightness(brightness);
-        //bridge.updateLightState(light, lastKnownLightState);
-        return getLightState(lastKnownLightState);
+        bridge.updateLightState(light, lastKnownLightState);
+        setColorOnLight(bridge, color, light, lastKnownLightState);
+        return getLightState(lightIndex, lastKnownLightState);
     }
 
-    private LightState getLightState(PHLightState lightState) {
+    private void setColorOnLight(Bridge bridge, int color, PHLight light, PHLightState lastKnownLightState) {
+        lastKnownLightState.setColorMode(PHLight.PHLightColorMode.COLORMODE_HUE_SATURATION);
+        lastKnownLightState.setHue(color, true);
+        lastKnownLightState.setSaturation(254, true);
+        bridge.updateLightState(light, lastKnownLightState);
+    }
+
+    private LightState getLightState(int lightIndex, PHLightState lightState) {
         Brightness brightness = Optional.ofNullable(lightState.getBrightness())
                 .map(Brightness::new)
                 .orElseGet(Brightness::getMaxBrightness);
-        return new LightState(InputSource.LIGHT, brightness, lightState.getHue());
+        return new LightState(lightIndex, InputSource.LIGHT, brightness, lightState.getHue());
     }
 
     private PHLightState getLastKnownLightState(int lightIndex, PHLight light) {
@@ -58,15 +66,19 @@ public class PhilipsHueController {
         return lastKnownLightState;
     }
 
-    PHLight getGivenLight(PHBridge bridge, int lightIndex) {
+    PHLight getGivenLight(Bridge bridge, int lightIndex) {
         return getAllLights(bridge).get(lightIndex);
     }
 
     public int getNumberOfLights() {
-        return getAllLights(sdk.getSelectedBridge()).size();
+        return getAllLights(getSDKBridge(sdk.getSelectedBridge())).size();
     }
 
-    private List<PHLight> getAllLights(PHBridge selectedBridge) {
+    private Bridge getSDKBridge(PHBridge selectedBridge) {
+        return new SDKBridge(selectedBridge);
+    }
+
+    private List<PHLight> getAllLights(Bridge selectedBridge) {
         return selectedBridge.getResourceCache().getAllLights();
     }
 }

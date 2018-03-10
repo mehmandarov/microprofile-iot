@@ -75,7 +75,7 @@ public class PhilipsHueControllerTest {
         doReturn(nonReachableLight).when(philipsHueController).getGivenLight(any(), anyInt());
 
         expectedException.expect(HueAPIException.class);
-        philipsHueController.switchStateOfGivenLight(null, 0, 0);
+        philipsHueController.switchStateOfGivenLight(null, 0, 0, 0);
 
         verify(nonReachableLightsState, never()).setBrightness(any());
     }

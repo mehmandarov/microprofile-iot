@@ -2,7 +2,6 @@ package no.cx.iot.philipshueapi.hueAPI.logic;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -27,9 +26,6 @@ class BridgeConnector {
     @SuppressWarnings("unused")
     @Inject
     private HueProperties hueProperties;
-
-    @Inject
-    private Logger logger;
 
     public void connectToLastKnownAccessPoint() {
         Optional<String> username = Optional.ofNullable(hueProperties.getUsername());
@@ -74,7 +70,7 @@ class BridgeConnector {
         hueProperties.storeConnectionData(username, getLastIpAddress(bridge));
     }
 
-    String getLastIpAddress(PHBridge bridge) {
+    private String getLastIpAddress(PHBridge bridge) {
         return bridge.getResourceCache().getBridgeConfiguration().getIpAddress();
     }
 

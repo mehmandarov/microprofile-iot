@@ -12,6 +12,7 @@ import no.cx.iot.philipshueapi.hueController.rest.InputSource;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LightState {
+    private Integer lightIndex;
     private InputSource inputSource;
     private Brightness brightness;
     private Integer hueInt;

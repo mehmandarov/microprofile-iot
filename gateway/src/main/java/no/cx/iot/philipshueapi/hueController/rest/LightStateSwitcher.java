@@ -42,7 +42,7 @@ public class LightStateSwitcher {
 
     private String switchStateOfLight(int lightIndex) {
         try {
-            return connector.switchStateOfLight(lightIndex, getNewStateForLight(lightIndex)).toString();
+            return connector.switchStateOfLight(getNewStateForLight(lightIndex)).toString();
         }
         catch (Exception e) {
             if (e.getMessage().contains("is not reachable")) {

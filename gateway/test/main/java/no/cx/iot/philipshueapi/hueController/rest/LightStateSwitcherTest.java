@@ -14,7 +14,6 @@ import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightStateComputer;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -43,8 +42,8 @@ public class LightStateSwitcherTest {
     public void forwardsToController() throws IOException {
         doReturn(2).when(connector).getAllLights();
         lightStateSwitcher.switchStateOfLights();
-        verify(connector).switchStateOfLight(eq(0), any());
-        verify(connector).switchStateOfLight(eq(1), any());
+        verify(connector).switchStateOfLight(any());
+        verify(connector).switchStateOfLight(any());
     }
 
 }

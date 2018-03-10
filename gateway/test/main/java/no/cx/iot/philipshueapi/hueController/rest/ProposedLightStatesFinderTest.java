@@ -1,5 +1,6 @@
 package no.cx.iot.philipshueapi.hueController.rest;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -73,7 +74,16 @@ public class ProposedLightStatesFinderTest {
     @Test
     public void fallbacksToFullLightIfNoResponseFromAny() throws IOException {
         assertThat(lightStatesFinder.getNewStateForLight(0),
-                is(new LightState(InputSource.COMPUTED, Brightness.getMaxBrightness(), null)));
+                is(new LightState(0, InputSource.COMPUTED, Brightness.getMaxBrightness(), null)));
+    }
+
+    @Test
+    public void t() {
+        int a = 2;
+        int b = 3;
+        int rgb = Color.BLUE.getRGB();
+        System.out.println(rgb);
+
     }
 
 }

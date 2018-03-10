@@ -13,7 +13,7 @@ public interface InputProvider<T> {
     T getDataForLight(int lightIndex);
 
     default LightState getNewStateForLight(int lightIndex) {
-        return getConverter().convert(getDataForLight(lightIndex));
+        return getConverter().convert(lightIndex, getDataForLight(lightIndex));
     }
 
     String canConnect();
