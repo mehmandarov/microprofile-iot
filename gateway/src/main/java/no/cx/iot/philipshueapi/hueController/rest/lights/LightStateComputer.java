@@ -20,7 +20,7 @@ public class LightStateComputer {
 
     public LightState getNewStateForLight(Set<LightState> proposedLightStates) {
         Brightness newBrightness = getNewBrightness(proposedLightStates);
-        Color newColour = getNewColour(proposedLightStates);
+        Integer newColour = getNewColour(proposedLightStates);
 
         return new LightState(getUsedSource(proposedLightStates), newBrightness, newColour);
     }
@@ -43,7 +43,7 @@ public class LightStateComputer {
         return new Brightness((int) newBrightness);
     }
 
-    private Color getNewColour(Set<LightState> proposedLightStates) {
+    private Integer getNewColour(Set<LightState> proposedLightStates) {
         double average = proposedLightStates.stream()
                 .map(LightState::getHue)
                 .filter(Objects::nonNull)
@@ -51,6 +51,6 @@ public class LightStateComputer {
                 .mapToInt(Color::getRGB)
                 .average()
                 .orElse(0);
-        return new Color((int) average);
+        return (int) average;
     }
 }

@@ -53,7 +53,7 @@ public class HttpConnector {
         CloseableHttpResponse response = HttpClientBuilder.create().build().execute(request);
         InputStream content = response.getEntity().getContent();
         String responsetext = IOUtils.toString(content, charset);
-        logger.info("Received " + responsetext);
+        logger.info("Received " + responsetext + " from " + url);
         response.close();
         return responsetext;
     }

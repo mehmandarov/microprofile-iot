@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest;
+package no.cx.iot.philipshueapi.hueAPI.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
