@@ -10,4 +10,8 @@ public class LightState {
     private final InputSource inputSource;
     private final Brightness brightness;
     private final Color hue;
+
+    public int getBrightnessInt() {
+        return brightness.getBrightness();
+    }
 }

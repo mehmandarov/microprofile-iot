@@ -41,7 +41,12 @@ public class LightStateSwitcher {
     }
 
     private String switchStateOfLight(int lightIndex) {
-        return wrapExceptions(() -> connector.switchStateOfLight(lightIndex, getNewStateForLight(lightIndex)));
+        try {
+            return connector.switchStateOfLight(lightIndex, getNewStateForLight(lightIndex));
+        }
+        catch (Exception e) {
+            return "Could not invoke light " + lightIndex + e.getMessage();
+        }
     }
 
     private LightState getNewStateForLight(int lightIndex) {

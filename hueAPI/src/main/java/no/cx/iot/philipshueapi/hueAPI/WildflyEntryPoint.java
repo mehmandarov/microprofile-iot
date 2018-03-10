@@ -1,14 +1,19 @@
 package no.cx.iot.philipshueapi.hueAPI;
 
 
-import no.cx.iot.philipshueapi.hueAPI.logic.PhilipsHueController;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
-
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
+
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import no.cx.iot.philipshueapi.hueAPI.logic.PhilipsHueController;
+import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 
 @Path("/hue")
@@ -76,7 +81,9 @@ public class WildflyEntryPoint {
         }
         catch (HueAPIException e) {
             logger.severe(e.getMessage());
-            return Response.ok(e.getMessage()).build();
+			return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+					.entity(e.getMessage())
+					.build();
         }
     }
 }

@@ -23,11 +23,12 @@ public class PhilipsHueConnector {
     }
 
     public String switchStateOfLight(int lightIndex, LightState newLightState) throws IOException {
-        String path = "light/" + lightIndex + "/brightness/" + newLightState.getBrightness();
+        String path = "light/" + lightIndex + "/brightness/" + newLightState.getBrightnessInt();
         return getResponseText(path, String.class);
     }
 
     private <T> T getResponseText(String path, Class<T> clazz) throws IOException {
+        logger.warning("Trying to invoke " + path + " with clazz " + clazz.getName());
         T responsetext = httpConnector.executeHTTPGetOnHue(path, clazz);
         logger.fine("Responsetext: " + responsetext);
         return responsetext;
