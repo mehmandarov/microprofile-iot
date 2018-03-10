@@ -64,13 +64,13 @@ public class WildflyEntryPoint {
 	    int counter = 0;
 		while (sdk.getSelectedBridge() == null) {
 			try {
-				logger.info("Waiting for bridgeselection");
-				Thread.sleep(200);
+				logger.info("Waiting for bridge selection");
+				Thread.sleep(400);
 			}
 			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if (counter++ > 100) {
+			if (counter++ > 50) {
 				throw new HueAPIException("Waited too long for bridgeselection");
 			}
 		}
