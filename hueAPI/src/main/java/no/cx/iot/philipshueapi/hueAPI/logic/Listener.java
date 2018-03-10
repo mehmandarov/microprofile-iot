@@ -1,17 +1,19 @@
 package no.cx.iot.philipshueapi.hueAPI.logic;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHSDKListener;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHHueParsingError;
+
 import no.cx.iot.philipshueapi.hueAPI.HueProperties;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.Collection;
-import java.util.List;
-import java.util.logging.Logger;
 
 @ApplicationScoped
 public class Listener implements PHSDKListener {
@@ -33,7 +35,6 @@ public class Listener implements PHSDKListener {
 
     @Override
     public void onCacheUpdated(List<Integer> list, PHBridge phBridge) {
-        logger.fine("Cache updated for " + bridgeConnector.getLastIpAddress(phBridge));
     }
 
     @Override
@@ -59,7 +60,6 @@ public class Listener implements PHSDKListener {
 
     @Override
     public void onConnectionResumed(PHBridge phBridge) {
-        logger.fine("Connection resumed");
     }
 
     @Override
