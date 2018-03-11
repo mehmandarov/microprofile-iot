@@ -9,6 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
+import java.util.logging.Logger;
+
 
 @Path("/")
 public class TimeServiceEndpoint {
@@ -17,9 +19,13 @@ public class TimeServiceEndpoint {
     @Inject
     private LocalDateTimeNowSupplier localDateTimeNowSupplier;
 
+    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response doGet() {
+        logger.info(String.format("Invoking timeservice. Response."));
         return Response.ok(localDateTimeNowSupplier.get()).build();
     }
 }
