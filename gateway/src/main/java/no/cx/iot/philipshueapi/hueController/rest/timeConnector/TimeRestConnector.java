@@ -1,18 +1,22 @@
 package no.cx.iot.philipshueapi.hueController.rest.timeConnector;
 
-import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
-import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.io.IOException;
-import java.time.LocalDateTime;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import lombok.Getter;
+import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
+import no.cx.iot.philipshueapi.hueController.rest.InputSource;
+import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
+@Getter
 public class TimeRestConnector implements InputProvider<LocalDateTime> {
 
     @Inject
@@ -20,7 +24,7 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     private String host;
 
     @Inject
-    @ConfigProperty(name = "timePort", defaultValue = "8082")
+    @ConfigProperty(name = "timePort", defaultValue = "8081")
     private String port;
 
     @Inject
@@ -30,13 +34,10 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     @Inject
     private TimeToLightStateConverter converter;
 
-    private String getFullURL() {
-        return "http://" + host + ":" + port +"/" + path;
-    }
-
     @Inject
     private HttpConnector connector;
 
+    @Override
     public String canConnect() {
         try {
             return "OK, the current time is " + getTime();
@@ -46,6 +47,11 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
         }
     }
 
+    @Override
+    public int getPriority() {
+        return InputSource.TIME.getPriority();
+    }
+
     private LocalDateTime getTime() throws IOException {
         return connector.executeHTTPGet(getFullURL(), TimeDTO.class).getLocalDateTime();
     }
@@ -53,10 +59,5 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     @Override
     public LocalDateTime getDataForLight(int lightIndex) {
         return wrapExceptions(this::getTime);
-    }
-
-    @Override
-    public LightState getNewStateForLight(int lightIndex) {
-        return converter.convert(getDataForLight(lightIndex));
     }
 }

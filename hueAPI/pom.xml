@@ -8,32 +8,18 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
+  <parent>
+    <groupId>no.cx</groupId>
+    <artifactId>iot</artifactId>
+    <version>1.0</version>
+  </parent>
+
   <repositories>
     <repository>
       <id>local-maven-repo</id>
       <url>file:///${project.basedir}/local-maven-repo</url>
     </repository>
   </repositories>
-
-  <properties>
-    <version.wildfly.swarm>2018.2.0</version.wildfly.swarm>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <failOnMissingWebXml>false</failOnMissingWebXml>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.wildfly.swarm</groupId>
-        <artifactId>bom-all</artifactId>
-        <version>${version.wildfly.swarm}</version>
-        <scope>import</scope>
-        <type>pom</type>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <build>
     <finalName>philips-hue-api</finalName>
@@ -76,19 +62,18 @@
       <artifactId>huesdkresources</artifactId>
       <version>1.0</version>
     </dependency>
-
-    <!-- Test -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
-      <version>2.0.2-beta</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
     </dependency>
   </dependencies>
 </project>

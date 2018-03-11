@@ -1,19 +1,20 @@
 package no.cx.iot.philipshueapi.hueAPI.logic;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHBridgeResourcesCache;
+
 import no.cx.iot.philipshueapi.hueAPI.HueProperties;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 @ApplicationScoped
 class BridgeConnector {
@@ -25,9 +26,6 @@ class BridgeConnector {
     @SuppressWarnings("unused")
     @Inject
     private HueProperties hueProperties;
-
-    @Inject
-    private Logger logger;
 
     public void connectToLastKnownAccessPoint() {
         Optional<String> username = Optional.ofNullable(hueProperties.getUsername());
@@ -72,13 +70,12 @@ class BridgeConnector {
         hueProperties.storeConnectionData(username, getLastIpAddress(bridge));
     }
 
-    String getLastIpAddress(PHBridge bridge) {
+    private String getLastIpAddress(PHBridge bridge) {
         return bridge.getResourceCache().getBridgeConfiguration().getIpAddress();
     }
 
     public void connectToArbitraryAccessPoint(List<PHAccessPoint> list) {
         list.stream()
-                .peek(accessPoint -> logger.fine("Found access point " + accessPoint.getIpAddress()))
                 .limit(1)
                 .forEach(this::connect);
     }

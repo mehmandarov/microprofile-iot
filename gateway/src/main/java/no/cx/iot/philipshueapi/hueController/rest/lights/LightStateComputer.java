@@ -1,11 +1,15 @@
 package no.cx.iot.philipshueapi.hueController.rest.lights;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.awt.*;
+import java.awt.Color;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import no.cx.iot.philipshueapi.hueController.rest.InputSource;
 
 @ApplicationScoped
 public class LightStateComputer {
@@ -14,11 +18,18 @@ public class LightStateComputer {
     @Inject
     private Logger logger;
 
-    public LightState getNewStateForLight(Set<LightState> proposedLightStates) {
+    public LightState getNewStateForLight(int lightIndex, Set<LightState> proposedLightStates) {
         Brightness newBrightness = getNewBrightness(proposedLightStates);
-        Color newColour = getNewColour(proposedLightStates);
+        Integer newColour = getNewColour(proposedLightStates);
 
-        return new LightState(newBrightness, newColour);
+        return new LightState(lightIndex, getUsedSource(proposedLightStates), newBrightness, newColour);
+    }
+
+    private InputSource getUsedSource(Set<LightState> proposedLightStates) {
+        return proposedLightStates.stream()
+                .map(LightState::getInputSource)
+                .min(Comparator.comparing(InputSource::getPriority))
+                .orElse(null);
     }
 
     private Brightness getNewBrightness(Set<LightState> proposedLightStates) {
@@ -32,7 +43,7 @@ public class LightStateComputer {
         return new Brightness((int) newBrightness);
     }
 
-    private Color getNewColour(Set<LightState> proposedLightStates) {
+    private Integer getNewColour(Set<LightState> proposedLightStates) {
         double average = proposedLightStates.stream()
                 .map(LightState::getHue)
                 .filter(Objects::nonNull)
@@ -40,6 +51,6 @@ public class LightStateComputer {
                 .mapToInt(Color::getRGB)
                 .average()
                 .orElse(0);
-        return new Color((int) average);
+        return (int) average;
     }
 }

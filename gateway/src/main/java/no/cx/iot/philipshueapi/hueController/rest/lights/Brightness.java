@@ -1,30 +1,42 @@
 package no.cx.iot.philipshueapi.hueController.rest.lights;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-
-import javax.inject.Inject;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Brightness {
 
     @Getter
-    private final int brightness;
+    private int brightness;
 
     @Inject
     private Logger logger;
 
+    public static final int maxBrightess = 254;
+
+    public static Brightness getMaxBrightness() {
+        return new Brightness(maxBrightess);
+    }
+
     public Brightness(int brightness) {
-        int maxColour = 254;
-        this.brightness = brightness < 0 ? 0 : (brightness > maxColour ? maxColour : brightness);
-        if (brightness < 0 || brightness > maxColour) {
-            logger.info("Input brightness was " + brightness +", adjusted to " + this.brightness);
-        }
+        setBrightness(brightness);
     }
 
     @Override
     public String toString() {
         return String.valueOf(brightness);
+    }
+
+    void setBrightness(int brightness) {
+        this.brightness = Math.max(0, Math.min(brightness, maxBrightess));
+        if (brightness < 0 || brightness > maxBrightess) {
+            logger.info("Input brightness was " + brightness +", adjusted to " + this.brightness);
+        }
     }
 }
