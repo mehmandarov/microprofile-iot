@@ -12,6 +12,7 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.philips.lighting.hue.sdk.PHNotificationManager;
+import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.hue.sdk.utilities.impl.Color;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
@@ -20,6 +21,7 @@ import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
 import no.cx.iot.philipshueapi.hueAPI.HueProperties;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
+import static com.philips.lighting.model.PHLight.PHLightColorMode;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -64,6 +66,11 @@ public class PhilipsHueControllerTest {
         java.awt.Color magentaJava = java.awt.Color.MAGENTA;
         int rgb = Color.rgb(magentaJava.getRed(), magentaJava.getGreen(), magentaJava.getBlue());
         assertEquals(magentaHue, rgb);
+
+        float[] calculateXY = PHUtilities.calculateXYFromRGB(200, 0, 200, PHLightColorMode.COLORMODE_XY.getValue());
+        int colorFromXY = PHUtilities.colorFromXY(calculateXY, PHLightColorMode.COLORMODE_XY.getValue());
+        java.awt.Color color = new java.awt.Color(colorFromXY);
+        assertEquals(color, new java.awt.Color(254, 0, 254));
     }
 
     @Test

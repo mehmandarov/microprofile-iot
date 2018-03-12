@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
@@ -45,9 +46,10 @@ public class PhilipsHueController {
     }
 
     private void setColorOnLight(Bridge bridge, int color, PHLight light, PHLightState lastKnownLightState) {
-        lastKnownLightState.setColorMode(PHLight.PHLightColorMode.COLORMODE_HUE_SATURATION);
-        lastKnownLightState.setHue(color, true);
-        lastKnownLightState.setSaturation(254, true);
+        lastKnownLightState.setColorMode(PHLight.PHLightColorMode.COLORMODE_XY);
+        float[] xy = PHUtilities.calculateXY(color, PHLight.PHLightColorMode.COLORMODE_XY.getValue());
+        lastKnownLightState.setX(xy[0], true);
+        lastKnownLightState.setY(xy[1], true);
         bridge.updateLightState(light, lastKnownLightState);
     }
 
