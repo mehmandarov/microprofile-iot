@@ -1,12 +1,14 @@
 package no.iot.weatherservice.rest;
 
-import no.iot.weatherservice.weather.yr.YrInputProvider;
-
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.openapi.annotations.Operation;
+
+import no.iot.weatherservice.weather.yr.YrInputProvider;
 
 @Path("/")
 public class WeatherServiceEndpoint {
@@ -16,6 +18,7 @@ public class WeatherServiceEndpoint {
 
     @GET
     @Produces("text/plain")
+    @Operation(summary = "Get the current temperature")
     public Response doGet() {
         String temp = yrInputProvider.getTemperature();
         try {

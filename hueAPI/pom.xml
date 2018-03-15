@@ -75,5 +75,9 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>microprofile-openapi</artifactId>
+    </dependency>
   </dependencies>
 </project>
