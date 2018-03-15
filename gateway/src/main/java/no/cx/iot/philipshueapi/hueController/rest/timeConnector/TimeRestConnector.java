@@ -41,9 +41,8 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     public String canConnect() {
         try {
             return "OK, the current time is " + getTime();
-        }
-        catch (Exception e) {
-            return e.getMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

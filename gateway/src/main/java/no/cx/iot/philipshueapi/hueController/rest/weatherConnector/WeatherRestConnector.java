@@ -43,7 +43,7 @@ public class WeatherRestConnector implements InputProvider<Weather> {
             return "OK, the current weather is " + getWeather();
         }
         catch (Exception e) {
-            return e.getMessage();
+            throw new RuntimeException(e);
         }
     }
 
