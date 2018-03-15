@@ -13,6 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import no.cx.iot.philipshueapi.hueAPI.logic.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.logic.PhilipsHueController;
 import no.cx.iot.philipshueapi.hueAPI.logic.SDKBridge;
@@ -32,6 +34,10 @@ public class WildflyEntryPoint {
 	@Inject
 	private Logger logger;
 
+	@Inject
+	@ConfigProperty(name = "useRealBridge", defaultValue = "false")
+	private boolean useRealBridge;
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("text/plain")
@@ -45,7 +51,6 @@ public class WildflyEntryPoint {
     }
 
 	private Bridge getBridge() {
-		boolean useRealBridge = false;
 		return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge(sdk.getSelectedBridge());
 	}
 
