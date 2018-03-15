@@ -15,6 +15,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,7 +45,8 @@ public class HttpConnector {
         return objectMapper.readValue(responsetext, clazz);
     }
 
-    @Retry
+    @Retry(retryOn = {IOException.class})
+    @Timeout(5000)
     @Fallback(fallbackMethod = "fallback")
     // TODO: This one should be replaced with the rest client, but it doesn't seem like that one is included in Wildfly Swarm yet
     private String getCloseableHttpResponse(String url) throws IOException {
