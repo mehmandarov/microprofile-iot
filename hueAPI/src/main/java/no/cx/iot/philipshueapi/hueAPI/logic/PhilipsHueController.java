@@ -81,6 +81,6 @@ public class PhilipsHueController {
     }
 
     private List<PHLight> getAllLights(Bridge selectedBridge) {
-        return selectedBridge.getResourceCache().getAllLights();
+        return selectedBridge.getAllLights();
     }
 }

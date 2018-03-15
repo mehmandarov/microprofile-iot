@@ -1,5 +1,8 @@
 package no.cx.iot.philipshueapi.hueAPI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeResourcesCache;
 import com.philips.lighting.model.PHLight;
@@ -16,6 +19,11 @@ public class DummyBridge implements Bridge {
     @Override
     public PHBridgeResourcesCache getResourceCache() {
         return selectedBridge.getResourceCache();
+    }
+
+    @Override
+    public List<PHLight> getAllLights() {
+        return new ArrayList<>();
     }
 
     @Override
