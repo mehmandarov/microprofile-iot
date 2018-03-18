@@ -1,5 +1,6 @@
 package no.cx.iot.philipshueapi.hueController.rest;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -45,7 +46,7 @@ public class LightStateSwitcher {
             return connector.switchStateOfLight(getNewStateForLight(lightIndex)).toString();
         }
         catch (Exception e) {
-            if (e.getMessage().contains("is not reachable")) {
+            if (Optional.ofNullable(e.getMessage()).filter(m -> m.contains("is not reachable")).isPresent()) {
                 return "Light " + lightIndex + " is not reachable";
             }
             throw new RuntimeException(e);

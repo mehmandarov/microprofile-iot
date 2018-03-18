@@ -1,6 +1,7 @@
 package no.cx.iot.philipshueapi.hueController.rest.weatherConnector;
 
 import java.awt.Color;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -26,12 +27,15 @@ public class WeatherToLightStateConverter implements Converter<Weather> {
     private int b;
 
     @Override
-    public LightState convert(int lightIndex, Weather temperature) {
+    public LightState convert(int lightIndex, Weather weather) {
         int hue = new Color(r, g, b).getRGB();
-        return new LightState(lightIndex, InputSource.WEATHER, new Brightness(getBrightnessStrength(temperature)), hue);
+        return new LightState(lightIndex, InputSource.WEATHER, new Brightness(getBrightnessStrength(weather)), hue);
     }
 
-    private int getBrightnessStrength(Weather temperature) {
-        return Brightness.maxBrightess - (Math.abs(temperature.getTemperatureInt())*30);
+    private int getBrightnessStrength(Weather weather) {
+        int maxBrightness = Brightness.maxBrightness;
+        int temperature = weather.getTemperatureInt();
+        int adjustment = (Math.abs(temperature) * 30) + (new Random().nextInt(10));
+        return maxBrightness - adjustment;
     }
 }
