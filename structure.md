@@ -27,10 +27,47 @@ at least not yet, so we figured we had to do something smart for the code to com
 and added the SDK to this. Yes, it was somewhat hassle getting started with, but there are some good guides online. 
 Also, when it's first properly setup, it just works and keeps working.
 
+This way, we have produced a facade for the SDK that exposes two operations: 
+- get the number of registered light bulbs
+- switch the brightness and colour of a given light bulb
+
+The original SDK is much more intricate and feature-rich, so we have simplified into just these.
+
+
 #### MicroProfile? ####
 But where are the MicroProfile usage, you might be wondering? Don't worry, we'll come to that.
 
-Things to talk about
+And what _is_ MicroProfile? JakartaEE for microservices, easily said.
+
+While Jakarta EE is a great toolbox for more monolithic architectures, it is a bit overkill for microservices. 
+MicroProfile is a more right-sied toolkit for microservices.
+ 
+It also bears with it a lot of standardization efforts, to allow for easier replacement of specific tools 
+and thus reduce vendor lock-in 
+
+
+# Gateway #
+To control the facade, we have built a gateway, as a separate microservice.
+
+This is the service that actually decides what light we shall have. Its major responsibility is to get input, 
+transform it into what they should mean for our lights, and then tell the facade what to do.
+
+The gateway talks with two different input providers:
+
+# Weather #
+The default one is the weather service. This service gets the weather forecast for the given area, and extracts the temperature.
+
+# Time #
+The other input provider is the time service. This service simply gets the current time.
+
+It's the gateway's responsibility to transform the temperature or time into light implications.
+
+
+# TODO from here: incorporate #
+
+# MicroProfile #
+
+Things to talk about from the facade
 * CDI all around
 * The logger producer trick
 * Docker container
@@ -54,3 +91,13 @@ Things to talk about
 * Health check
 * The conversion between the data from the services into a light bulb control direction
 * Metrics are automagically available at /metrics
+
+
+
+# Round-up #
+
+As you have seen, we have used a lot of the features included in MicroProfile in this project. 
+However, there are some we haven't exploited.
+* Common annotations
+* JWT authentication
+* OpenTracing
