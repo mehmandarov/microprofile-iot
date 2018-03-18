@@ -1,25 +1,25 @@
+# Introduction
+
 So what is actually happening here?
 
-We are moving to a new office. When doing that, we of course want to be modern, so we dive into the world of Internet of Things. 
-In an office, we of course need lightning, so we have decided to introduce some lights.
-And as we all know, people tend to be more tired at some times or in some situations than in others.
-For example, early in the morning, you are typically more tired, so then you need lights (and coffee...) to wake up. 
-Or in the afternoon when you've been working many hours already, and it's getting dark outside, you might need more light.
-Or if it's freezingly cold outside, it could be tempting with some warm, intense lights.
+We are moving to a new office, and we of course want to be modern and cool while doing that. So, we decided to dive into the world of Internet of Things.
 
-Hence, we have bought some light bulbs that can be controlled with bits and bytes. I guess many already know these, the Philips Hue bulbs.
-They can for instance be controlled via an app on your phone.
+In an office, we would of course need lightning, so we thought that it might be a good starting point for introducing the IoT. However controlling the on and off switch via the Internet is a bit too simple, so we decided to take it one step further.
+ 
+And as we all know, people tend to be more sleepy, or feeling less productive at some times of the day, or in some specific situations. For instance, early mornings is the time when you often feel a bit more sleepy. Fortunately, we can help with that by introducing special lighting (and coffee...) to make you feel a bit more awake! 
+In the afternoons, when you've been working hard for many hours already and it's getting dark outside, you might need a bit more warm and bright light.
+Or just imagine if it is freezing cold outside, and you would love to have some warm, intense lighting while working hard on that deadline that is just a few days away.
 
-But, as we are a company of geeks, we don't want to sit and control these manually every day. So we need a system to help us.
+Fear not! We have got your back, we have git some light bulbs that can be controlled with bits and bytes. Many of you might have already used these – it is the Philips Hue bulbs. These are the bulbs that can for instance be controlled via an app on your phone.
 
-# Facade #
-But let's start from the beginning: controlling the light bulbs. Philips have made an SDK, available as jar files.
+However, as we are a company of geeks, we don't want to sit and control these manually every day. So we need a system to help us during the day.
 
-#### Anti-corruption layer ####
-However, the API is a bit complicated and challenging to work with. It's also subject to change without us controlling it, 
-so we decided to make a module wrapping the SDK. This gives us the ability to control which calls are made to the bulbs, 
-and it also acts as an _anti-corruption layer_, preventing their code and their terms to leak into the rest of our system. 
-We're using the term _facade_ for this module.
+# The Architecture
+
+#### Facade, or Anti-corruption layer
+Let's start from the beginning: controlling the light bulbs. Philips have made an SDK, available as jar files.
+
+However, the API is a bit complicated and challenging to work with. It's also subject to change without us being able to control it. So we decided to create a module wrapping the SDK. This gives us the ability to control which calls are made to the bulbs, and it also acts as an _anti-corruption layer_, preventing the library's code and terms to leak into the our system.  We're using the term _facade_ for this module.
 
 #### Maven ####
 Maven is the building system we are most familiar with, so we use it for the facade as well. The Hue SDK is not available in Maven central, 
@@ -34,7 +34,7 @@ This way, we have produced a facade for the SDK that exposes two operations:
 The original SDK is much more intricate and feature-rich, so we have simplified into just these.
 
 
-#### MicroProfile? ####
+#### MicroProfile
 But where are the MicroProfile usage, you might be wondering? Don't worry, we'll come to that.
 
 And what _is_ MicroProfile? JakartaEE for microservices, easily said.
@@ -46,7 +46,7 @@ It also bears with it a lot of standardization efforts, to allow for easier repl
 and thus reduce vendor lock-in 
 
 
-# Gateway #
+#### Gateway
 To control the facade, we have built a gateway, as a separate microservice.
 
 This is the service that actually decides what light we shall have. Its major responsibility is to get input, 
@@ -54,10 +54,10 @@ transform it into what they should mean for our lights, and then tell the facade
 
 The gateway talks with two different input providers:
 
-# Weather #
+#### Weather
 The default one is the weather service. This service gets the weather forecast for the given area, and extracts the temperature.
 
-# Time #
+#### Time
 The other input provider is the time service. This service simply gets the current time.
 
 It's the gateway's responsibility to transform the temperature or time into light implications.
