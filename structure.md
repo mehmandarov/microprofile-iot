@@ -85,7 +85,12 @@ Things to talk about from the facade
 
 
 # Gateway #
-* Rest client hack to be able to control the facade
+* Rest client hack to be able to control the facade - 
+this indicates that MicroProfile as well as its implementations still is a young technology so that everything is not yet mature.
+However, certain features we have made use of were not available when we started the preparations for this presentation 
+- for instance, OpenAPI were included in the Wildfly Swarm implementation just a couple of weeks ago.
+* Actually, the next version of MicroProfile, 1.4, is released _today_. This release is focused on improving documentation and tutorials.
+As of today, well, as of yesterday, the documentation available is somewhat fractured and hard to find.
 * Retry + fallback (HttpConnector::getCloseableHttpResponse)
 * Config - f.ex. HueURL or TimeRestConnector
 * Health check
@@ -98,6 +103,6 @@ Things to talk about from the facade
 
 As you have seen, we have used a lot of the features included in MicroProfile in this project. 
 However, there are some we haven't exploited.
-* Common annotations
+* Rest client, as mentioned
 * JWT authentication
 * OpenTracing
