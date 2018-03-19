@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class WeatherDTO {
-    private final String weatherRepresentation;
+    private final String temperature;
 
-    public WeatherDTO(String localTemperature) {
-        weatherRepresentation = localTemperature;
+    public WeatherDTO(String temperature) {
+        this.temperature = temperature;
     }
 }

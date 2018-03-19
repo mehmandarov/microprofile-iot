@@ -53,8 +53,7 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     }
 
     private Weather getWeather() {
-        return new Weather(wrapExceptions(() -> connector.executeHTTPGet(getFullURL(), String.class)));
-        // TODO JSON-ify the connection, so we kan skip this manual wrapping
+        return wrapExceptions(() -> connector.executeHTTPGet(getFullURL(), Weather.class));
     }
 
 }
