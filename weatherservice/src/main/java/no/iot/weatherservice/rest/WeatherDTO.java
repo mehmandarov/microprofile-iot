@@ -7,6 +7,6 @@ public class WeatherDTO {
     private final String weatherRepresentation;
 
     public WeatherDTO(String localTemperature) {
-        weatherRepresentation = localTemperature.toString();
+        weatherRepresentation = localTemperature;
     }
 }

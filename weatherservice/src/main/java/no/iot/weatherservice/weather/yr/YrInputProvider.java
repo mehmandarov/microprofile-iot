@@ -21,14 +21,13 @@ import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapException
 public class YrInputProvider implements WeatherInputProvider {
 
     @Inject
-    Config config;
+    private Config config;
     @Inject
     @ConfigProperty(name = "location", defaultValue = "Oslo")
-    String currentLocation;
+    private String currentLocation;
     @Inject
     @ConfigProperty(name = "yr_URL", defaultValue = "")
-    String yrURL;
-
+    private String yrURL;
     @Inject
     private HttpConnector connector;
     @Inject
@@ -38,7 +37,6 @@ public class YrInputProvider implements WeatherInputProvider {
 
     @Override
     public String getTemperature() {
-
         Optional<String> temperatureFromNewlyUpdatedCache = yrCacheHandler.getFromNewlyUpdatedCache(currentLocation);
         if (temperatureFromNewlyUpdatedCache.isPresent()) {
             return temperatureFromNewlyUpdatedCache.get();
