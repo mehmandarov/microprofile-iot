@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class WeatherDTO {
-    private final String timeRepresentation;
+    private final String weatherRepresentation;
 
-    public WeatherDTO(LocalDateTime localDateTime) {
-        timeRepresentation = localDateTime.toString();
+    public WeatherDTO(String localTemperature) {
+        weatherRepresentation = localTemperature.toString();
     }
 }
