@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
@@ -26,3 +25,4 @@ target/
 *.iml
 *MyHue.properties
 */.idea/
+*lib/
