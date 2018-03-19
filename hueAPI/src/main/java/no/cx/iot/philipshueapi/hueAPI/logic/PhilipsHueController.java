@@ -12,6 +12,7 @@ import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
+import no.cx.iot.philipshueapi.hueAPI.DummyBridge;
 import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
 import no.cx.iot.philipshueapi.hueAPI.dto.Brightness;
 import no.cx.iot.philipshueapi.hueAPI.dto.InputSource;
@@ -72,8 +73,9 @@ public class PhilipsHueController {
         return getAllLights(bridge).get(lightIndex);
     }
 
-    public int getNumberOfLights() {
-        return getAllLights(getSDKBridge(sdk.getSelectedBridge())).size();
+    public int getNumberOfLights(boolean useRealBridge) {
+        Bridge bridge = useRealBridge ? getSDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
+        return getAllLights(bridge).size();
     }
 
     private Bridge getSDKBridge(PHBridge selectedBridge) {

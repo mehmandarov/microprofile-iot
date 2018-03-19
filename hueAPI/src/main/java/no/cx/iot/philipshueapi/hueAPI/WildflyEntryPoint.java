@@ -51,7 +51,7 @@ public class WildflyEntryPoint {
     }
 
 	private Bridge getBridge() {
-		return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge(sdk.getSelectedBridge());
+		return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
 	}
 
 	@GET
@@ -62,11 +62,14 @@ public class WildflyEntryPoint {
 		philipsHueController.setup();
 		waitUntilBridgeIsSelected();
 
-		return doCall(() -> philipsHueController.getNumberOfLights());
+		return doCall(() -> philipsHueController.getNumberOfLights(useRealBridge));
 	}
 
 	private void waitUntilBridgeIsSelected() {
 	    int counter = 0;
+	    if (!useRealBridge) {
+	    	return;
+		}
 		while (sdk.getSelectedBridge() == null) {
 			try {
 				logger.info("Waiting for bridge selection");
