@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>no.cx.iot.philipshueapi</groupId>
+  <artifactId>hueAPI</artifactId>
+  <name>Philips Hue API</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <parent>
+    <groupId>no.cx</groupId>
+    <artifactId>iot</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <repositories>
+    <repository>
+      <id>local-maven-repo</id>
+      <url>file:///${project.basedir}/local-maven-repo</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <finalName>philips-hue-api</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <configuration>
+          <!--<debugPort>5005</debugPort>-->
+          <arguments>
+              <argument>-Djava.net.preferIPv4Stack=true</argument>
+          </arguments>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>microprofile</artifactId>
+    </dependency>
+
+    <!-- Hue SDK -->
+    <dependency>
+      <groupId>no.cx.iot.philipshue</groupId>
+      <artifactId>huesdk</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>no.cx.iot.philipshue</groupId>
+      <artifactId>huesdkresources</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>microprofile-openapi</artifactId>
+    </dependency>
+  </dependencies>
+</project>

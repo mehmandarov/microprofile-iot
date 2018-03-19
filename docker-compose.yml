@@ -1,0 +1,29 @@
+version: '3'
+services:
+  facade:
+    image: "iot:hue-facade"
+    ports:
+      - "8083:8080"
+    build:
+      context: ./hueAPI
+      args:
+        JAR_FILE: philips-hue-api-swarm.jar
+        PORT_NUMBER: 8080
+  timeservice:
+    image: "iot:time-service"
+    ports:
+      - "8081:8080"
+    build:
+      context: ./timeservice
+      args:
+        JAR_FILE: timeservice-swarm.jar
+        PORT_NUMBER: 8080
+  weatherservice:
+    image: "iot:weather-service"
+    ports:
+      - "8082:8080"
+    build:
+      context: ./weatherservice
+      args:
+        JAR_FILE: weatherservice-swarm.jar
+        PORT_NUMBER: 8080
