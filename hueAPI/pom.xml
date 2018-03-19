@@ -53,12 +53,12 @@
 
     <!-- Hue SDK -->
     <dependency>
-      <groupId>no.mop.philipshue</groupId>
+      <groupId>no.cx.iot.philipshue</groupId>
       <artifactId>huesdk</artifactId>
       <version>1.0</version>
     </dependency>
     <dependency>
-      <groupId>no.mop.philipshue</groupId>
+      <groupId>no.cx.iot.philipshue</groupId>
       <artifactId>huesdkresources</artifactId>
       <version>1.0</version>
     </dependency>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <groupId>no.mop.philipshue</groupId>
-  <artifactId>huesdk</artifactId>
+  <groupId>no.cx.iot.philipshue</groupId>
+  <artifactId>huesdkresources</artifactId>
   <versioning>
     <release>1.0</release>
     <versions>
       <version>1.0</version>
     </versions>
-    <lastUpdated>20171129200853</lastUpdated>
+    <lastUpdated>20171129200915</lastUpdated>
   </versioning>
 </metadata>
