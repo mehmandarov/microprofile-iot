@@ -1,7 +1,6 @@
 package no.iot.timeservice.rest;
 
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data

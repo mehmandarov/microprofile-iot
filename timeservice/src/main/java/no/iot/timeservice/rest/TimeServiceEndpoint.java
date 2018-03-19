@@ -30,7 +30,13 @@ public class TimeServiceEndpoint {
     @Operation(summary = "Gets the current time", description = "The format is a wrapped LocalDateTime")
     @APIResponse(name = "TimeDTO")
     public Response doGet() {
-        logger.info(String.format("Invoking timeservice. Response."));
-        return Response.ok(localDateTimeNowSupplier.get()).build();
+        try {
+            logger.info(String.format("Invoking timeservice. Response."));
+            return Response.ok(localDateTimeNowSupplier.get()).build();
+        } catch (NumberFormatException ex) {
+            return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                    .entity("We were not able to get the current time at this moment.")
+                    .build();
+        }
     }
 }
