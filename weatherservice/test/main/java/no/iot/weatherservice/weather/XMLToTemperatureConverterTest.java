@@ -2,7 +2,9 @@ package no.iot.weatherservice.weather;
 
 
 import com.google.common.io.Files;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -23,6 +25,9 @@ public class XMLToTemperatureConverterTest {
     @InjectMocks
     private XMLToTemperatureConverter converter;
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Test
     public void parsesTemperatureFromExampleYrFileCorrectly() throws IOException {
         String entireXML = readFile().stream().collect(Collectors.joining("\n"));
@@ -30,6 +35,18 @@ public class XMLToTemperatureConverterTest {
         String temperature = converter.convert(entireXML);
 
         assertThat(temperature, is("-2.7"));
+    }
+
+    @Test
+    public void returnsErrorIfNoProperWeatherForecastProvided() {
+        String returnedMessage = converter.convert("ERROR trall");
+        assertThat(returnedMessage, is("ERROR"));
+    }
+
+    @Test
+    public void throwsExceptionIfInputIsJustRubbish() {
+        expectedException.expect(RuntimeException.class);
+        converter.convert("trall");
     }
 
     private List<String> readFile() throws IOException {
