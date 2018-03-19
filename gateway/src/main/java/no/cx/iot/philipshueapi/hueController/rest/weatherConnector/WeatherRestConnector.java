@@ -38,13 +38,8 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     }
 
     @Override
-    public String canConnect() {
-        try {
-            return "OK, the current weather is " + getWeather();
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void testConnection() {
+        getWeather();
     }
 
     @Override
