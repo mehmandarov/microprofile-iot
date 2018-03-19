@@ -23,7 +23,7 @@ public class WeatherToLightStateConverter implements Converter<Weather> {
     private int g;
 
     @Inject
-    @ConfigProperty(name = "b", defaultValue = "255")
+    @ConfigProperty(name = "b", defaultValue = "0")
     private int b;
 
     @Override
