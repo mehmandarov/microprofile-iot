@@ -26,3 +26,5 @@ target/
 *MyHue.properties
 */.idea/
 *lib/
+
+weatherservice/yr_cache.json
