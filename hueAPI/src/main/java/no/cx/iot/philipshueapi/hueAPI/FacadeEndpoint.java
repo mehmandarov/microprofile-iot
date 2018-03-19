@@ -23,7 +23,7 @@ import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @Path("/hue")
 @SuppressWarnings("unused")
-public class WildflyEntryPoint {
+public class FacadeEndpoint {
 
 	@Inject
 	private PhilipsHueController philipsHueController;
