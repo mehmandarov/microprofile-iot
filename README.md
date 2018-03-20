@@ -8,7 +8,12 @@ Also, this project is going to show you what happens when the management lets en
 All the documentation and the description of the project can be found on a separate [page][4].
 
 ## Running the Project
-Starting all the containers – ```gateway```, ```weatherservice```, and ```timeservice```:
+First, build all the artifacts with Maven:
+```
+$ mvn clean install
+```
+
+Start all the containers – ```gateway```, ```weatherservice```, and ```timeservice```:
 ```
 $ docker-compose up --build
 ```
