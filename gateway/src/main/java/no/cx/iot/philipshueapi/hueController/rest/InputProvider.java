@@ -2,6 +2,8 @@ package no.cx.iot.philipshueapi.hueController.rest;
 
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
+import java.io.IOException;
+
 public interface InputProvider<T> {
 
     default String getFullURL() {
@@ -16,7 +18,16 @@ public interface InputProvider<T> {
         return getConverter().convert(lightIndex, getDataForLight(lightIndex));
     }
 
-    String canConnect();
+    default void canConnect() {
+        try {
+            testConnection();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void testConnection() throws IOException;
 
     String getHost();
 

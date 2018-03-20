@@ -38,12 +38,8 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
     private HttpConnector connector;
 
     @Override
-    public String canConnect() {
-        try {
-            return "OK, the current time is " + getTime();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void testConnection() throws IOException {
+        getTime();
     }
 
     @Override
