@@ -18,6 +18,8 @@ Start all the containers – ```gateway```, ```weatherservice```, and ```timeser
 $ docker-compose up --build
 ```
 
+The setup of the Docker containers and mapping of the ports with the host machine can be seen in the [docker-compose.yml][5] file.
+
 ## Authors
 * [Mads Opheim][2]
 * [Rustam Mehmandarov][3]
@@ -28,3 +30,4 @@ $ docker-compose up --build
 [2]: https://github.com/madsop
 [3]: https://github.com/mehmandarov
 [4]: /docs/structure.md
+[5]: /docker-compose.yml
