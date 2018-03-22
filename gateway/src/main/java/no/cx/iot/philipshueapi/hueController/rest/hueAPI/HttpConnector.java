@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import no.cx.iot.philipshueapi.hueController.rest.infrastructure.Tuple;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -20,6 +19,8 @@ import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.Tuple;
 
 @ApplicationScoped
 public class HttpConnector {
@@ -54,7 +55,6 @@ public class HttpConnector {
     @Retry(retryOn = {IOException.class})
     @Timeout(5000)
     @Fallback(fallbackMethod = "fallback")
-    // TODO: This one should be replaced with the rest client, but it doesn't seem like that one is included in Wildfly Swarm yet
     private Tuple<Integer, String> getCloseableHttpResponse(String url) throws IOException {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
@@ -65,10 +65,10 @@ public class HttpConnector {
         String responsetext = IOUtils.toString(content, charset);
         logger.info("Received " + responsetext + " from " + url + ". With HTTP code: " + statusCode);
         response.close();
-        return new Tuple(statusCode, responsetext);
+        return new Tuple<>(statusCode, responsetext);
     }
 
     private Tuple<Integer, String> fallback(String url) {
-        return new Tuple(418, "ERROR: Could not connect to: " + url);
+        return new Tuple<>(418, "ERROR: Could not connect to: " + url);
     }
 }
