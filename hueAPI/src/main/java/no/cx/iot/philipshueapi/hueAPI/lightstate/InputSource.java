@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.dto;
+package no.cx.iot.philipshueapi.hueAPI.lightstate;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

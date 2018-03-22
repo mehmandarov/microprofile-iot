@@ -16,9 +16,9 @@ import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
 import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
 import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
-import no.cx.iot.philipshueapi.hueAPI.dto.Brightness;
-import no.cx.iot.philipshueapi.hueAPI.dto.InputSource;
-import no.cx.iot.philipshueapi.hueAPI.dto.LightState;
+import no.cx.iot.philipshueapi.hueAPI.lightstate.Brightness;
+import no.cx.iot.philipshueapi.hueAPI.lightstate.InputSource;
+import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @ApplicationScoped
