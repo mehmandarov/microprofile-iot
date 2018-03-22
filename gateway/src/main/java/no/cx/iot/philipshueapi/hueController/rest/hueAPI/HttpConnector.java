@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.StatusLine;
@@ -45,7 +46,7 @@ public class HttpConnector {
     public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
         Tuple <Integer, String> responsetext = getCloseableHttpResponse(url);
         ObjectMapper objectMapper = new ObjectMapper();
-        if (responsetext.getFirst() == 200) {
+        if (responsetext.getFirst() == HttpServletResponse.SC_OK) {
             return objectMapper.readValue(responsetext.getSecond(), clazz);
         } else {
             return null;
