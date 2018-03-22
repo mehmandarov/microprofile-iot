@@ -10,13 +10,9 @@ import com.philips.lighting.model.PHLightState;
 
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @ApplicationScoped
 public class PhilipsHueController {
-
-    @Inject
-    private SDKFacade sdk;
 
     @Inject
     private SetupController setupController;
