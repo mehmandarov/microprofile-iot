@@ -35,7 +35,11 @@ public class WeatherToLightStateConverter implements Converter<Weather> {
     private int getBrightnessStrength(Weather weather) {
         int maxBrightness = Brightness.maxBrightness;
         int temperature = weather.getTemperatureInt();
-        int adjustment = (Math.abs(temperature) * 30) + (new Random().nextInt(10));
+        int adjustment = getAdjustment(temperature);
         return maxBrightness - adjustment;
+    }
+
+    private int getAdjustment(int temperature) {
+        return (Math.abs(temperature) * 30) + (new Random().nextInt(10));
     }
 }

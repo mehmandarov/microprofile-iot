@@ -11,10 +11,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightStateComputer;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,9 +25,6 @@ public class LightStateSwitcherTest {
 
     @Mock
     private ProposedLightStatesFinder lightStatesFinder;
-
-    @Mock
-    private LightStateComputer lightStateComputer;
 
     @Mock
     private Logger logger;
@@ -41,9 +38,11 @@ public class LightStateSwitcherTest {
     @Test
     public void forwardsToController() throws IOException {
         doReturn(2).when(connector).getAllLights();
+        doReturn(lightState).when(connector).switchStateOfLight(any());
+
         lightStateSwitcher.switchStateOfLights();
-        verify(connector).switchStateOfLight(any());
-        verify(connector).switchStateOfLight(any());
+
+        verify(connector, times(2)).switchStateOfLight(any());
     }
 
 }

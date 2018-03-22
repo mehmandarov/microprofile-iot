@@ -9,17 +9,23 @@ public class WeatherTest {
 
     @Test
     public void castsProperlyNegativeDecimal() {
-        assertThat(new Weather("-1.2").getTemperatureInt(), is(-1));
+        assertThat(getWeather("-1.2").getTemperatureInt(), is(-1));
+    }
+
+    private Weather getWeather(String temperature) {
+        Weather weather = new Weather();
+        weather.setTemperature(temperature);
+        return weather;
     }
 
     @Test
     public void castsProperlyPositiveDecimal() {
-        assertThat(new Weather("2.4").getTemperatureInt(), is(2));
+        assertThat(getWeather("2.4").getTemperatureInt(), is(2));
     }
 
     @Test
     public void nullIsNull() {
-        assertThat(new Weather("-0").getTemperatureInt(), is(0));
+        assertThat(getWeather("-0").getTemperatureInt(), is(0));
     }
 
 }
