@@ -46,10 +46,10 @@ public class LightStateSwitcher {
             return connector.switchStateOfLight(getNewStateForLight(lightIndex)).toString();
         }
         catch (Exception e) {
-            if (Optional.ofNullable(e.getMessage()).filter(m -> m.contains("is not reachable")).isPresent()) {
-                return "Light " + lightIndex + " is not reachable";
-            }
-            throw new RuntimeException(e);
+            return Optional.ofNullable(e.getMessage())
+                    .filter(message -> message.contains("is not reachable"))
+                    .map(message -> "Light " + lightIndex + " is not reachable")
+                    .orElseThrow(() -> new RuntimeException(e));
         }
     }
 
