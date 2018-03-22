@@ -16,7 +16,7 @@ public class TimeToLightStateConverter implements Converter<LocalDateTime> {
     @Override
     public LightState convert(int lightIndex, LocalDateTime localDateTime) {
         int newBrightness = localDateTime.getNano() % 255; // TODO: Yes, a bit nonsensical and magical
-        Integer hueInt = Color.ORANGE.getRGB();
+        Integer hueInt = Color.blue.getRGB();
         return new LightState(lightIndex, InputSource.TIME, new Brightness(newBrightness), hueInt);
     }
 }
