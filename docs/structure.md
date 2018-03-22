@@ -8,9 +8,9 @@ In an office, we would, of course, need lightning, so we thought that it might b
 
 And as we all know, people tend to be more sleepy, or feeling less productive at some times of the day, or in some specific situations. For instance, early mornings is the time when you often feel a bit more sleepy. Fortunately, we can help with that by introducing special lighting (and coffee...) to make you feel a bit more awake! In the afternoons, when you've been working hard for many hours already and it's getting dark outside, you might need a bit more warm and bright light. Or just imagine if it is freezing cold outside, and you would love to have some warm, intense lighting while working hard on that deadline that is just a few days away.
 
-Fear not! We have got your back, we have git some light bulbs that can be controlled with bits and bytes. Many of you might have already used these – it is the Philips Hue bulbs. These are the bulbs that can, for instance, be controlled via an app on your phone.
+Fear not! We've got your back, and we have got some light bulbs that can be controlled with bits and bytes. Many of you might have already used these – it is the Philips Hue bulbs. These are the bulbs that can, for instance, be controlled via an app on your phone.
 
-However, as we are a company of geeks, we don't want to sit and control these manually every day. So we need a system to help us during the day.
+However, as we are a company full of geeks, we don't want to sit and control these manually every day. So we need a system to help us during the day.
 
 
 # The Architecture
@@ -47,20 +47,19 @@ The other input provider is the time service. This service simply gets the curre
 
 
 # The Implementation
+But where is the MicroProfile usage, you might be wondering? Don't worry, we'll come to that now.
 
-### What is MicroProfile
-But where are the MicroProfile usage, you might be wondering? Don't worry, we'll come to that.
-
-And what is MicroProfile? JakartaEE for microservices easily said.
+### What is MicroProfile?
+But first, what is MicroProfile? JakartaEE for microservices easily said. Or, mainly, a subset of Java libraries that come with Jakarta EE (formerly known as J2EE, Java EE, EE4J, etc.).
 
 While Jakarta EE is a great toolbox for more monolithic architectures, it is a bit overkill for microservices. MicroProfile is a more right-sized toolkit for microservices.
 
-It also bears with it a lot of standardization efforts, to allow for easier replacement of specific tools and thus reduce vendor lock-in
+It also bears with it a lot of standardization efforts, to allow for easier replacement of specific tools and thus reduce vendor lock-in.
 
 There are several implementations of MicroProfile. We have, a bit arbitrarily, worked only with Wildfly Swarm, but we could as well have chosen among a handful of others.
 
 #### MicroProfile Features in the Facade Service
-Things to talk about from the facade
+
  * [CDI][1]
  * [JAX-RS][2]
  * JSON-P
@@ -71,9 +70,9 @@ Things to talk about from the facade
 #### MicroProfile Features in the Gateway Service
 
  * [Fault tolerance][3]
- * [Health check][4], e.g. http://localhost:8080/health
- * [Config][5]
- * [The conversion][6] between the data from the services into a light bulb control direction
+ * [Health checks][4], e.g. http://localhost:8080/health
+ * [Config properties][5]
+ * The [conversion][6] between the data from the external services to light bulb instructions, or state
  * [REST client hack][7] – this indicates that MicroProfile, as well as its implementations, still is a technology under constant development and that everything is not yet mature. However, certain features we have made use of were not available when we started the preparations for this presentation. For instance, OpenAPI wes included in the Wildfly Swarm implementation just a couple of weeks ago.
 
 
@@ -116,6 +115,8 @@ As you have seen, we have used a lot of the features included in MicroProfile in
  * OpenTracing
 
 We also have some other further work coming up:
- * Push it to GCP
+ * Push it to the cloud (Google Cloud, or similar)
  * Create the remaining services
  * And lots of other cool stuff... Stay tuned!
+ 
+_Also, you are welcome to submit your own pull requests._
