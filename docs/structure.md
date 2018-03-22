@@ -103,11 +103,15 @@ The Hue SDK is not available in Maven central, at least not yet, so we figured w
 
 Yes, it was somewhat hassle getting started with, but there are some good guides online. Also, when it's first properly setup, it just works and keeps working.
 
+### The Throwing Supplier
+How to wrap a checked exception into an unchecked can be seen [here][9].
+
+[9]: https://github.com/mehmandarov/microprofile-iot/blob/master/gateway/src/main/java/no/cx/iot/philipshueapi/hueController/rest/infrastructure/ThrowingSupplier.java
 
 # Future Work
 
 As you have seen, we have used a lot of the features included in MicroProfile in this project. However, there are some we haven't exploited yet:
- * Rest client, as mentioned
+ * REST client, as mentioned earlier
  * JWT authentication
  * OpenTracing
 
