@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.logic.PhilipsHueController;
 
 
@@ -36,7 +37,7 @@ public class FacadeEndpoint {
 									   @PathParam("brightness") int brightness,
 									   @PathParam("color") int color) {
 		setupForSDKCall();
-        return wrapInResponse(() -> philipsHueController.switchStateOfGivenLight(bridgeSelector.getBridge(), lightIndex, brightness, color));
+        return wrapInResponse(() -> philipsHueController.switchStateOfGivenLight(getBridge(), lightIndex, brightness, color));
     }
 
 	@GET
@@ -44,12 +45,16 @@ public class FacadeEndpoint {
 	@Path("/lights")
 	public Response getNumberOfLights() {
 		setupForSDKCall();
-		return wrapInResponse(() -> philipsHueController.getNumberOfLights(bridgeSelector.isUseRealBridge()));
+		return wrapInResponse(() -> philipsHueController.getNumberOfLights(getBridge()));
 	}
 
 	private void setupForSDKCall() {
 		philipsHueController.setup();
 		bridgeSelector.waitUntilBridgeIsSelected();
+	}
+
+	private Bridge getBridge() {
+		return bridgeSelector.getBridge();
 	}
 
 	private <T> Response wrapInResponse(Supplier<T> responseTextSupplier) {

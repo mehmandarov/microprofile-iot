@@ -7,9 +7,8 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import lombok.Getter;
-import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
+import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
 import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
@@ -18,7 +17,6 @@ class BridgeSelector {
 
     @Inject
     @ConfigProperty(name = "useRealBridge", defaultValue = "false")
-    @Getter
     private boolean useRealBridge;
 
     @Inject

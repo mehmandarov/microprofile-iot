@@ -8,21 +8,17 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import com.philips.lighting.hue.sdk.utilities.PHUtilities;
-import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
-import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
 import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
-import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
+import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.Brightness;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.InputSource;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @ApplicationScoped
-@SuppressWarnings("unused")
 public class PhilipsHueController {
 
     @Inject
@@ -75,13 +71,8 @@ public class PhilipsHueController {
         return getAllLights(bridge).get(lightIndex);
     }
 
-    public int getNumberOfLights(boolean useRealBridge) {
-        Bridge bridge = useRealBridge ? getSDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
+    public int getNumberOfLights(Bridge bridge) {
         return getAllLights(bridge).size();
-    }
-
-    private Bridge getSDKBridge(PHBridge selectedBridge) {
-        return new SDKBridge(selectedBridge);
     }
 
     private List<PHLight> getAllLights(Bridge selectedBridge) {
