@@ -32,12 +32,12 @@ public class PhilipsHueController {
 
     public LightState switchStateOfGivenLight(Bridge bridge, int lightIndex, int brightness, int color) {
         PHLight light = lightStateGetter.getGivenLight(bridge, lightIndex);
-        PHLightState lastKnownLightState = lightStateGetter.getLastKnownLightState(lightIndex, light);
+        PHLightState lastKnownLightState = lightStateGetter.getLastKnownLightState(bridge, lightIndex, light);
         logger.fine("New brightness: " + brightness);
         lastKnownLightState.setBrightness(brightness);
         bridge.updateLightState(light, lastKnownLightState);
         colorSetter.setColorOnLight(bridge, color, light, lastKnownLightState);
-        return lightStateGetter.getLightState(lightIndex, lastKnownLightState);
+        return lightStateGetter.getLightState(bridge, lightIndex, lastKnownLightState);
     }
 
     public int getNumberOfLights(Bridge bridge) {

@@ -10,7 +10,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import no.iot.timeservice.supplier.LocalDateTimeNowSupplier;
 
@@ -27,8 +26,8 @@ public class TimeServiceEndpoint {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Gets the current time", description = "The format is a wrapped LocalDateTime")
-    @APIResponse(name = "TimeDTO")
+    @Operation(summary = "Gets the current time",
+            description = "The format is a wrapped LocalDateTime")
     public Response doGet() {
         try {
             logger.info(String.format("Invoking timeservice. Response."));

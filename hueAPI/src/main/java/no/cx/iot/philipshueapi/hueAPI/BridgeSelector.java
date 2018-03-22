@@ -45,6 +45,7 @@ class BridgeSelector {
     }
 
     Bridge getBridge() {
+        logger.warning("Use real bridge: " + useRealBridge);
         return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
     }
 }

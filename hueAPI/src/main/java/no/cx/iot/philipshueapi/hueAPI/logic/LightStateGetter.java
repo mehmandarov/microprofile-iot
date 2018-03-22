@@ -9,7 +9,6 @@ import com.philips.lighting.model.PHLightState;
 import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.Brightness;
-import no.cx.iot.philipshueapi.hueAPI.lightstate.InputSource;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
 
 class LightStateGetter {
@@ -22,15 +21,15 @@ class LightStateGetter {
         return selectedBridge.getAllLights();
     }
 
-    LightState getLightState(int lightIndex, PHLightState lightState) {
+    LightState getLightState(Bridge bridge, int lightIndex, PHLightState lightState) {
         Brightness brightness = Optional.ofNullable(lightState.getBrightness())
                 .map(Brightness::new)
                 .orElseGet(Brightness::getMaxBrightness);
-        return new LightState(lightIndex, InputSource.LIGHT, brightness, lightState.getHue());
+        return new LightState(lightIndex, bridge.getInputSource(), brightness, lightState.getHue());
     }
 
-    PHLightState getLastKnownLightState(int lightIndex, PHLight light) {
-        PHLightState lastKnownLightState = light.getLastKnownLightState();
+    PHLightState getLastKnownLightState(Bridge bridge, int lightIndex, PHLight light) {
+        PHLightState lastKnownLightState = bridge.getLastKnownLightState(light);
         if (lastKnownLightState == null || !lastKnownLightState.isReachable()) {
             throw new HueAPIException("Light " + lightIndex + " is not reachable.");
         }

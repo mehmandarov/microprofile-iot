@@ -6,6 +6,8 @@ import com.philips.lighting.model.PHBridgeResourcesCache;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
+import no.cx.iot.philipshueapi.hueAPI.lightstate.InputSource;
+
 public interface Bridge {
     PHBridgeResourcesCache getResourceCache();
 
@@ -14,4 +16,10 @@ public interface Bridge {
     default List<PHLight> getAllLights() {
         return getResourceCache().getAllLights();
     }
+
+    default PHLightState getLastKnownLightState(PHLight light) {
+        return light.getLastKnownLightState();
+    }
+
+    InputSource getInputSource();
 }
