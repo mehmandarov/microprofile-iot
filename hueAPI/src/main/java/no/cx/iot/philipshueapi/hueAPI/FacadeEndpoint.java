@@ -56,7 +56,6 @@ public class FacadeEndpoint {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes("text/plain")
 	@Path("/lights")
 	public Response getNumberOfLights() {
 		philipsHueController.setup();
