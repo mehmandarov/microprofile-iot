@@ -13,12 +13,18 @@ First, build all the artifacts with Maven:
 $ mvn clean install
 ```
 
-Start all the containers – ```gateway```, ```weatherservice```, and ```timeservice```:
+Start all the containers – ```facade```, ```weatherservice```, and ```timeservice```:
 ```
 $ docker-compose up --build
 ```
 
 The setup of the Docker containers and mapping of the ports with the host machine can be seen in the [docker-compose.yml][5] file.
+
+Then (or before, up to you), start the gateway:
+
+```
+$ mvn wildfly-swarm:run
+```
 
 ## Authors
 * [Mads Opheim][2]
