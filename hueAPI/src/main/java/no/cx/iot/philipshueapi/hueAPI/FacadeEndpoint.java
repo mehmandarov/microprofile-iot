@@ -47,7 +47,7 @@ public class FacadeEndpoint {
 									   @PathParam("color") int color) {
 		philipsHueController.setup();
 		waitUntilBridgeIsSelected();
-        return doCall(() -> philipsHueController.switchStateOfGivenLight(getBridge(), lightIndex, brightness, color));
+        return wrapInResponse(() -> philipsHueController.switchStateOfGivenLight(getBridge(), lightIndex, brightness, color));
     }
 
 	private Bridge getBridge() {
@@ -61,7 +61,7 @@ public class FacadeEndpoint {
 		philipsHueController.setup();
 		waitUntilBridgeIsSelected();
 
-		return doCall(() -> philipsHueController.getNumberOfLights(useRealBridge));
+		return wrapInResponse(() -> philipsHueController.getNumberOfLights(useRealBridge));
 	}
 
 	private void waitUntilBridgeIsSelected() {
@@ -83,7 +83,7 @@ public class FacadeEndpoint {
 		}
 	}
 
-    private <T> Response doCall(Supplier<T> responseTextSupplier) {
+    private <T> Response wrapInResponse(Supplier<T> responseTextSupplier) {
         try {
             return Response.ok(responseTextSupplier.get()).build();
         }
