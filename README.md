@@ -8,21 +8,23 @@ Also, this project is going to show you what happens when the management lets en
 All the documentation and the description of the project can be found on a separate [page][4].
 
 ## Running the Project
-First, build all the artifacts with Maven:
-```
-$ mvn clean install
-```
+1. Build all the artifacts with Maven:
+    ```
+    $ mvn clean install
+    ```
+2. Start all the containers – ```facade```, ```weatherservice```, and ```timeservice```:
+    ```
+    $ docker-compose up --build
+    ```
+    
+    The setup of the Docker containers and mapping of the ports with the host machine can be seen in the [docker-compose.yml][5] file.
 
-Start all the containers – ```facade```, ```weatherservice```, and ```timeservice```:
-```
-$ docker-compose up --build
-```
-
-The setup of the Docker containers and mapping of the ports with the host machine can be seen in the [docker-compose.yml][5] file.
-
-Then (or before, up to you), start the gateway:
+3. Start the gateway service. 
+    
+    Note: this service can be started at any time.
 
 ```
+$ cd gateway
 $ mvn wildfly-swarm:run
 ```
 
