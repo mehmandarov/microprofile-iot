@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.philipshueapi.hueAPI.bridge;
 
 import java.util.List;
 
