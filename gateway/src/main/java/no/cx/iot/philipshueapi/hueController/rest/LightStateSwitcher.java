@@ -38,7 +38,7 @@ public class LightStateSwitcher {
     }
 
     private int getAllLights() {
-        return wrapExceptions(connector::getAllLights);
+        return wrapExceptions(connector::getNumberOfLights);
     }
 
     private String switchStateOfLight(int lightIndex) {

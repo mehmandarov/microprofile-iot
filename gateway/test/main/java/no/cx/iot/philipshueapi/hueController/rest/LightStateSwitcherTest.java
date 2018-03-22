@@ -37,7 +37,7 @@ public class LightStateSwitcherTest {
 
     @Test
     public void forwardsToController() throws IOException {
-        doReturn(2).when(connector).getAllLights();
+        doReturn(2).when(connector).getNumberOfLights();
         doReturn(lightState).when(connector).switchStateOfLight(any());
 
         lightStateSwitcher.switchStateOfLights();

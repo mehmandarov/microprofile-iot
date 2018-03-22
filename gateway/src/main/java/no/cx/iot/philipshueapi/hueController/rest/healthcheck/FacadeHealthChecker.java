@@ -19,7 +19,7 @@ public class FacadeHealthChecker implements HealthCheck {
     @Override
     public HealthCheckResponse call() {
         try {
-            hueConnector.getAllLights();
+            hueConnector.getNumberOfLights();
             return HealthCheckResponse.named("Lights-facade")
                     .up()
                     .build();
