@@ -23,10 +23,10 @@ All the documentation and the description of the project can be found on a separ
     
     Note: this service can be started at any time.
 
-```
-$ cd gateway
-$ mvn wildfly-swarm:run
-```
+    ```
+    $ cd gateway
+    $ mvn wildfly-swarm:run
+    ```
 
 ## Authors
 * [Mads Opheim][2]

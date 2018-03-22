@@ -41,8 +41,8 @@ public class PhilipsHueController {
         PHLightState lastKnownLightState = getLastKnownLightState(lightIndex, light);
         logger.fine("New brightness: " + brightness);
         lastKnownLightState.setBrightness(brightness);
-        bridge.updateLightState(light, lastKnownLightState);
         setColorOnLight(bridge, color, light, lastKnownLightState);
+        bridge.updateLightState(light, lastKnownLightState);
         return getLightState(lightIndex, lastKnownLightState);
     }
 
@@ -51,7 +51,6 @@ public class PhilipsHueController {
         float[] xy = PHUtilities.calculateXY(color, PHLight.PHLightColorMode.COLORMODE_XY.getValue());
         lastKnownLightState.setX(xy[0], true);
         lastKnownLightState.setY(xy[1], true);
-        bridge.updateLightState(light, lastKnownLightState);
     }
 
     private LightState getLightState(int lightIndex, PHLightState lightState) {
