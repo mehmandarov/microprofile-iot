@@ -31,7 +31,7 @@ class LightStateGetter {
 
     PHLightState getLastKnownLightState(int lightIndex, PHLight light) {
         PHLightState lastKnownLightState = light.getLastKnownLightState();
-        if (!lastKnownLightState.isReachable()) {
+        if (lastKnownLightState == null || !lastKnownLightState.isReachable()) {
             throw new HueAPIException("Light " + lightIndex + " is not reachable.");
         }
         return lastKnownLightState;
