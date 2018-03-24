@@ -27,7 +27,7 @@ public class PhilipsHueConnectorTest {
     @Test
     public void get() throws IOException {
         doReturn(4).when(httpConnector).executeHTTPGetOnHue(any(), any());
-        assertThat(connector.getAllLights(), is(4));
+        assertThat(connector.getNumberOfLights(), is(4));
         verify(httpConnector).executeHTTPGetOnHue(any(), eq(Integer.class));
     }
 

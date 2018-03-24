@@ -38,12 +38,15 @@ public class LightStateSwitcher {
     }
 
     private int getAllLights() {
-        return wrapExceptions(connector::getAllLights);
+        return wrapExceptions(connector::getNumberOfLights);
     }
 
     private String switchStateOfLight(int lightIndex) {
         try {
-            return connector.switchStateOfLight(getNewStateForLight(lightIndex)).toString();
+            return Optional.ofNullable(getNewStateForLight(lightIndex))
+                    .map(l -> wrapExceptions(() -> connector.switchStateOfLight(l)))
+                    .map(LightState::toString)
+                    .orElse(null);
         }
         catch (Exception e) {
             return Optional.ofNullable(e.getMessage())

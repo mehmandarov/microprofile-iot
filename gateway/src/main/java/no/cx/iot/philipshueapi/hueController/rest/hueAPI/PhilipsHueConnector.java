@@ -15,7 +15,7 @@ public class PhilipsHueConnector {
     @Inject
     private HttpConnector httpConnector;
 
-    public int getAllLights() throws IOException {
+    public int getNumberOfLights() throws IOException {
         return getResponseText("lights", Integer.class);
     }
 

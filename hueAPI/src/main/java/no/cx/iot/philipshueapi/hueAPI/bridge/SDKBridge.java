@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.philipshueapi.hueAPI.bridge;
 
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeResourcesCache;
@@ -6,6 +6,7 @@ import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
 import lombok.RequiredArgsConstructor;
+import no.cx.iot.philipshueapi.hueAPI.lightstate.InputSource;
 
 @RequiredArgsConstructor
 public class SDKBridge implements Bridge {
@@ -21,5 +22,10 @@ public class SDKBridge implements Bridge {
     @Override
     public void updateLightState(PHLight light, PHLightState lastKnownLightState) {
         selectedBridge.updateLightState(light, lastKnownLightState);
+    }
+
+    @Override
+    public InputSource getInputSource() {
+        return InputSource.LIGHT;
     }
 }

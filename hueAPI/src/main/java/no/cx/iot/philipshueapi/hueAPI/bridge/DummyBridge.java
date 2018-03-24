@@ -1,6 +1,5 @@
-package no.cx.iot.philipshueapi.hueAPI;
+package no.cx.iot.philipshueapi.hueAPI.bridge;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,7 @@ import com.philips.lighting.model.*;
 import com.philips.lighting.model.rule.PHRule;
 import com.philips.lighting.model.sensor.PHSensor;
 import lombok.RequiredArgsConstructor;
-import no.cx.iot.philipshueapi.hueAPI.logic.Bridge;
+import no.cx.iot.philipshueapi.hueAPI.lightstate.InputSource;
 
 @RequiredArgsConstructor
 public class DummyBridge implements Bridge {
@@ -99,5 +98,17 @@ public class DummyBridge implements Bridge {
     @Override
     public void updateLightState(PHLight light, PHLightState lastKnownLightState) {
 
+    }
+
+    @Override
+    public PHLightState getLastKnownLightState(PHLight light) {
+        PHLightState lightState = new PHLightState();
+        lightState.setReachable(true);
+        return lightState;
+    }
+
+    @Override
+    public InputSource getInputSource() {
+        return InputSource.FAKE;
     }
 }

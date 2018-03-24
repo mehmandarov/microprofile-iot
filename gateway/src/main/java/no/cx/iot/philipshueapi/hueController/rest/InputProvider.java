@@ -1,8 +1,9 @@
 package no.cx.iot.philipshueapi.hueController.rest;
 
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-
 import java.io.IOException;
+import java.util.Optional;
+
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 public interface InputProvider<T> {
 
@@ -15,7 +16,9 @@ public interface InputProvider<T> {
     T getDataForLight(int lightIndex);
 
     default LightState getNewStateForLight(int lightIndex) {
-        return getConverter().convert(lightIndex, getDataForLight(lightIndex));
+        return Optional.ofNullable(getDataForLight(lightIndex))
+                .map(data -> getConverter().convert(lightIndex, data))
+                .orElse(null);
     }
 
     default void canConnect() {

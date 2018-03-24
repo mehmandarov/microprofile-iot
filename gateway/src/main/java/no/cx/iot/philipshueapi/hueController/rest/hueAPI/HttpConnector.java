@@ -6,8 +6,10 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -18,6 +20,8 @@ import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.Tuple;
 
 @ApplicationScoped
 public class HttpConnector {
@@ -40,27 +44,32 @@ public class HttpConnector {
     }
 
     public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
-        String responsetext = getCloseableHttpResponse(url);
+        Tuple <Integer, String> responsetext = getCloseableHttpResponse(url);
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(responsetext, clazz);
+        if (responsetext.getFirst() == HttpServletResponse.SC_OK) {
+            return objectMapper.readValue(responsetext.getSecond(), clazz);
+        } else {
+            return null;
+        }
     }
 
     @Retry(retryOn = {IOException.class})
     @Timeout(5000)
     @Fallback(fallbackMethod = "fallback")
-    // TODO: This one should be replaced with the rest client, but it doesn't seem like that one is included in Wildfly Swarm yet
-    private String getCloseableHttpResponse(String url) throws IOException {
+    private Tuple<Integer, String> getCloseableHttpResponse(String url) throws IOException {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
         CloseableHttpResponse response = HttpClientBuilder.create().build().execute(request);
+        StatusLine sl = response.getStatusLine();
+        int statusCode = sl.getStatusCode();
         InputStream content = response.getEntity().getContent();
         String responsetext = IOUtils.toString(content, charset);
-        logger.info("Received " + responsetext + " from " + url);
+        logger.info("Received " + responsetext + " from " + url + ". With HTTP code: " + statusCode);
         response.close();
-        return responsetext;
+        return new Tuple<>(statusCode, responsetext);
     }
 
-    private String fallback(String url) {
-        return "ERROR: Could not connect to: " + url;
+    private Tuple<Integer, String> fallback(String url) {
+        return new Tuple<>(418, "ERROR: Could not connect to: " + url);
     }
 }
