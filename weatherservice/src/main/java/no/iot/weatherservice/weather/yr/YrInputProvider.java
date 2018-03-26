@@ -1,14 +1,16 @@
 package no.iot.weatherservice.weather.yr;
 
-import no.iot.weatherservice.utils.general.HttpConnector;
-import no.iot.weatherservice.utils.general.WeatherInputProvider;
-import no.iot.weatherservice.weather.XMLToTemperatureConverter;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.Optional;
+
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import no.iot.weatherservice.utils.general.HttpConnector;
+import no.iot.weatherservice.utils.general.WeatherInputProvider;
+import no.iot.weatherservice.weather.XMLToTemperatureConverter;
 
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
@@ -26,8 +28,7 @@ public class YrInputProvider implements WeatherInputProvider {
     @ConfigProperty(name = "location", defaultValue = "Oslo")
     private String currentLocation;
     @Inject
-    @ConfigProperty(name = "yr_URL", defaultValue = "")
-    private String yrURL;
+    private YrURLProvider yrURLProvider;
     @Inject
     private HttpConnector connector;
     @Inject
@@ -42,7 +43,7 @@ public class YrInputProvider implements WeatherInputProvider {
             return temperatureFromNewlyUpdatedCache.get();
         }
 
-        String temperature = xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURL)));
+        String temperature = xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL())));
         yrCacheHandler.updateCache(currentLocation, temperature);
         return temperature;
     }
