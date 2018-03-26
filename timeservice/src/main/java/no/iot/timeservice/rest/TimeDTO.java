@@ -1,13 +1,14 @@
 package no.iot.timeservice.rest;
 
+import java.time.ZonedDateTime;
+
 import lombok.Data;
-import java.time.LocalDateTime;
 
 @Data
 public class TimeDTO {
     private final String timeRepresentation;
 
-    public TimeDTO(LocalDateTime localDateTime) {
-        timeRepresentation = localDateTime.toString();
+    public TimeDTO(ZonedDateTime zonedDateTime) {
+        timeRepresentation = zonedDateTime.toString();
     }
 }

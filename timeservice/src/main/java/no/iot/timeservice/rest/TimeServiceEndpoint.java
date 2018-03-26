@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
-import no.iot.timeservice.supplier.LocalDateTimeNowSupplier;
+import no.iot.timeservice.supplier.ZonedDateTimeNowSupplier;
 
 
 @Path("/")
@@ -19,7 +19,7 @@ public class TimeServiceEndpoint {
 
     @SuppressWarnings("unused")
     @Inject
-    private LocalDateTimeNowSupplier localDateTimeNowSupplier;
+    private ZonedDateTimeNowSupplier dateTimeNowSupplier;
 
     private Logger logger = Logger.getLogger(getClass().getSimpleName());
 
@@ -27,11 +27,11 @@ public class TimeServiceEndpoint {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Gets the current time",
-            description = "The format is a wrapped LocalDateTime")
+            description = "The format is a wrapped ZonedDateTime")
     public Response doGet() {
         try {
             logger.info(String.format("Invoking timeservice. Response."));
-            return Response.ok(localDateTimeNowSupplier.get()).build();
+            return Response.ok(dateTimeNowSupplier.get()).build();
         } catch (NumberFormatException ex) {
             return Response.status(Response.Status.SERVICE_UNAVAILABLE)
                     .entity("We were not able to get the current time at this moment.")

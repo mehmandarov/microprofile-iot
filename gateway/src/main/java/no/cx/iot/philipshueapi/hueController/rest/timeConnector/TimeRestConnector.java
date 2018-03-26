@@ -1,7 +1,7 @@
 package no.cx.iot.philipshueapi.hueController.rest.timeConnector;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -17,7 +17,7 @@ import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.Exceptio
 
 @ApplicationScoped
 @Getter
-public class TimeRestConnector implements InputProvider<LocalDateTime> {
+public class TimeRestConnector implements InputProvider<ZonedDateTime> {
 
     @Inject
     @ConfigProperty(name = "timeHost", defaultValue = "localhost")
@@ -47,12 +47,12 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
         return InputSource.TIME.getPriority();
     }
 
-    private LocalDateTime getTime() throws IOException {
-        return connector.executeHTTPGet(getFullURL(), TimeDTO.class).getLocalDateTime();
+    private ZonedDateTime getTime() throws IOException {
+        return connector.executeHTTPGet(getFullURL(), TimeDTO.class).getDateTime();
     }
 
     @Override
-    public LocalDateTime getDataForLight(int lightIndex) {
+    public ZonedDateTime getDataForLight(int lightIndex) {
         return wrapExceptions(this::getTime);
     }
 }
