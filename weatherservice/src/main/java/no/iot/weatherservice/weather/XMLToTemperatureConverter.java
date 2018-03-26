@@ -18,10 +18,8 @@ public class XMLToTemperatureConverter {
 
             if ("Norway".equals(country)) {
                 String[] observations = xml.split("<observations>", 2);
-                if (observations.length > 1) {
-                    if (!observations[0].startsWith("ERROR")) {
-                        return getTemperature(observations[1]);
-                    }
+                if (isProperObservation(observations)) {
+                    return getTemperature(observations[1]);
                 }
             } else if (xml.contains("temperature")) {
                 String temperature = getTemperature(xml);
@@ -36,16 +34,30 @@ public class XMLToTemperatureConverter {
         return "ERROR";
     }
 
-    private String getCountry(String xml) {
-        return xml.split("country>", 3)[1].replace("</", "");
+    private boolean isProperObservation(String[] observations) {
+        return observations.length > 1 && !observations[0].startsWith("ERROR");
     }
 
-    private String getTemperature(String observation1) {
-        String[] observation = observation1.split("<temperature unit=\"celsius\" value=", 2);
-        String[] onlyTemperature = observation[1].split("time", 2);
-        String[] x = onlyTemperature[0].split("/>", 2);
-        return x[0].
-                replaceAll("\"", "")
+    private String getCountry(String xml) {
+        String[] splitOnCountry = xml
+                .split("country>", 3);
+        if (splitOnCountry.length == 0) {
+            return "ERROR";
+        }
+        return splitOnCountry[1]
+                .replace("</", "");
+    }
+
+    private String getTemperature(String xml) {
+        String observation = xml.split(getPatternBeforeTemperature(), 2)[1];
+        String onlyTemperature = observation.split("time", 2)[0];
+
+        return onlyTemperature.split("/>", 2)[0]
+                .replaceAll("\"", "")
                 .trim();
+    }
+
+    private String getPatternBeforeTemperature() {
+        return "<temperature unit=\"celsius\" value=";
     }
 }
