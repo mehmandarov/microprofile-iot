@@ -15,10 +15,6 @@ import no.iot.weatherservice.weather.WeatherInputProvider;
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
-/*
- * Yes, this class is a bit vulnerable, and yes, the caching mechanism only supports one location.
- * But atm it's good enough
- */
 @SuppressWarnings("unused")
 public class YrInputProvider implements WeatherInputProvider {
 
