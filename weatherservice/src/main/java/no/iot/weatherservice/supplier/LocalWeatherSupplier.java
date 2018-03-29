@@ -1,11 +1,12 @@
 package no.iot.weatherservice.supplier;
 
-import no.iot.weatherservice.rest.WeatherDTO;
-import no.iot.weatherservice.weather.yr.YrInputProvider;
+import java.util.function.Supplier;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.function.Supplier;
+
+import no.iot.weatherservice.rest.WeatherDTO;
+import no.iot.weatherservice.weather.yr.YrInputProvider;
 
 @ApplicationScoped
 public class LocalWeatherSupplier implements Supplier<WeatherDTO> {
@@ -15,6 +16,16 @@ public class LocalWeatherSupplier implements Supplier<WeatherDTO> {
 
     @Override
     public WeatherDTO get() {
+        WeatherDTO weatherDTO = createWeatherDTO();
+        validate(weatherDTO);
+        return weatherDTO;
+    }
+
+    private WeatherDTO createWeatherDTO() {
         return new WeatherDTO(yrInputProvider.getTemperature());
+    }
+
+    private void validate(WeatherDTO weather) {
+        Double.parseDouble(weather.getTemperature());
     }
 }
