@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,18 +22,21 @@ public class ZonedDateTimeNowSupplierTest {
     @Mock
     private LocalDateTimeNowSupplier localDateTimeNowSupplier;
 
+    @Mock
+    private ZoneIdSupplier zoneIdSupplier;
+
     @InjectMocks
     @Spy
     private ZonedDateTimeNowSupplier zonedDateTimeNowSupplier;
 
     @Test
     public void includesTimeZoneInResult() {
-        doReturn(ZoneId.of("Europe/Moscow")).when(zonedDateTimeNowSupplier).getZoneId();
+        doReturn(ZoneId.of("Europe/Moscow")).when(zoneIdSupplier).get();
         LocalDateTime now = LocalDateTime.of(LocalDate.of(2010, 1, 1), LocalTime.of(12, 30, 0));
         doReturn(now).when(localDateTimeNowSupplier).get();
 
-        ZonedDateTime parsed = ZonedDateTime.parse(zonedDateTimeNowSupplier.get().getTimeRepresentation());
+        String timeRepresentation = zonedDateTimeNowSupplier.get().getTimeRepresentation();
 
-        assertThat(parsed, is("2010-01-01T12:30+03:00[Europe/Moscow]"));
+        assertThat(timeRepresentation, is("2010-01-01T12:30+03:00[Europe/Moscow]"));
     }
 }
