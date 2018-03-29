@@ -28,6 +28,7 @@ import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapException
 @ApplicationScoped
 public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
 
+    private final ObjectMapper objectMapper = new ObjectMapper(); // TODO inject
     private Path path;
 
     private Map<String, Tuple<LocalDateTime, String>> cache = new HashMap<>();
@@ -37,54 +38,60 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
     private String filename;
 
     @PostConstruct
-    public void createCacheIfNotExisting() {
+    private void createCacheIfNotExisting() {
         path = Paths.get(filename);
         if (!Files.exists(path)) {
             wrapExceptions(() -> Files.createFile(path));
         }
-        Optional.ofNullable(wrapExceptions(this::readCache)).ifPresent(entry ->
-                cache.put(entry.getPlace(), new Tuple<>(LocalDateTime.parse(entry.getTime()), entry.getTemperature())));
+        Optional.ofNullable(wrapExceptions(this::readCache)).ifPresent(this::put);
+    }
+
+    private void put(WeatherCacheEntry entry) {
+        put(entry.getPlace(), entry.getLocalDateTime(), entry.getTemperature());
+    }
+
+    private void put(String place, LocalDateTime time, String temperature) {
+        cache.put(place, new Tuple<>(time, temperature));
     }
 
     private WeatherCacheEntry readCache() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        if (Files.size(path) == 0) {
-            return null;
-        }
-
-        return objectMapper.readValue(path.toFile(), WeatherCacheEntry.class);
+        return Files.size(path) == 0
+                ? null
+                : objectMapper.readValue(path.toFile(), WeatherCacheEntry.class);
     }
 
     private boolean save(String currentLocation, LocalDateTime now, String temperature) throws IOException {
-        WeatherCacheEntry cacheEntries = new WeatherCacheEntry(currentLocation, now.toString(), temperature);
-        ObjectMapper mapper = new ObjectMapper();
         if (path == null) {
             createCacheIfNotExisting();
         }
 
-        Files.write(path, Collections.singletonList(mapper.writeValueAsString(cacheEntries)), StandardOpenOption.APPEND);
+        writeToFile(new WeatherCacheEntry(currentLocation, now.toString(), temperature));
         return true;
+    }
+
+    private void writeToFile(WeatherCacheEntry cacheEntries) throws IOException {
+        Files.write(path, Collections.singletonList(objectMapper.writeValueAsString(cacheEntries)), StandardOpenOption.APPEND);
     }
 
     @Override
     public Optional<String> get(String currentLocation) {
         if (cache.containsKey(currentLocation)) {
             Tuple<LocalDateTime, String> tuple = cache.get(currentLocation);
-            if (isNewlyUpdatedSoUseCache(tuple.getFirst())) {
+            if (isNewlyUpdated(tuple.getFirst())) {
                 return Optional.of(tuple.getSecond());
             }
         }
         return Optional.empty();
     }
 
-    private boolean isNewlyUpdatedSoUseCache(LocalDateTime cacheEntryUpdateTime) {
+    private boolean isNewlyUpdated(LocalDateTime cacheEntryUpdateTime) {
         return cacheEntryUpdateTime.isAfter(LocalDateTime.now().minus(Duration.ofHours(1)));
     }
 
     @Override
     public void updateCache(String currentLocation, String temperature) {
         wrapExceptions(() -> save(currentLocation, LocalDateTime.now(), temperature));
-        cache.put(currentLocation, new Tuple<>(LocalDateTime.now(), temperature));
+        put(currentLocation, LocalDateTime.now(), temperature);
     }
 
 }
