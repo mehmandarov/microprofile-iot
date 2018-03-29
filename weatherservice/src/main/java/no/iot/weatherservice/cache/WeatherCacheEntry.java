@@ -4,11 +4,12 @@ import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import no.iot.weatherservice.Temperature;
 
 @AllArgsConstructor
 @Getter
 class WeatherCacheEntry {
     private final String place;
     private final LocalDateTime time;
-    private final String temperature;
+    private final Temperature temperature;
 }

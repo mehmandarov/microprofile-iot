@@ -2,8 +2,10 @@ package no.iot.weatherservice.cache;
 
 import java.util.Optional;
 
-public interface WeatherCacheHandler {
-    Optional<String> get(String currentLocation);
+import no.iot.weatherservice.Temperature;
 
-    void updateCache(String currentLocation, String temperature);
+public interface WeatherCacheHandler {
+    Optional<Temperature> get(String currentLocation);
+
+    void updateCache(String currentLocation, Temperature temperature);
 }

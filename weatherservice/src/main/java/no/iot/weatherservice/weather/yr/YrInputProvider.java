@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import no.iot.weatherservice.Temperature;
 import no.iot.weatherservice.cache.WeatherCacheHandler;
 import no.iot.weatherservice.utils.general.HttpConnector;
 import no.iot.weatherservice.weather.WeatherInputProvider;
@@ -34,17 +35,21 @@ public class YrInputProvider implements WeatherInputProvider {
     private WeatherCacheHandler weatherCacheHandler;
 
     @Override
-    public String getTemperature() {
-        Optional<String> temperatureFromNewlyUpdatedCache = weatherCacheHandler.get(currentLocation);
+    public Temperature getTemperature() {
+        Optional<Temperature> temperatureFromNewlyUpdatedCache = weatherCacheHandler.get(currentLocation);
         if (temperatureFromNewlyUpdatedCache.isPresent()) {
             return temperatureFromNewlyUpdatedCache.get();
         }
 
-        String temperature = xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL())));
+        Temperature temperature = getTemperatureFromYr();
         weatherCacheHandler.updateCache(currentLocation, temperature);
         return temperature;
     }
 
+    private Temperature getTemperatureFromYr() {
+        String responseFromYr = wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
+        return new Temperature(xmlToTemperatureConverter.convert(responseFromYr));
+    }
 
     @Override
     public String toString() {

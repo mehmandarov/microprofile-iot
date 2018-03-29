@@ -20,6 +20,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import no.iot.weatherservice.Temperature;
+
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
 
@@ -48,7 +50,7 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
         cache.put(entry.getPlace(), entry);
     }
 
-    private void put(String place, LocalDateTime time, String temperature) {
+    private void put(String place, LocalDateTime time, Temperature temperature) {
         cache.put(place, new WeatherCacheEntry(place, time, temperature));
     }
 
@@ -58,7 +60,7 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
                 : objectMapper.readValue(path.toFile(), WeatherCacheEntry.class);
     }
 
-    private boolean save(String currentLocation, LocalDateTime now, String temperature) throws IOException {
+    private boolean save(String currentLocation, LocalDateTime now, Temperature temperature) throws IOException {
         if (path == null) {
             createCacheIfNotExisting();
         }
@@ -72,7 +74,7 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
     }
 
     @Override
-    public Optional<String> get(String currentLocation) {
+    public Optional<Temperature> get(String currentLocation) {
         if (cache.containsKey(currentLocation)) {
             WeatherCacheEntry cacheEntry = cache.get(currentLocation);
             if (isNewlyUpdated(cacheEntry.getTime())) {
@@ -87,7 +89,7 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
     }
 
     @Override
-    public void updateCache(String currentLocation, String temperature) {
+    public void updateCache(String currentLocation, Temperature temperature) {
         wrapExceptions(() -> save(currentLocation, LocalDateTime.now(), temperature));
         put(currentLocation, LocalDateTime.now(), temperature);
     }
