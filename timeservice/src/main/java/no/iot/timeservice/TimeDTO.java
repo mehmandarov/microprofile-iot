@@ -1,4 +1,4 @@
-package no.iot.timeservice.rest;
+package no.iot.timeservice;
 
 import java.time.ZonedDateTime;
 

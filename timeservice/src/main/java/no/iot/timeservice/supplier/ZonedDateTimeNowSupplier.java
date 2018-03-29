@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import no.iot.timeservice.rest.TimeDTO;
+import no.iot.timeservice.TimeDTO;
 
 @ApplicationScoped
 public class ZonedDateTimeNowSupplier implements Supplier<TimeDTO> {

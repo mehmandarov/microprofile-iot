@@ -1,4 +1,4 @@
-package no.iot.timeservice;
+package no.iot.timeservice.utils;
 
 import java.util.logging.Logger;
 
