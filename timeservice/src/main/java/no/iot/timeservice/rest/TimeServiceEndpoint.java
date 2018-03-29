@@ -21,16 +21,16 @@ public class TimeServiceEndpoint {
     @Inject
     private ZonedDateTimeNowSupplier dateTimeNowSupplier;
 
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+    @Inject
+    private Logger logger;
 
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Gets the current time",
-            description = "The format is a wrapped ZonedDateTime")
+    @Operation(summary = "Gets the current time", description = "The format is a wrapped ZonedDateTime")
     public Response doGet() {
         try {
-            logger.info(String.format("Invoking timeservice. Response."));
+            logger.info("Invoking timeservice.");
             return Response.ok(dateTimeNowSupplier.get()).build();
         } catch (NumberFormatException ex) {
             return Response.status(Response.Status.SERVICE_UNAVAILABLE)

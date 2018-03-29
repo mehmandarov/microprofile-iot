@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class LocalDateTimeNowSupplier implements Supplier<LocalDateTime> {
+class LocalDateTimeNowSupplier implements Supplier<LocalDateTime> {
 
     @Override
     public LocalDateTime get() {
