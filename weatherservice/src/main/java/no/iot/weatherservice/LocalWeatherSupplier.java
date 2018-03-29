@@ -15,16 +15,6 @@ public class LocalWeatherSupplier implements Supplier<WeatherDTO> {
 
     @Override
     public WeatherDTO get() {
-        WeatherDTO weatherDTO = createWeatherDTO();
-        validate(weatherDTO);
-        return weatherDTO;
-    }
-
-    private WeatherDTO createWeatherDTO() {
         return new WeatherDTO(weatherInputProvider.getTemperature());
-    }
-
-    private void validate(WeatherDTO weather) {
-        Double.parseDouble(weather.getTemperature());
     }
 }
