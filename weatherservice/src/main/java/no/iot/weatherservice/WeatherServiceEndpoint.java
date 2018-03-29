@@ -11,6 +11,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
+import no.iot.weatherservice.weather.LocalWeatherSupplier;
+
 @Path("/")
 public class WeatherServiceEndpoint {
 

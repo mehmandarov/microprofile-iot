@@ -1,4 +1,4 @@
-package no.iot.weatherservice;
+package no.iot.weatherservice.weather;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

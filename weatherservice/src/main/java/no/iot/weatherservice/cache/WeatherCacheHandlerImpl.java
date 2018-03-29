@@ -20,7 +20,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import no.iot.weatherservice.Temperature;
+import no.iot.weatherservice.weather.Temperature;
 
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 

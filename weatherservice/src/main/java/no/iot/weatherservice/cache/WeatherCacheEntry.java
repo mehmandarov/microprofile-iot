@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import no.iot.weatherservice.Temperature;
+import no.iot.weatherservice.weather.Temperature;
 
 @AllArgsConstructor
 @Getter

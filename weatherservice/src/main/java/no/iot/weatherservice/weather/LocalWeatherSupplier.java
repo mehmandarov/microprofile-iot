@@ -1,11 +1,9 @@
-package no.iot.weatherservice;
+package no.iot.weatherservice.weather;
 
 import java.util.function.Supplier;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-
-import no.iot.weatherservice.weather.WeatherInputProvider;
 
 @ApplicationScoped
 public class LocalWeatherSupplier implements Supplier<WeatherDTO> {
