@@ -20,8 +20,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import no.iot.weatherservice.utils.general.Tuple;
-
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
 
@@ -31,7 +29,7 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
     private final ObjectMapper objectMapper = new ObjectMapper(); // TODO inject
     private Path path;
 
-    private Map<String, Tuple<LocalDateTime, String>> cache = new HashMap<>();
+    private Map<String, WeatherCacheEntry> cache = new HashMap<>();
 
     @Inject
     @ConfigProperty(name = "cacheFilename", defaultValue = "yr_cache.json")
@@ -47,11 +45,11 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
     }
 
     private void put(WeatherCacheEntry entry) {
-        put(entry.getPlace(), entry.getLocalDateTime(), entry.getTemperature());
+        cache.put(entry.getPlace(), entry);
     }
 
     private void put(String place, LocalDateTime time, String temperature) {
-        cache.put(place, new Tuple<>(time, temperature));
+        cache.put(place, new WeatherCacheEntry(place, time, temperature));
     }
 
     private WeatherCacheEntry readCache() throws IOException {
@@ -65,7 +63,7 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
             createCacheIfNotExisting();
         }
 
-        writeToFile(new WeatherCacheEntry(currentLocation, now.toString(), temperature));
+        writeToFile(new WeatherCacheEntry(currentLocation, now, temperature));
         return true;
     }
 
@@ -76,9 +74,9 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
     @Override
     public Optional<String> get(String currentLocation) {
         if (cache.containsKey(currentLocation)) {
-            Tuple<LocalDateTime, String> tuple = cache.get(currentLocation);
-            if (isNewlyUpdated(tuple.getFirst())) {
-                return Optional.of(tuple.getSecond());
+            WeatherCacheEntry cacheEntry = cache.get(currentLocation);
+            if (isNewlyUpdated(cacheEntry.getTime())) {
+                return Optional.of(cacheEntry.getTemperature());
             }
         }
         return Optional.empty();
