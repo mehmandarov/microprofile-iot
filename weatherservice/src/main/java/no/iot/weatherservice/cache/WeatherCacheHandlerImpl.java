@@ -1,11 +1,5 @@
-package no.iot.weatherservice.weather.yr;
+package no.iot.weatherservice.cache;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import no.iot.weatherservice.weather.Tuple;
-import no.iot.weatherservice.weather.WeatherCacheEntry;
-
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,19 +12,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import no.iot.weatherservice.utils.general.Tuple;
+
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
 
 @ApplicationScoped
-public class YrCacheHandler {
+public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
 
     private Path path;
 
     private Map<String, Tuple<LocalDateTime, String>> cache = new HashMap<>();
 
+    @Inject
+    @ConfigProperty(name = "cacheFilename", defaultValue = "yr_cache.json")
+    private String filename;
+
     @PostConstruct
     public void createCacheIfNotExisting() {
-        path = Paths.get("yr_cache.json");
+        path = Paths.get(filename);
         if (!Files.exists(path)) {
             wrapExceptions(() -> Files.createFile(path));
         }
@@ -58,7 +66,8 @@ public class YrCacheHandler {
         return true;
     }
 
-    Optional<String> getFromNewlyUpdatedCache(String currentLocation) {
+    @Override
+    public Optional<String> get(String currentLocation) {
         if (cache.containsKey(currentLocation)) {
             Tuple<LocalDateTime, String> tuple = cache.get(currentLocation);
             if (isNewlyUpdatedSoUseCache(tuple.getFirst())) {
@@ -72,7 +81,8 @@ public class YrCacheHandler {
         return cacheEntryUpdateTime.isAfter(LocalDateTime.now().minus(Duration.ofHours(1)));
     }
 
-    void updateCache(String currentLocation, String temperature) {
+    @Override
+    public void updateCache(String currentLocation, String temperature) {
         wrapExceptions(() -> save(currentLocation, LocalDateTime.now(), temperature));
         cache.put(currentLocation, new Tuple<>(LocalDateTime.now(), temperature));
     }

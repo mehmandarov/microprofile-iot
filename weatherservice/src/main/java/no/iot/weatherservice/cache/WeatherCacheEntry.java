@@ -1,4 +1,4 @@
-package no.iot.weatherservice.weather;
+package no.iot.weatherservice.cache;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

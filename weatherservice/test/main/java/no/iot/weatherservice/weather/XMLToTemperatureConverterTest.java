@@ -19,6 +19,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.io.Files;
 
+import no.iot.weatherservice.weather.yr.XMLToTemperatureConverter;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
