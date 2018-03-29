@@ -2,8 +2,6 @@ package no.cx.iot.philipshueapi.hueController.rest.weatherConnector;
 
 import javax.inject.Inject;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import lombok.Getter;
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.InputSource;
@@ -15,19 +13,10 @@ import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.Exceptio
 public class WeatherRestConnector implements InputProvider<Weather> {
 
     @Inject
-    @ConfigProperty(name = "weatherHost", defaultValue = "localhost")
-    private String host;
-
-    @Inject
-    @ConfigProperty(name = "weatherPort", defaultValue = "8082")
-    private String port;
-
-    @Inject
-    @ConfigProperty(name = "weatherPath", defaultValue = "weatherservice")
-    private String path;
-
-    @Inject
     private HttpConnector connector;
+
+    @Inject
+    private WeatherURLProvider weatherURLProvider;
 
     @Inject
     private WeatherToLightStateConverter converter;
@@ -48,7 +37,7 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     }
 
     private Weather getWeather() {
-        return wrapExceptions(() -> connector.executeHTTPGet(getFullURL(), Weather.class));
+        return wrapExceptions(() -> connector.executeHTTPGet(weatherURLProvider.getFullURL(), Weather.class));
     }
 
 }

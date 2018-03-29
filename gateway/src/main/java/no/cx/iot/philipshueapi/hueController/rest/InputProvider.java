@@ -7,10 +7,6 @@ import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 public interface InputProvider<T> {
 
-    default String getFullURL() {
-        return "http://" + getHost() + ":" + getPort() +"/" + getPath();
-    }
-
     Converter<T> getConverter();
 
     T getDataForLight(int lightIndex);
@@ -31,12 +27,6 @@ public interface InputProvider<T> {
     }
 
     void testConnection() throws IOException;
-
-    String getHost();
-
-    String getPort();
-
-    String getPath();
 
     int getPriority();
 }
