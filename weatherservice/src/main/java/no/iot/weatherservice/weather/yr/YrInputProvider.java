@@ -9,7 +9,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import no.iot.weatherservice.cache.WeatherCacheHandler;
 import no.iot.weatherservice.utils.general.HttpConnector;
-import no.iot.weatherservice.utils.general.WeatherInputProvider;
+import no.iot.weatherservice.weather.WeatherInputProvider;
 
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 

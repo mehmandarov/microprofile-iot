@@ -1,4 +1,4 @@
-package no.iot.weatherservice.utils.general;
+package no.iot.weatherservice.weather;
 
 public interface WeatherInputProvider {
     String getTemperature();
