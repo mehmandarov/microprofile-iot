@@ -1,5 +1,12 @@
 package no.iot.weatherservice.utils.general;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -9,16 +16,11 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Retry;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Logger;
-
 @ApplicationScoped
 public class HttpConnector {
 
-    private Logger logger = Logger.getLogger(getClass().getSimpleName());
+    @Inject
+    private Logger logger;
 
     @Inject
     @ConfigProperty(name = "charset", defaultValue = "UTF-8")
