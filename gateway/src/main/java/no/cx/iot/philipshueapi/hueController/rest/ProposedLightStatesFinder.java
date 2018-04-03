@@ -37,6 +37,7 @@ public class ProposedLightStatesFinder {
     LightState getNewStateForLight(int lightIndex) {
         return inputProviders.stream()
                 .sorted((a, b) -> Integer.compare(b.getPriority(), a.getPriority()))
+                .filter(InputProvider::canConnect)
                 .map(inputProvider -> inputProvider.getNewStateForLight(lightIndex))
                 .filter(Objects::nonNull)
                 .limit(1)

@@ -27,8 +27,9 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     }
 
     @Override
-    public void testConnection() {
+    public boolean testConnection() {
         getWeather();
+        return true;
     }
 
     @Override

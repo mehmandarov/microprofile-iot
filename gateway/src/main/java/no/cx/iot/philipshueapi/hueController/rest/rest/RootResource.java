@@ -20,21 +20,30 @@ public class RootResource {
 
     @Inject
     @SuppressWarnings("unused")
-    private WeatherRestConnector yrInputProvider;
+    private WeatherRestConnector weatherInputProvider;
 
     @Inject
     private TimeRestConnector timeInputProvider;
 
     @SuppressWarnings("unused")
     @PostConstruct
-    public void registerInputProviders() {
-        lightStateSwitcher.registerInputProvider(yrInputProvider);
+    private void registerInputProviders() {
+        lightStateSwitcher.registerInputProvider(weatherInputProvider);
         lightStateSwitcher.registerInputProvider(timeInputProvider);
     }
 
     @GET
     @Produces("text/plain")
     public Response switchState() {
+        if (!lightStateSwitcher.canConnectToFacade()) {
+            return getErrorMessage();
+        }
         return Response.ok(lightStateSwitcher.switchStateOfLights()).build();
+    }
+
+    private Response getErrorMessage() {
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                .entity("Could not connect to facade")
+                .build();
     }
 }

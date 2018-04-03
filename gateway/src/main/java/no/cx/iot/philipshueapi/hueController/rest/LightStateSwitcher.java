@@ -37,27 +37,31 @@ public class LightStateSwitcher {
                 .collect(Collectors.joining("\n"));
     }
 
-    private int getAllLights() {
+    public boolean canConnectToFacade() {
+        return connector.canConnect();
+    }
+
+    private Integer getAllLights() {
         return wrapExceptions(connector::getNumberOfLights);
     }
 
     private String switchStateOfLight(int lightIndex) {
         try {
-            return Optional.ofNullable(getNewStateForLight(lightIndex))
-                    .map(l -> wrapExceptions(() -> connector.switchStateOfLight(l)))
+            return Optional.ofNullable(proposedLightStatesFinder.getNewStateForLight((lightIndex)))
+                    .map(lightState -> wrapExceptions(() -> connector.switchStateOfLight(lightState)))
                     .map(LightState::toString)
                     .orElse(null);
         }
         catch (Exception e) {
-            return Optional.ofNullable(e.getMessage())
-                    .filter(message -> message.contains("is not reachable"))
-                    .map(message -> "Light " + lightIndex + " is not reachable")
-                    .orElseThrow(() -> new RuntimeException(e));
+            return getErrorMessage(lightIndex, e);
         }
     }
 
-    private LightState getNewStateForLight(int lightIndex) {
-        return proposedLightStatesFinder.getNewStateForLight(lightIndex);
+    private String getErrorMessage(int lightIndex, Exception e) {
+        return Optional.ofNullable(e.getMessage())
+                .filter(message -> message.contains("is not reachable"))
+                .map(message -> "Light " + lightIndex + " is not reachable")
+                .orElseThrow(() -> new RuntimeException(e));
     }
 
 }

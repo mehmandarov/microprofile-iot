@@ -27,8 +27,9 @@ public class TimeRestConnector implements InputProvider<ZonedDateTime> {
     private HttpConnector connector;
 
     @Override
-    public void testConnection() throws IOException {
+    public boolean testConnection() throws IOException {
         getTime();
+        return true;
     }
 
     @Override

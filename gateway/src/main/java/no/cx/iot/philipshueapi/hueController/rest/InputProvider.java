@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
-public interface InputProvider<T> {
+public interface InputProvider<T> extends Connector {
 
     Converter<T> getConverter();
 
@@ -17,16 +17,17 @@ public interface InputProvider<T> {
                 .orElse(null);
     }
 
-    default void canConnect() {
+    default boolean canConnect() {
         try {
             testConnection();
+            return true;
         }
         catch (Exception e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 
-    void testConnection() throws IOException;
+    boolean testConnection() throws IOException;
 
     int getPriority();
 }
