@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import lombok.Getter;
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.InputSource;
-import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.HttpConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 

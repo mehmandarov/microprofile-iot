@@ -7,11 +7,16 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import no.cx.iot.philipshueapi.hueController.rest.Connector;
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.HttpConnector;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 @SuppressWarnings("unused")
 @ApplicationScoped
 public class PhilipsHueConnector implements Connector {
+
+    @Inject
+    @SuppressWarnings("unused")
+    private HueURL hueURL;
 
     @Inject
     private HttpConnector httpConnector;
@@ -26,7 +31,7 @@ public class PhilipsHueConnector implements Connector {
     }
 
     private <T> T getResponseText(String path, Class<T> clazz) throws IOException {
-        return httpConnector.executeHTTPGetOnHue(path, clazz);
+        return httpConnector.executeHTTPGet(hueURL.getFullURL() + path, clazz);
     }
 
     @Override

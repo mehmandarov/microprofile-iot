@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
+package no.cx.iot.philipshueapi.hueController.rest.infrastructure;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,14 +20,8 @@ import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import no.cx.iot.philipshueapi.hueController.rest.infrastructure.Tuple;
-
 @ApplicationScoped
 public class HttpConnector {
-
-    @Inject
-    @SuppressWarnings("unused")
-    private HueURL hueURL;
 
     @SuppressWarnings("unused")
     @Inject
@@ -37,10 +31,6 @@ public class HttpConnector {
     @Inject
     @ConfigProperty(name = "charset", defaultValue = "UTF-8")
     private String charset;
-
-    <T> T executeHTTPGetOnHue(String path, Class<T> clazz) throws IOException {
-        return executeHTTPGet(hueURL.getFullURL() + path, clazz);
-    }
 
     public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
         Tuple <Integer, String> responsetext = getCloseableHttpResponse(url);
