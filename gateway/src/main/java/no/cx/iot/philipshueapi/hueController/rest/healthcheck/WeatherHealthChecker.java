@@ -4,32 +4,20 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.health.Health;
-import org.eclipse.microprofile.health.HealthCheck;
-import org.eclipse.microprofile.health.HealthCheckResponse;
 
+import lombok.Getter;
 import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
 @Health
 @ApplicationScoped
-public class WeatherHealthChecker implements HealthCheck {
-
+public class WeatherHealthChecker implements InputProviderHealthCheck<WeatherRestConnector> {
 
     @Inject
-    private WeatherRestConnector weatherRestConnector;
+    @Getter
+    private WeatherRestConnector connector;
 
     @Override
-    public HealthCheckResponse call() {
-        try {
-            weatherRestConnector.canConnect();
-            return HealthCheckResponse.named("Weather")
-                    .up()
-                    .build();
-        }
-        catch (Exception e) {
-            return HealthCheckResponse.named("Weather")
-                    .withData("Weather", e.getMessage())
-                    .down()
-                    .build();
-        }
+    public String getName() {
+        return "Weather";
     }
 }

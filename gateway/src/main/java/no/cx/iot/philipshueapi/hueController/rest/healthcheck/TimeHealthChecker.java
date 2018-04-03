@@ -4,31 +4,20 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.health.Health;
-import org.eclipse.microprofile.health.HealthCheck;
-import org.eclipse.microprofile.health.HealthCheckResponse;
 
+import lombok.Getter;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
 
 @Health
 @ApplicationScoped
-public class TimeHealthChecker implements HealthCheck {
+public class TimeHealthChecker implements InputProviderHealthCheck<TimeRestConnector> {
 
     @Inject
-    private TimeRestConnector timeRestConnector;
+    @Getter
+    private TimeRestConnector connector;
 
     @Override
-    public HealthCheckResponse call() {
-        try {
-            timeRestConnector.canConnect();
-            return HealthCheckResponse.named("Time")
-                    .up()
-                    .build();
-        }
-        catch (Exception e) {
-            return HealthCheckResponse.named("Time")
-                    .withData("Time", e.getMessage())
-                    .down()
-                    .build();
-        }
+    public String getName() {
+        return "Time";
     }
 }
