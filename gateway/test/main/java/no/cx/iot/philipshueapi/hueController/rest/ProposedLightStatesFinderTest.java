@@ -13,7 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightStateComputer;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
 import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
@@ -39,9 +38,6 @@ public class ProposedLightStatesFinderTest {
 
     @Mock
     private LightState weatherLightState;
-
-    @Mock
-    private LightStateComputer lightStateComputer;
 
     @Mock
     private LightState timeLightState;
