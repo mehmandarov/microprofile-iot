@@ -17,15 +17,5 @@ public interface InputProvider<T> extends Connector {
                 .orElse(null);
     }
 
-    default boolean canConnect() {
-        try {
-            testConnection();
-            return true;
-        }
-        catch (Exception e) {
-            return false;
-        }
-    }
-
     int getPriority();
 }
