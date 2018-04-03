@@ -18,7 +18,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LightStateSwitcherTest {
+public class LightStateControllerTest {
 
     @Mock
     private PhilipsHueConnector connector;
@@ -30,7 +30,7 @@ public class LightStateSwitcherTest {
     private Logger logger;
 
     @InjectMocks
-    private LightStateSwitcher lightStateSwitcher;
+    private LightStateController lightStateController;
 
     @Mock
     private LightState lightState;
@@ -40,7 +40,7 @@ public class LightStateSwitcherTest {
         doReturn(2).when(connector).getNumberOfLights();
         doReturn(lightState).when(connector).switchStateOfLight(any());
 
-        lightStateSwitcher.switchStateOfLights();
+        lightStateController.switchStateOfLights();
 
         verify(connector, times(2)).switchStateOfLight(any());
     }

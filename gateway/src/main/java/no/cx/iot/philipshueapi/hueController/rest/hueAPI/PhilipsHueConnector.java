@@ -6,7 +6,7 @@ import java.util.Optional;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import no.cx.iot.philipshueapi.hueController.rest.Connector;
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.Connector;
 import no.cx.iot.philipshueapi.hueController.rest.infrastructure.HttpConnector;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 

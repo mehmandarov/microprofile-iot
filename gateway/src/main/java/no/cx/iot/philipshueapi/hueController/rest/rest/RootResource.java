@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import no.cx.iot.philipshueapi.hueController.rest.LightStateSwitcher;
+import no.cx.iot.philipshueapi.hueController.rest.LightStateController;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
 import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
@@ -16,7 +16,7 @@ public class RootResource {
 
     @Inject
     @SuppressWarnings("unused")
-    private LightStateSwitcher lightStateSwitcher;
+    private LightStateController lightStateController;
 
     @Inject
     @SuppressWarnings("unused")
@@ -28,17 +28,17 @@ public class RootResource {
     @SuppressWarnings("unused")
     @PostConstruct
     private void registerInputProviders() {
-        lightStateSwitcher.registerInputProvider(weatherInputProvider);
-        lightStateSwitcher.registerInputProvider(timeInputProvider);
+        lightStateController.registerInputProvider(weatherInputProvider);
+        lightStateController.registerInputProvider(timeInputProvider);
     }
 
     @GET
     @Produces("text/plain")
     public Response switchState() {
-        if (!lightStateSwitcher.canConnectToFacade()) {
+        if (!lightStateController.canConnectToFacade()) {
             return getErrorMessage();
         }
-        return Response.ok(lightStateSwitcher.switchStateOfLights()).build();
+        return Response.ok(lightStateController.switchStateOfLights()).build();
     }
 
     private Response getErrorMessage() {

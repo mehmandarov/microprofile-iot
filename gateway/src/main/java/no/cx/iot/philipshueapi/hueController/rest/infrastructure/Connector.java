@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest;
+package no.cx.iot.philipshueapi.hueController.rest.infrastructure;
 
 import java.io.IOException;
 

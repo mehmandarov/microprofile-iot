@@ -15,7 +15,7 @@ import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.Exceptio
 
 @ApplicationScoped
 @SuppressWarnings("unused")
-public class LightStateSwitcher {
+public class LightStateController {
 
     @Inject
     private PhilipsHueConnector connector;
