@@ -35,8 +35,7 @@ public class PhilipsHueConnector implements Connector {
     }
 
     @Override
-    public boolean testConnection() throws IOException {
+    public void testConnection() throws IOException {
         getNumberOfLights();
-        return true;
     }
 }

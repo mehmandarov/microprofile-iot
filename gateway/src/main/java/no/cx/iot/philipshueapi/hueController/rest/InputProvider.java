@@ -1,6 +1,5 @@
 package no.cx.iot.philipshueapi.hueController.rest;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import no.cx.iot.philipshueapi.hueController.rest.infrastructure.Connector;
@@ -27,8 +26,6 @@ public interface InputProvider<T> extends Connector {
             return false;
         }
     }
-
-    boolean testConnection() throws IOException;
 
     int getPriority();
 }

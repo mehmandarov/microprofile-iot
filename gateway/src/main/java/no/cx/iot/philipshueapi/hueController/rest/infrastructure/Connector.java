@@ -14,5 +14,5 @@ public interface Connector {
         }
     }
 
-    boolean testConnection() throws IOException;
+    void testConnection() throws IOException;
 }
