@@ -3,9 +3,9 @@ package no.cx.iot.philipshueapi.hueController.rest.healthcheck;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 
-import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.Connector;
 
-public interface InputProviderHealthCheck<T extends InputProvider> extends HealthCheck {
+public interface HealthChecker<T extends Connector> extends HealthCheck {
 
     @Override
     default HealthCheckResponse call() {

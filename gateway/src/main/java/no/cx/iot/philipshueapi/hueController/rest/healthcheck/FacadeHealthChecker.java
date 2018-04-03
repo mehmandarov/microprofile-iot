@@ -4,31 +4,21 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.health.Health;
-import org.eclipse.microprofile.health.HealthCheck;
-import org.eclipse.microprofile.health.HealthCheckResponse;
 
+import lombok.Getter;
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
 
 @ApplicationScoped
 @Health
-public class FacadeHealthChecker implements HealthCheck {
+public class FacadeHealthChecker implements HealthChecker<PhilipsHueConnector> {
 
     @Inject
-    private PhilipsHueConnector hueConnector;
+    @Getter
+    private PhilipsHueConnector connector;
 
     @Override
-    public HealthCheckResponse call() {
-        try {
-            hueConnector.getNumberOfLights();
-            return HealthCheckResponse.named("Lights-facade")
-                    .up()
-                    .build();
-        }
-        catch (Exception e) {
-            return HealthCheckResponse.named("Lights-facade")
-                    .withData("Lights", e.getMessage())
-                    .down()
-                    .build();
-        }
+    public String getName() {
+        return "Facade";
     }
+
 }

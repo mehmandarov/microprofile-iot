@@ -10,7 +10,7 @@ import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnecto
 
 @Health
 @ApplicationScoped
-public class TimeHealthChecker implements InputProviderHealthCheck<TimeRestConnector> {
+public class TimeHealthChecker implements HealthChecker<TimeRestConnector> {
 
     @Inject
     @Getter

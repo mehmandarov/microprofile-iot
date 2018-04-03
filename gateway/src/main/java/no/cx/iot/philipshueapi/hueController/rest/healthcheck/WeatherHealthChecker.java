@@ -10,7 +10,7 @@ import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestCo
 
 @Health
 @ApplicationScoped
-public class WeatherHealthChecker implements InputProviderHealthCheck<WeatherRestConnector> {
+public class WeatherHealthChecker implements HealthChecker<WeatherRestConnector> {
 
     @Inject
     @Getter
