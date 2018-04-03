@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -60,8 +59,7 @@ public class HttpConnector {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
         CloseableHttpResponse response = HttpClientBuilder.create().build().execute(request);
-        StatusLine sl = response.getStatusLine();
-        int statusCode = sl.getStatusCode();
+        int statusCode = response.getStatusLine().getStatusCode();
         InputStream content = response.getEntity().getContent();
         String responsetext = IOUtils.toString(content, charset);
         logger.info("Received " + responsetext + " from " + url + ". With HTTP code: " + statusCode);

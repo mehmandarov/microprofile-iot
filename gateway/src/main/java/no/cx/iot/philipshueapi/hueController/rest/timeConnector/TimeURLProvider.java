@@ -23,7 +23,7 @@ public class TimeURLProvider {
     @ConfigProperty(name = "timePath", defaultValue = "timeservice")
     private String path;
 
-    public String getFullURL() {
+    String getFullURL() {
         return "http://" + getHost() + ":" + getPort() +"/" + getPath();
     }
 }

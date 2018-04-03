@@ -23,7 +23,7 @@ public class WeatherURLProvider {
     @ConfigProperty(name = "weatherPath", defaultValue = "weatherservice")
     private String path;
 
-    public String getFullURL() {
+    String getFullURL() {
         return "http://" + getHost() + ":" + getPort() +"/" + getPath();
     }
 }
