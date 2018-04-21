@@ -1,13 +1,14 @@
 package no.cx.iot.philipshueapi.hueAPI;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  * HueProperties.java
@@ -25,7 +26,7 @@ public class HueProperties {
 
     private final String LAST_CONNECTED_IP   = "LastIPAddress";
     private final String USER_NAME           = "WhiteListUsername";
-    private final String PROPS_FILE_NAME     = "MyHue.properties";
+    private final String PROPS_FILE_NAME     = "/run/secrets/huecredentials";
     private Properties properties;
     
     private void storeLastIPAddress(String ipAddress) {
@@ -61,7 +62,7 @@ public class HueProperties {
         if (properties == null) {
             properties = new Properties();
 
-            if (!Files.exists(Paths.get(PROPS_FILE_NAME))) {
+            if (!propertyFileExists()) {
                 saveProperties();
                 return;
             }
@@ -70,10 +71,13 @@ public class HueProperties {
         }
     }
 
+    private boolean propertyFileExists() {
+        return Files.exists(Paths.get(PROPS_FILE_NAME));
+    }
+
     private void loadPropertiesFromFile() {
         try(FileInputStream in = new FileInputStream(PROPS_FILE_NAME)) {
             properties.load(in);
-            in.close();
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -81,9 +85,11 @@ public class HueProperties {
     }
 
     private void saveProperties() {
+        if (propertyFileExists()) {
+            return;
+        }
         try(FileOutputStream out = new FileOutputStream(PROPS_FILE_NAME)) {
             properties.store(out, null);
-            out.close();
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -91,8 +97,10 @@ public class HueProperties {
     }
 
     public void storeConnectionData(String username, String lastIpAddress) {
-        storeUsername(username);
-        storeLastIPAddress(lastIpAddress);
-        saveProperties();
+        if (!propertyFileExists()) {
+            storeUsername(username);
+            storeLastIPAddress(lastIpAddress);
+            saveProperties();
+        }
     }
 }

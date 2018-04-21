@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 services:
   facade:
     image: "iot:hue-facade"
@@ -9,6 +9,8 @@ services:
       args:
         JAR_FILE: philips-hue-api-swarm.jar
         PORT_NUMBER: 8080
+    secrets:
+      - huecredentials
   timeservice:
     image: "iot:time-service"
     ports:
@@ -27,3 +29,6 @@ services:
       args:
         JAR_FILE: weatherservice-swarm.jar
         PORT_NUMBER: 8080
+secrets:
+  huecredentials:
+    file: ./hueAPI/MyHue.properties
