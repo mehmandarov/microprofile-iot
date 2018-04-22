@@ -1,34 +1,32 @@
 package no.cx.iot.philipshueapi.hueAPI.logic;
 
-import org.junit.Before;
+import java.util.logging.Logger;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.philips.lighting.hue.sdk.PHNotificationManager;
 import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.hue.sdk.utilities.impl.Color;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
 import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
-import no.cx.iot.philipshueapi.hueAPI.HueProperties;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
+import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 
 import static com.philips.lighting.model.PHLight.PHLightColorMode;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,27 +36,19 @@ public class PhilipsHueControllerTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Mock
-    private SDKFacade sdkFacade;
+    private LightStateGetter lightStateGetter;
 
     @Mock
-    private PHNotificationManager phNotificationManager;
+    private Logger logger;
 
     @Mock
-    private HueProperties hueProperties;
+    private ColourSetter colourSetter;
 
     @Mock
-    private BridgeConnector bridgeConnector;
-
-    @Spy
-    private Listener listener;
+    private Bridge bridge;
 
     @InjectMocks
     private PhilipsHueController philipsHueController;
-
-    @Before
-    public void setUp() {
-        Mockito.doReturn(phNotificationManager).when(sdkFacade).getNotificationManager();
-    }
 
     @Test
     public void colorConversionTest() {
@@ -75,16 +65,18 @@ public class PhilipsHueControllerTest {
 
     @Test
     public void wontInvokeNonReachableLight() {
-        philipsHueController = spy(philipsHueController);
         PHLight nonReachableLight = mock(PHLight.class);
         PHLightState nonReachableLightsState = mock(PHLightState.class);
-        doReturn(nonReachableLightsState).when(nonReachableLight).getLastKnownLightState();
-        doReturn(nonReachableLight).when(philipsHueController).getGivenLight(any(), anyInt());
+        doReturn(nonReachableLight).when(lightStateGetter).getGivenLight(eq(bridge), anyInt());
+        doCallRealMethod().when(lightStateGetter).getLastKnownLightState(eq(bridge), anyInt(), eq(nonReachableLight));
 
-        expectedException.expect(HueAPIException.class);
-        philipsHueController.switchStateOfGivenLight(null, 0, 0, 0);
-
-        verify(nonReachableLightsState, never()).setBrightness(any());
+        try {
+            philipsHueController.switchStateOfGivenLight(bridge, 0, 0, 0);
+            fail();
+        }
+        catch (HueAPIException e) {
+            verify(nonReachableLightsState, never()).setBrightness(anyInt());
+        }
     }
 
 }
