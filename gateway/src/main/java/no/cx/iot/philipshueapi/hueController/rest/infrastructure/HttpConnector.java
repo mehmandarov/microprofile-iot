@@ -33,10 +33,9 @@ public class HttpConnector {
     private String charset;
 
     public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
-        Tuple <Integer, String> responsetext = getCloseableHttpResponse(url);
-        ObjectMapper objectMapper = new ObjectMapper();
+        Tuple<Integer, String> responsetext = getCloseableHttpResponse(url);
         if (responsetext.getFirst() == HttpServletResponse.SC_OK) {
-            return objectMapper.readValue(responsetext.getSecond(), clazz);
+            return new ObjectMapper().readValue(responsetext.getSecond(), clazz);
         } else {
             return null;
         }
@@ -48,15 +47,21 @@ public class HttpConnector {
     private Tuple<Integer, String> getCloseableHttpResponse(String url) throws IOException {
         logger.info("Invoking " + url);
         HttpUriRequest request = new HttpGet(url);
-        CloseableHttpResponse response = HttpClientBuilder.create().build().execute(request);
+        CloseableHttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+        Tuple<Integer, String> response = extractResponse(url, httpResponse);
+        httpResponse.close();
+        return response;
+    }
+
+    private Tuple<Integer, String> extractResponse(String url, CloseableHttpResponse response) throws IOException {
         int statusCode = response.getStatusLine().getStatusCode();
         InputStream content = response.getEntity().getContent();
         String responsetext = IOUtils.toString(content, charset);
         logger.info("Received " + responsetext + " from " + url + ". With HTTP code: " + statusCode);
-        response.close();
         return new Tuple<>(statusCode, responsetext);
     }
 
+    @SuppressWarnings("unused") // This method is used through reflection by the fallback annotation in the above method
     private Tuple<Integer, String> fallback(String url) {
         return new Tuple<>(418, "ERROR: Could not connect to: " + url);
     }

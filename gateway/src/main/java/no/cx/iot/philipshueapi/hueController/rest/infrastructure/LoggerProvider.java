@@ -10,8 +10,7 @@ public class LoggerProvider {
 
     @Produces
     public Logger produceLogger(InjectionPoint injectionPoint) {
-        Class<?> clazz = injectionPoint.getMember().getDeclaringClass();
-        return getLogger(clazz);
+        return getLogger(injectionPoint.getMember().getDeclaringClass());
     }
 
     public static Logger getLogger(Class<?> clazz) {

@@ -15,7 +15,7 @@ import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 @ApplicationScoped
-public class ProposedLightStatesFinder {
+class ProposedLightStatesFinder {
 
     @SuppressWarnings("unused")
     @Inject
@@ -23,11 +23,11 @@ public class ProposedLightStatesFinder {
 
     private Set<InputProvider> inputProviders;
 
-    public ProposedLightStatesFinder() {
+    ProposedLightStatesFinder() {
         inputProviders = new HashSet<>();
     }
 
-    public void addInputProvider(InputProvider inputProvider) {
+    void addInputProvider(InputProvider inputProvider) {
         inputProviders.add(inputProvider);
     }
 
