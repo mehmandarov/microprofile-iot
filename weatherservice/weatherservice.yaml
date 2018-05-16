@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+ annotations:
+  service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+ name: weather-service
+ labels:
+  app: weather-service
+spec:
+ type: NodePort
+ ports:
+ - port: 8080
+   name: weather-service
+   targetPort: 8080
+   nodePort: 32758
+ selector:
+  app: weather-service
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+ name: weather-service
+spec:
+ replicas: 1
+ template:
+  metadata:
+   labels:
+    app: weather-service
+  spec:
+   containers:
+   - name: weather-service
+     image: iot:weather-service
+     env:
+     - name: PORT_NUMBER
+       value: '8080'
+     - name: CONTEXT
+       value: ./hueAPI
+     - name: JAR_FILE
+       value: weatherservice-swarm.jar
+     ports:
+      - containerPort: 8080
