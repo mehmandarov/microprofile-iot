@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import no.cx.iot.philipshueapi.hueController.rest.LightStateController;
+import no.cx.iot.philipshueapi.hueController.rest.lightController.LightStateController;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
 import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
