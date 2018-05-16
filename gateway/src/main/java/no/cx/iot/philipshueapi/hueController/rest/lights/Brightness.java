@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import no.cx.iot.philipshueapi.hueController.rest.infrastructure.LoggerProvider;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "logger")
 @NoArgsConstructor
 public class Brightness {
 

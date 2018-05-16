@@ -40,4 +40,8 @@ public class BrightnessTest {
         assertThat(createBrightness(255).getBrightness(), is(254));
     }
 
+    @Test
+    public void equalsIgnoresLogger() {
+        assertThat(new Brightness(50), is(new Brightness(50)));
+    }
 }
