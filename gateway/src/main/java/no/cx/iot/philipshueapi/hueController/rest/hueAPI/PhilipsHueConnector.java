@@ -26,8 +26,19 @@ public class PhilipsHueConnector implements Connector {
     }
 
     public LightState switchStateOfLight(LightState newLightState) throws IOException {
-        String path = "light/" + newLightState.getLightIndex() + "/brightness/" + newLightState.getBrightnessInt() +"/color/" + Optional.ofNullable(newLightState.getHueInt()).orElse(0);
+        String path = composePath(newLightState);
         return getResponseText(path, LightState.class);
+    }
+
+    private String composePath(LightState newLightState) {
+        return String.format("light/%s/brightness/%s/color/%s",
+                newLightState.getLightIndex(),
+                newLightState.getBrightnessInt(),
+                getColor(newLightState));
+    }
+
+    private Integer getColor(LightState newLightState) {
+        return Optional.ofNullable(newLightState.getHueInt()).orElse(0);
     }
 
     private <T> T getResponseText(String path, Class<T> clazz) throws IOException {
