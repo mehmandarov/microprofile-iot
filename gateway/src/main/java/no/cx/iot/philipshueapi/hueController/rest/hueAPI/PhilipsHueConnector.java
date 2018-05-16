@@ -1,7 +1,6 @@
 package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -21,24 +20,15 @@ public class PhilipsHueConnector implements Connector {
     @Inject
     private HttpConnector httpConnector;
 
+    @Inject
+    private HuePathComposer huePathComposer;
+
     public int getNumberOfLights() throws IOException {
         return getResponseText("lights", Integer.class);
     }
 
     public LightState switchStateOfLight(LightState newLightState) throws IOException {
-        String path = composePath(newLightState);
-        return getResponseText(path, LightState.class);
-    }
-
-    private String composePath(LightState newLightState) {
-        return String.format("light/%s/brightness/%s/color/%s",
-                newLightState.getLightIndex(),
-                newLightState.getBrightnessInt(),
-                getColor(newLightState));
-    }
-
-    private Integer getColor(LightState newLightState) {
-        return Optional.ofNullable(newLightState.getHueInt()).orElse(0);
+        return getResponseText(huePathComposer.composePath(newLightState), LightState.class);
     }
 
     private <T> T getResponseText(String path, Class<T> clazz) throws IOException {

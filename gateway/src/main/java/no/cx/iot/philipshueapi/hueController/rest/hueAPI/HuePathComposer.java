@@ -1,0 +1,21 @@
+package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
+
+import java.util.Optional;
+
+import javax.enterprise.context.ApplicationScoped;
+
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
+
+@ApplicationScoped
+class HuePathComposer {
+    String composePath(LightState newLightState) {
+        return String.format("light/%s/brightness/%s/color/%s",
+                newLightState.getLightIndex(),
+                newLightState.getBrightnessInt(),
+                getColor(newLightState));
+    }
+
+    private Integer getColor(LightState newLightState) {
+        return Optional.ofNullable(newLightState.getHueInt()).orElse(0);
+    }
+}
