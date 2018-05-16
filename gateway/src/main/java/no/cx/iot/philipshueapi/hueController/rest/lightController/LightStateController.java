@@ -48,7 +48,8 @@ public class LightStateController {
 
     private String switchStateOfLight(int lightIndex) {
         try {
-            return Optional.ofNullable(proposedLightStatesFinder.getNewStateForLight((lightIndex)))
+            return Optional.of(lightIndex)
+                    .map(proposedLightStatesFinder::getNewStateForLight)
                     .map(lightState -> wrapExceptions(() -> connector.switchStateOfLight(lightState)))
                     .map(LightState::toString)
                     .orElse(null);

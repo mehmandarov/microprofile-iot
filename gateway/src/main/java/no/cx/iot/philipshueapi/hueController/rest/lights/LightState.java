@@ -18,7 +18,9 @@ public class LightState {
     private Integer hueInt;
 
     public Color getHue() {
-        return Optional.ofNullable(hueInt).map(Color::new).orElse(Color.RED);
+        return Optional.ofNullable(hueInt)
+                .map(Color::new)
+                .orElse(Color.RED);
     }
 
     public int getBrightnessInt() {
