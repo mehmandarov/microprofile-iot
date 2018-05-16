@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest;
+package no.cx.iot.philipshueapi.hueController.rest.lightController;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 

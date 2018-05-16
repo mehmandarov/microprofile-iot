@@ -1,7 +1,5 @@
-package no.cx.iot.philipshueapi.hueController.rest;
+package no.cx.iot.philipshueapi.hueController.rest.lightController;
 
-import java.awt.Color;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.junit.Test;
@@ -11,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import no.cx.iot.philipshueapi.hueController.rest.InputSource;
 import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
@@ -43,9 +42,11 @@ public class ProposedLightStatesFinderTest {
     private LightState timeLightState;
 
     @Test
-    public void usesTheInputProviderWithHighestPriorityAvailable() throws IOException {
+    public void usesTheInputProviderWithHighestPriorityAvailable() {
         lightStatesFinder.addInputProvider(timeRestConnector);
         lightStatesFinder.addInputProvider(weatherRestConnector);
+        doReturn(true).when(weatherRestConnector).canConnect();
+        doReturn(true).when(timeRestConnector).canConnect();
         doReturn(weatherLightState).when(weatherRestConnector).getNewStateForLight(0);
         doReturn(timeLightState).when(timeRestConnector).getNewStateForLight(0);
         doReturn(InputSource.WEATHER).when(weatherLightState).getInputSource();
@@ -55,10 +56,10 @@ public class ProposedLightStatesFinderTest {
     }
 
     @Test
-    public void usesTheInputProviderChosesSecondIfFirstPriorityNotAvailable() throws IOException {
+    public void usesTheInputProviderChosesSecondIfFirstPriorityNotAvailable() {
         lightStatesFinder.addInputProvider(timeRestConnector);
         lightStatesFinder.addInputProvider(weatherRestConnector);
-        doReturn(null).when(weatherRestConnector).getNewStateForLight(0);
+        doReturn(true).when(timeRestConnector).canConnect();
         doReturn(timeLightState).when(timeRestConnector).getNewStateForLight(0);
         doReturn(InputSource.WEATHER).when(weatherLightState).getInputSource();
         doReturn(InputSource.TIME).when(timeLightState).getInputSource();
@@ -68,18 +69,9 @@ public class ProposedLightStatesFinderTest {
 
 
     @Test
-    public void fallbacksToFullLightIfNoResponseFromAny() throws IOException {
+    public void fallbacksToFullLightIfNoResponseFromAny() {
         assertThat(lightStatesFinder.getNewStateForLight(0),
                 is(new LightState(0, InputSource.COMPUTED, Brightness.getMaxBrightness(), null)));
-    }
-
-    @Test
-    public void t() {
-        int a = 2;
-        int b = 3;
-        int rgb = Color.BLUE.getRGB();
-        System.out.println(rgb);
-
     }
 
 }

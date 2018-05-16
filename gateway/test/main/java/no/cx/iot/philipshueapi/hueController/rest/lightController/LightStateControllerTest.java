@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest;
+package no.cx.iot.philipshueapi.hueController.rest.lightController;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -13,6 +13,7 @@ import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -38,6 +39,7 @@ public class LightStateControllerTest {
     @Test
     public void forwardsToController() throws IOException {
         doReturn(2).when(connector).getNumberOfLights();
+        doReturn(lightState).when(lightStatesFinder).getNewStateForLight(anyInt());
         doReturn(lightState).when(connector).switchStateOfLight(any());
 
         lightStateController.switchStateOfLights();
