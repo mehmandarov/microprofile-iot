@@ -3,9 +3,9 @@ package no.iot.weatherservice.utils.general;
 import java.util.concurrent.Callable;
 
 public class ExceptionWrapper {
-    public static <T> T wrapExceptions(Callable<T> throwingSupplier) {
+    public static <T> T wrapExceptions(Callable<T> callable) {
         try {
-            return throwingSupplier.call();
+            return callable.call();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
