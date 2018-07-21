@@ -31,7 +31,7 @@ A detailed documentation and the description of the project can be found on a se
 
     ```
     $ cd gateway
-    $ mvn wildfly-swarm:run
+    $ mvn thorntail:run
     ```
 
 ## Authors

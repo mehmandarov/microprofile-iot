@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <version.wildfly.swarm>2018.3.3</version.wildfly.swarm>
+        <version.thorntail>2.0.0.Final</version.thorntail>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -44,9 +44,9 @@
                 <version>1.16.20</version>
             </dependency>
             <dependency>
-                <groupId>org.wildfly.swarm</groupId>
+                <groupId>io.thorntail</groupId>
                 <artifactId>bom-all</artifactId>
-                <version>${version.wildfly.swarm}</version>
+                <version>${version.thorntail}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -59,6 +59,19 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>4.5.5</version>
+            </dependency>
+            <dependency>
+                <groupId>io.thorntail</groupId>
+                <artifactId>jaxrs</artifactId>
+                <version>${version.thorntail}</version>
+            </dependency>
+
+            <!-- HACK: yup, due to https://issues.jboss.org/browse/THORN-1890 we can't use mp-openapi here -->
+            <dependency>
+                <groupId>org.eclipse.microprofile.openapi</groupId>
+                <artifactId>microprofile-openapi-api</artifactId>
+                <version>1.0.1</version>
+                <scope>compile</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

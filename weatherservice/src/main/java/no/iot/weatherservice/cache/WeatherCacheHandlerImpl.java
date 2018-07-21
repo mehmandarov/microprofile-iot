@@ -38,7 +38,7 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
     private String filename;
 
     @PostConstruct
-    private void createCacheIfNotExisting() {
+    public void createCacheIfNotExisting() {
         path = Paths.get(filename);
         if (!Files.exists(path)) {
             wrapExceptions(() -> Files.createFile(path));
