@@ -1,16 +1,15 @@
 package no.iot.timeservice.supplier;
 
-import no.iot.timeservice.rest.TimeDTO;
-
-import javax.enterprise.context.ApplicationScoped;
 import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
+import javax.enterprise.context.ApplicationScoped;
+
 @ApplicationScoped
-public class LocalDateTimeNowSupplier implements Supplier<TimeDTO> {
+class LocalDateTimeNowSupplier implements Supplier<LocalDateTime> {
 
     @Override
-    public TimeDTO get() {
-        return new TimeDTO(LocalDateTime.now());
+    public LocalDateTime get() {
+        return LocalDateTime.now();
     }
 }

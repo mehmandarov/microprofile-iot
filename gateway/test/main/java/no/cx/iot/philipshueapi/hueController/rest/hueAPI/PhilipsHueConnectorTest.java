@@ -6,12 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.HttpConnector;
+import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
+
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -21,14 +22,26 @@ public class PhilipsHueConnectorTest {
     @Mock
     private HttpConnector httpConnector;
 
+    @Mock
+    private HueURL hueURL;
+
+    @Spy
+    private HuePathComposer huePathComposer;
+
     @InjectMocks
-    private PhilipsHueConnector connector;
+    private PhilipsHueConnector philipsHueConnector;
 
     @Test
-    public void get() throws IOException {
-        doReturn(4).when(httpConnector).executeHTTPGetOnHue(any(), any());
-        assertThat(connector.getNumberOfLights(), is(4));
-        verify(httpConnector).executeHTTPGetOnHue(any(), eq(Integer.class));
+    public void hueURLIsComposedProperly() throws IOException {
+        doReturn("localhozt/").when(hueURL).getFullURL();
+        LightState newLightState = new LightState();
+        newLightState.setLightIndex(1);
+        newLightState.setBrightness(new Brightness(2));
+        newLightState.setHueInt(3);
+
+        LightState s = philipsHueConnector.switchStateOfLight(newLightState);
+
+        verify(httpConnector).executeHTTPGet("localhozt/light/1/brightness/2/color/3", LightState.class);
     }
 
 }

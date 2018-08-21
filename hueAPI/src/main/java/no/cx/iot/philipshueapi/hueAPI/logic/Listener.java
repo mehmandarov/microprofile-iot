@@ -12,15 +12,11 @@ import com.philips.lighting.hue.sdk.PHSDKListener;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHHueParsingError;
 
+import no.cx.iot.philipshueapi.hueAPI.BridgeSelector;
 import no.cx.iot.philipshueapi.hueAPI.HueProperties;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @ApplicationScoped
 public class Listener implements PHSDKListener {
-
-    @SuppressWarnings("unused")
-    @Inject
-    private SDKFacade sdk;
 
     @SuppressWarnings("unused")
     @Inject
@@ -37,6 +33,9 @@ public class Listener implements PHSDKListener {
     public void onCacheUpdated(List<Integer> list, PHBridge phBridge) {
     }
 
+    @Inject
+    private BridgeSelector bridgeSelector;
+
     @Override
     public void onBridgeConnected(PHBridge bridge, String username) {
         bridgeConnector.onBridgeConnected(bridge, username);
@@ -45,7 +44,7 @@ public class Listener implements PHSDKListener {
     @Override
     public void onAuthenticationRequired(PHAccessPoint accessPoint) {
         logger.warning("Authentication required on " + accessPoint);
-        sdk.startPushlinkAuthentication(accessPoint);
+        bridgeSelector.startPushlinkAuthentication(accessPoint);
     }
 
     @Override

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<weatherdata>
+  <location>
+    <name>Chişinău</name>
+    <type>Hovudstad</type>
+    <country>Moldova</country>
+    <timezone id="Europe/Chisinau" utcoffsetMinutes="180" />
+    <location altitude="55" latitude="47.00556" longitude="28.8575" geobase="geonames" geobaseid="618426" />
+  </location>
+  <credit>
+    <!--zærvarsel fra Yr, levert av NRK og Meteorologisk institande teksten godt synleg på nettsida di. Teksten skal vere ei lenke til URL-en som er spesifisert.-->
+    <!--Les meir om vilkår for bruk av gratis vêrdata + retningsliner på 
+http://om.yr.no/verdata/ -->
+    <link text="Vêrvarsel frå Yr, levert av NRK og Meteorologisk institutt" url="http://www.yr.no/stad/Moldova/Chisinau/Chişinău/" />
+  </credit>
+  <links>
+    <link id="xmlSource" url="http://www.yr.no/stad/Moldova/Chisinau/Chişinău/varsel.xml" />
+    <link id="xmlSourceHourByHour" url="http://www.yr.no/stad/Moldova/Chisinau/Chişinău/varsel_time_for_time.xml" />
+    <link id="overview" url="http://www.yr.no/stad/Moldova/Chisinau/Chişinău/" />
+    <link id="hourByHour" url="http://www.yr.no/stad/Moldova/Chisinau/Chişinău/time_for_time.html" />
+    <link id="longTermForecast" url="http://www.yr.no/stad/Moldova/Chisinau/Chişinău/langtidsvarsel.html" />
+  </links>
+  <meta>
+    <lastupdate>2018-03-26T22:43:00</lastupdate>
+    <nextupdate>2018-03-27T11:00:00</nextupdate>
+  </meta>
+  <sun rise="2018-03-27T06:54:13" set="2018-03-27T19:26:36" />
+  <forecast>
+    <tabular>
+      <time from="2018-03-27T01:00:00" to="2018-03-27T06:00:00" period="0">
+        <!-- Valid from 2018-03-27T01:00:00 to 2018-03-27T06:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-27T01:00:00 -->
+        <windDirection deg="335.4" code="NNW" name="Nord-nordvest" />
+        <windSpeed mps="2.0" name="Svak vind" />
+        <temperature unit="celsius" value="2" />
+        <pressure unit="hPa" value="1010.3" />
+      </time>
+      <time from="2018-03-27T06:00:00" to="2018-03-27T12:00:00" period="1">
+        <!-- Valid from 2018-03-27T06:00:00 to 2018-03-27T12:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-27T06:00:00 -->
+        <windDirection deg="323.8" code="NW" name="Nordvest" />
+        <windSpeed mps="2.3" name="Svak vind" />
+        <temperature unit="celsius" value="2" />
+        <pressure unit="hPa" value="1009.2" />
+      </time>
+      <time from="2018-03-27T12:00:00" to="2018-03-27T18:00:00" period="2">
+        <!-- Valid from 2018-03-27T12:00:00 to 2018-03-27T18:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-27T12:00:00 -->
+        <windDirection deg="330.7" code="NNW" name="Nord-nordvest" />
+        <windSpeed mps="2.2" name="Svak vind" />
+        <temperature unit="celsius" value="6" />
+        <pressure unit="hPa" value="1009.8" />
+      </time>
+      <time from="2018-03-27T18:00:00" to="2018-03-28T00:00:00" period="3">
+        <!-- Valid from 2018-03-27T18:00:00 to 2018-03-28T00:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-27T18:00:00 -->
+        <windDirection deg="6.5" code="N" name="Nord" />
+        <windSpeed mps="1.8" name="Svak vind" />
+        <temperature unit="celsius" value="8" />
+        <pressure unit="hPa" value="1009.4" />
+      </time>
+      <time from="2018-03-28T00:00:00" to="2018-03-28T06:00:00" period="0">
+        <!-- Valid from 2018-03-28T00:00:00 to 2018-03-28T06:00:00 -->
+        <symbol number="9" numberEx="46" name="Lett regn" var="46" />
+        <precipitation value="0.7" />
+        <!-- Valid at 2018-03-28T00:00:00 -->
+        <windDirection deg="278.1" code="W" name="Vest" />
+        <windSpeed mps="1.8" name="Svak vind" />
+        <temperature unit="celsius" value="2" />
+        <pressure unit="hPa" value="1010.9" />
+      </time>
+      <time from="2018-03-28T06:00:00" to="2018-03-28T12:00:00" period="1">
+        <!-- Valid from 2018-03-28T06:00:00 to 2018-03-28T12:00:00 -->
+        <symbol number="9" numberEx="9" name="Regn" var="09" />
+        <precipitation value="1.5" />
+        <!-- Valid at 2018-03-28T06:00:00 -->
+        <windDirection deg="118.5" code="ESE" name="Aust-søraust" />
+        <windSpeed mps="0.7" name="Flau vind" />
+        <temperature unit="celsius" value="2" />
+        <pressure unit="hPa" value="1011.2" />
+      </time>
+      <time from="2018-03-28T12:00:00" to="2018-03-28T18:00:00" period="2">
+        <!-- Valid from 2018-03-28T12:00:00 to 2018-03-28T18:00:00 -->
+        <symbol number="9" numberEx="46" name="Lett regn" var="46" />
+        <precipitation value="0.8" />
+        <!-- Valid at 2018-03-28T12:00:00 -->
+        <windDirection deg="45.4" code="NE" name="Nordaust" />
+        <windSpeed mps="0.6" name="Flau vind" />
+        <temperature unit="celsius" value="5" />
+        <pressure unit="hPa" value="1012.2" />
+      </time>
+      <time from="2018-03-28T18:00:00" to="2018-03-29T00:00:00" period="3">
+        <!-- Valid from 2018-03-28T18:00:00 to 2018-03-29T00:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-28T18:00:00 -->
+        <windDirection deg="354.4" code="N" name="Nord" />
+        <windSpeed mps="1.8" name="Svak vind" />
+        <temperature unit="celsius" value="5" />
+        <pressure unit="hPa" value="1011.0" />
+      </time>
+      <time from="2018-03-29T00:00:00" to="2018-03-29T06:00:00" period="0">
+        <!-- Valid from 2018-03-29T00:00:00 to 2018-03-29T06:00:00 -->
+        <symbol number="2" numberEx="2" name="Lettskya" var="02n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-29T00:00:00 -->
+        <windDirection deg="291.7" code="WNW" name="Vest-nordvest" />
+        <windSpeed mps="1.5" name="Flau vind" />
+        <temperature unit="celsius" value="-2" />
+        <pressure unit="hPa" value="1012.2" />
+      </time>
+      <time from="2018-03-29T06:00:00" to="2018-03-29T12:00:00" period="1">
+        <!-- Valid from 2018-03-29T06:00:00 to 2018-03-29T12:00:00 -->
+        <symbol number="15" numberEx="15" name="Skodde" var="15" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-29T06:00:00 -->
+        <windDirection deg="345.3" code="NNW" name="Nord-nordvest" />
+        <windSpeed mps="1.1" name="Flau vind" />
+        <temperature unit="celsius" value="-3" />
+        <pressure unit="hPa" value="1011.8" />
+      </time>
+      <time from="2018-03-29T12:00:00" to="2018-03-29T18:00:00" period="2">
+        <!-- Valid from 2018-03-29T12:00:00 to 2018-03-29T18:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-29T12:00:00 -->
+        <windDirection deg="105.9" code="ESE" name="Aust-søraust" />
+        <windSpeed mps="1.5" name="Flau vind" />
+        <temperature unit="celsius" value="7" />
+        <pressure unit="hPa" value="1013.2" />
+      </time>
+      <time from="2018-03-29T15:00:00" to="2018-03-29T21:00:00" period="3">
+        <!-- Valid from 2018-03-29T15:00:00 to 2018-03-29T21:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-29T15:00:00 -->
+        <windDirection deg="169.5" code="S" name="Sør" />
+        <windSpeed mps="2.9" name="Svak vind" />
+        <temperature unit="celsius" value="11" />
+        <pressure unit="hPa" value="1011.9" />
+      </time>
+      <time from="2018-03-29T21:00:00" to="2018-03-30T03:00:00" period="0">
+        <!-- Valid from 2018-03-29T21:00:00 to 2018-03-30T03:00:00 -->
+        <symbol number="9" numberEx="46" name="Lett regn" var="46" />
+        <precipitation value="0.6" />
+        <!-- Valid at 2018-03-29T21:00:00 -->
+        <windDirection deg="181.4" code="S" name="Sør" />
+        <windSpeed mps="2.6" name="Svak vind" />
+        <temperature unit="celsius" value="6" />
+        <pressure unit="hPa" value="1012.4" />
+      </time>
+      <time from="2018-03-30T03:00:00" to="2018-03-30T09:00:00" period="1">
+        <!-- Valid from 2018-03-30T03:00:00 to 2018-03-30T09:00:00 -->
+        <symbol number="5" numberEx="40" name="Lette regnbyer" var="40d" />
+        <precipitation value="0.5" />
+        <!-- Valid at 2018-03-30T03:00:00 -->
+        <windDirection deg="169.6" code="S" name="Sør" />
+        <windSpeed mps="2.8" name="Svak vind" />
+        <temperature unit="celsius" value="4" />
+        <pressure unit="hPa" value="1013.5" />
+      </time>
+      <time from="2018-03-30T09:00:00" to="2018-03-30T15:00:00" period="2">
+        <!-- Valid from 2018-03-30T09:00:00 to 2018-03-30T15:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-30T09:00:00 -->
+        <windDirection deg="185.0" code="S" name="Sør" />
+        <windSpeed mps="1.7" name="Svak vind" />
+        <temperature unit="celsius" value="6" />
+        <pressure unit="hPa" value="1014.8" />
+      </time>
+      <time from="2018-03-30T15:00:00" to="2018-03-30T21:00:00" period="3">
+        <!-- Valid from 2018-03-30T15:00:00 to 2018-03-30T21:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-30T15:00:00 -->
+        <windDirection deg="241.9" code="WSW" name="Vest-sørvest" />
+        <windSpeed mps="2.5" name="Svak vind" />
+        <temperature unit="celsius" value="15" />
+        <pressure unit="hPa" value="1013.6" />
+      </time>
+      <time from="2018-03-30T21:00:00" to="2018-03-31T03:00:00" period="0">
+        <!-- Valid from 2018-03-30T21:00:00 to 2018-03-31T03:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-30T21:00:00 -->
+        <windDirection deg="180.9" code="S" name="Sør" />
+        <windSpeed mps="1.9" name="Svak vind" />
+        <temperature unit="celsius" value="10" />
+        <pressure unit="hPa" value="1014.6" />
+      </time>
+      <time from="2018-03-31T03:00:00" to="2018-03-31T09:00:00" period="1">
+        <!-- Valid from 2018-03-31T03:00:00 to 2018-03-31T09:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-31T03:00:00 -->
+        <windDirection deg="194.4" code="SSW" name="Sør-sørvest" />
+        <windSpeed mps="1.8" name="Svak vind" />
+        <temperature unit="celsius" value="5" />
+        <pressure unit="hPa" value="1015.6" />
+      </time>
+      <time from="2018-03-31T09:00:00" to="2018-03-31T15:00:00" period="2">
+        <!-- Valid from 2018-03-31T09:00:00 to 2018-03-31T15:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-31T09:00:00 -->
+        <windDirection deg="146.1" code="SE" name="Søraust" />
+        <windSpeed mps="2.2" name="Svak vind" />
+        <temperature unit="celsius" value="9" />
+        <pressure unit="hPa" value="1015.3" />
+      </time>
+      <time from="2018-03-31T15:00:00" to="2018-03-31T21:00:00" period="3">
+        <!-- Valid from 2018-03-31T15:00:00 to 2018-03-31T21:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-31T15:00:00 -->
+        <windDirection deg="172.6" code="S" name="Sør" />
+        <windSpeed mps="5.3" name="Lett bris" />
+        <temperature unit="celsius" value="19" />
+        <pressure unit="hPa" value="1011.2" />
+      </time>
+      <time from="2018-03-31T21:00:00" to="2018-04-01T03:00:00" period="0">
+        <!-- Valid from 2018-03-31T21:00:00 to 2018-04-01T03:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-03-31T21:00:00 -->
+        <windDirection deg="153.2" code="SSE" name="Sør-søraust" />
+        <windSpeed mps="4.4" name="Lett bris" />
+        <temperature unit="celsius" value="12" />
+        <pressure unit="hPa" value="1007.9" />
+      </time>
+      <time from="2018-04-01T03:00:00" to="2018-04-01T09:00:00" period="1">
+        <!-- Valid from 2018-04-01T03:00:00 to 2018-04-01T09:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-01T03:00:00 -->
+        <windDirection deg="165.8" code="SSE" name="Sør-søraust" />
+        <windSpeed mps="4.1" name="Lett bris" />
+        <temperature unit="celsius" value="9" />
+        <pressure unit="hPa" value="1004.5" />
+      </time>
+      <time from="2018-04-01T09:00:00" to="2018-04-01T15:00:00" period="2">
+        <!-- Valid from 2018-04-01T09:00:00 to 2018-04-01T15:00:00 -->
+        <symbol number="9" numberEx="46" name="Lett regn" var="46" />
+        <precipitation value="0.6" />
+        <!-- Valid at 2018-04-01T09:00:00 -->
+        <windDirection deg="147.9" code="SSE" name="Sør-søraust" />
+        <windSpeed mps="3.3" name="Svak vind" />
+        <temperature unit="celsius" value="11" />
+        <pressure unit="hPa" value="1000.6" />
+      </time>
+      <time from="2018-04-01T15:00:00" to="2018-04-01T21:00:00" period="3">
+        <!-- Valid from 2018-04-01T15:00:00 to 2018-04-01T21:00:00 -->
+        <symbol number="10" numberEx="10" name="Kraftig regn" var="10" />
+        <precipitation value="8.7" />
+        <!-- Valid at 2018-04-01T15:00:00 -->
+        <windDirection deg="205.0" code="SSW" name="Sør-sørvest" />
+        <windSpeed mps="6.7" name="Laber bris" />
+        <temperature unit="celsius" value="17" />
+        <pressure unit="hPa" value="995.7" />
+      </time>
+      <time from="2018-04-01T21:00:00" to="2018-04-02T03:00:00" period="0">
+        <!-- Valid from 2018-04-01T21:00:00 to 2018-04-02T03:00:00 -->
+        <symbol number="9" numberEx="9" name="Regn" var="09" />
+        <precipitation value="1.1" />
+        <!-- Valid at 2018-04-01T21:00:00 -->
+        <windDirection deg="293.6" code="WNW" name="Vest-nordvest" />
+        <windSpeed mps="7.0" name="Laber bris" />
+        <temperature unit="celsius" value="6" />
+        <pressure unit="hPa" value="1003.4" />
+      </time>
+      <time from="2018-04-02T03:00:00" to="2018-04-02T09:00:00" period="1">
+        <!-- Valid from 2018-04-02T03:00:00 to 2018-04-02T09:00:00 -->
+        <symbol number="1" numberEx="1" name="Klårvêr" var="01d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-02T03:00:00 -->
+        <windDirection deg="255.8" code="WSW" name="Vest-sørvest" />
+        <windSpeed mps="4.8" name="Lett bris" />
+        <temperature unit="celsius" value="6" />
+        <pressure unit="hPa" value="1007.5" />
+      </time>
+      <time from="2018-04-02T09:00:00" to="2018-04-02T15:00:00" period="2">
+        <!-- Valid from 2018-04-02T09:00:00 to 2018-04-02T15:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-02T09:00:00 -->
+        <windDirection deg="233.2" code="SW" name="Sørvest" />
+        <windSpeed mps="4.4" name="Lett bris" />
+        <temperature unit="celsius" value="9" />
+        <pressure unit="hPa" value="1011.0" />
+      </time>
+      <time from="2018-04-02T15:00:00" to="2018-04-02T21:00:00" period="3">
+        <!-- Valid from 2018-04-02T15:00:00 to 2018-04-02T21:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-02T15:00:00 -->
+        <windDirection deg="282.3" code="WNW" name="Vest-nordvest" />
+        <windSpeed mps="3.4" name="Lett bris" />
+        <temperature unit="celsius" value="13" />
+        <pressure unit="hPa" value="1011.6" />
+      </time>
+      <time from="2018-04-02T21:00:00" to="2018-04-03T03:00:00" period="0">
+        <!-- Valid from 2018-04-02T21:00:00 to 2018-04-03T03:00:00 -->
+        <symbol number="2" numberEx="2" name="Lettskya" var="02n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-02T21:00:00 -->
+        <windDirection deg="139.6" code="SE" name="Søraust" />
+        <windSpeed mps="2.1" name="Svak vind" />
+        <temperature unit="celsius" value="8" />
+        <pressure unit="hPa" value="1012.4" />
+      </time>
+      <time from="2018-04-03T03:00:00" to="2018-04-03T09:00:00" period="1">
+        <!-- Valid from 2018-04-03T03:00:00 to 2018-04-03T09:00:00 -->
+        <symbol number="1" numberEx="1" name="Klårvêr" var="01d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-03T03:00:00 -->
+        <windDirection deg="189.3" code="S" name="Sør" />
+        <windSpeed mps="1.7" name="Svak vind" />
+        <temperature unit="celsius" value="6" />
+        <pressure unit="hPa" value="1012.5" />
+      </time>
+      <time from="2018-04-03T09:00:00" to="2018-04-03T15:00:00" period="2">
+        <!-- Valid from 2018-04-03T09:00:00 to 2018-04-03T15:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-03T09:00:00 -->
+        <windDirection deg="218.0" code="SW" name="Sørvest" />
+        <windSpeed mps="1.4" name="Flau vind" />
+        <temperature unit="celsius" value="12" />
+        <pressure unit="hPa" value="1013.0" />
+      </time>
+      <time from="2018-04-03T15:00:00" to="2018-04-03T21:00:00" period="3">
+        <!-- Valid from 2018-04-03T15:00:00 to 2018-04-03T21:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-03T15:00:00 -->
+        <windDirection deg="207.3" code="SSW" name="Sør-sørvest" />
+        <windSpeed mps="3.6" name="Lett bris" />
+        <temperature unit="celsius" value="21" />
+        <pressure unit="hPa" value="1011.6" />
+      </time>
+      <time from="2018-04-03T21:00:00" to="2018-04-04T03:00:00" period="0">
+        <!-- Valid from 2018-04-03T21:00:00 to 2018-04-04T03:00:00 -->
+        <symbol number="3" numberEx="3" name="Delvis skya" var="03n" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-03T21:00:00 -->
+        <windDirection deg="161.4" code="SSE" name="Sør-søraust" />
+        <windSpeed mps="2.8" name="Svak vind" />
+        <temperature unit="celsius" value="13" />
+        <pressure unit="hPa" value="1011.3" />
+      </time>
+      <time from="2018-04-04T03:00:00" to="2018-04-04T09:00:00" period="1">
+        <!-- Valid from 2018-04-04T03:00:00 to 2018-04-04T09:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-04T03:00:00 -->
+        <windDirection deg="148.6" code="SSE" name="Sør-søraust" />
+        <windSpeed mps="2.8" name="Svak vind" />
+        <temperature unit="celsius" value="9" />
+        <pressure unit="hPa" value="1011.3" />
+      </time>
+      <time from="2018-04-04T09:00:00" to="2018-04-04T15:00:00" period="2">
+        <!-- Valid from 2018-04-04T09:00:00 to 2018-04-04T15:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-04T09:00:00 -->
+        <windDirection deg="137.7" code="SE" name="Søraust" />
+        <windSpeed mps="2.7" name="Svak vind" />
+        <temperature unit="celsius" value="10" />
+        <pressure unit="hPa" value="1011.2" />
+      </time>
+      <time from="2018-04-04T15:00:00" to="2018-04-04T21:00:00" period="3">
+        <!-- Valid from 2018-04-04T15:00:00 to 2018-04-04T21:00:00 -->
+        <symbol number="4" numberEx="4" name="Skya" var="04" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-04T15:00:00 -->
+        <windDirection deg="151.7" code="SSE" name="Sør-søraust" />
+        <windSpeed mps="1.7" name="Svak vind" />
+        <temperature unit="celsius" value="17" />
+        <pressure unit="hPa" value="1010.9" />
+      </time>
+      <time from="2018-04-04T21:00:00" to="2018-04-05T03:00:00" period="0">
+        <!-- Valid from 2018-04-04T21:00:00 to 2018-04-05T03:00:00 -->
+        <symbol number="5" numberEx="5" name="Regnbyer" var="05n" />
+        <precipitation value="1.7" />
+        <!-- Valid at 2018-04-04T21:00:00 -->
+        <windDirection deg="294.2" code="WNW" name="Vest-nordvest" />
+        <windSpeed mps="2.4" name="Svak vind" />
+        <temperature unit="celsius" value="12" />
+        <pressure unit="hPa" value="1012.3" />
+      </time>
+      <time from="2018-04-05T03:00:00" to="2018-04-05T09:00:00" period="1">
+        <!-- Valid from 2018-04-05T03:00:00 to 2018-04-05T09:00:00 -->
+        <symbol number="1" numberEx="1" name="Klårvêr" var="01d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-05T03:00:00 -->
+        <windDirection deg="306.4" code="NW" name="Nordvest" />
+        <windSpeed mps="3.5" name="Lett bris" />
+        <temperature unit="celsius" value="10" />
+        <pressure unit="hPa" value="1013.1" />
+      </time>
+      <time from="2018-04-05T09:00:00" to="2018-04-05T15:00:00" period="2">
+        <!-- Valid from 2018-04-05T09:00:00 to 2018-04-05T15:00:00 -->
+        <symbol number="2" numberEx="2" name="Lettskya" var="02d" />
+        <precipitation value="0" />
+        <!-- Valid at 2018-04-05T09:00:00 -->
+        <windDirection deg="303.6" code="WNW" name="Vest-nordvest" />
+        <windSpeed mps="3.9" name="Lett bris" />
+        <temperature unit="celsius" value="12" />
+        <pressure unit="hPa" value="1014.1" />
+      </time>
+    </tabular>
+  </forecast>
+</weatherdata>

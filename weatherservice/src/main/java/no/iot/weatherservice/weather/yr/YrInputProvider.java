@@ -1,52 +1,51 @@
 package no.iot.weatherservice.weather.yr;
 
-import no.iot.weatherservice.utils.general.HttpConnector;
-import no.iot.weatherservice.utils.general.WeatherInputProvider;
-import no.iot.weatherservice.weather.XMLToTemperatureConverter;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.util.Optional;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import no.iot.weatherservice.weather.Temperature;
+import no.iot.weatherservice.cache.WeatherCacheHandler;
+import no.iot.weatherservice.utils.general.HttpConnector;
+import no.iot.weatherservice.weather.WeatherInputProvider;
 
 import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
-/*
- * Yes, this class is a bit vulnerable, and yes, the caching mechanism only supports one location.
- * But atm it's good enough
- */
 @SuppressWarnings("unused")
 public class YrInputProvider implements WeatherInputProvider {
 
     @Inject
-    private Config config;
-    @Inject
     @ConfigProperty(name = "location", defaultValue = "Oslo")
     private String currentLocation;
     @Inject
-    @ConfigProperty(name = "yr_URL", defaultValue = "")
-    private String yrURL;
+    private YrURLProvider yrURLProvider;
     @Inject
     private HttpConnector connector;
     @Inject
     private XMLToTemperatureConverter xmlToTemperatureConverter;
     @Inject
-    private YrCacheHandler yrCacheHandler;
+    private WeatherCacheHandler weatherCacheHandler;
 
     @Override
-    public String getTemperature() {
-        Optional<String> temperatureFromNewlyUpdatedCache = yrCacheHandler.getFromNewlyUpdatedCache(currentLocation);
+    public Temperature getTemperature() {
+        Optional<Temperature> temperatureFromNewlyUpdatedCache = weatherCacheHandler.get(currentLocation);
         if (temperatureFromNewlyUpdatedCache.isPresent()) {
             return temperatureFromNewlyUpdatedCache.get();
         }
 
-        String temperature = xmlToTemperatureConverter.convert(wrapExceptions(() -> connector.executeHTTPGet(yrURL)));
-        yrCacheHandler.updateCache(currentLocation, temperature);
+        Temperature temperature = getTemperatureFromYr();
+        weatherCacheHandler.updateCache(currentLocation, temperature);
         return temperature;
     }
 
+    private Temperature getTemperatureFromYr() {
+        String responseFromYr = wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
+        return new Temperature(xmlToTemperatureConverter.convert(responseFromYr));
+    }
 
     @Override
     public String toString() {

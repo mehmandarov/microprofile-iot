@@ -1,37 +1,26 @@
 package no.cx.iot.philipshueapi.hueController.rest.timeConnector;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import lombok.Getter;
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.InputSource;
-import no.cx.iot.philipshueapi.hueController.rest.hueAPI.HttpConnector;
+import no.cx.iot.philipshueapi.hueController.rest.infrastructure.HttpConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
-@Getter
-public class TimeRestConnector implements InputProvider<LocalDateTime> {
+public class TimeRestConnector implements InputProvider<ZonedDateTime> {
 
     @Inject
-    @ConfigProperty(name = "timeHost", defaultValue = "localhost")
-    private String host;
+    private TimeURLProvider timeURLProvider;
 
     @Inject
-    @ConfigProperty(name = "timePort", defaultValue = "8081")
-    private String port;
-
-    @Inject
-    @ConfigProperty(name = "timePath", defaultValue = "timeservice")
-    private String path;
-
-    @Inject
+    @Getter
     private TimeToLightStateConverter converter;
 
     @Inject
@@ -47,12 +36,12 @@ public class TimeRestConnector implements InputProvider<LocalDateTime> {
         return InputSource.TIME.getPriority();
     }
 
-    private LocalDateTime getTime() throws IOException {
-        return connector.executeHTTPGet(getFullURL(), TimeDTO.class).getLocalDateTime();
+    private ZonedDateTime getTime() throws IOException {
+        return connector.executeHTTPGet(timeURLProvider.getFullURL(), TimeDTO.class).getDateTime();
     }
 
     @Override
-    public LocalDateTime getDataForLight(int lightIndex) {
+    public ZonedDateTime getDataForLight(int lightIndex) {
         return wrapExceptions(this::getTime);
     }
 }

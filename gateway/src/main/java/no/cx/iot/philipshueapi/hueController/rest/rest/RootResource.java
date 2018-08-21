@@ -7,7 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import no.cx.iot.philipshueapi.hueController.rest.LightStateSwitcher;
+import no.cx.iot.philipshueapi.hueController.rest.lightController.LightStateController;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
 import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
@@ -16,25 +16,34 @@ public class RootResource {
 
     @Inject
     @SuppressWarnings("unused")
-    private LightStateSwitcher lightStateSwitcher;
+    private LightStateController lightStateController;
 
     @Inject
     @SuppressWarnings("unused")
-    private WeatherRestConnector yrInputProvider;
+    private WeatherRestConnector weatherInputProvider;
 
     @Inject
     private TimeRestConnector timeInputProvider;
 
     @SuppressWarnings("unused")
     @PostConstruct
-    public void registerInputProviders() {
-        lightStateSwitcher.registerInputProvider(yrInputProvider);
-        lightStateSwitcher.registerInputProvider(timeInputProvider);
+    private void registerInputProviders() {
+        lightStateController.registerInputProvider(weatherInputProvider);
+        lightStateController.registerInputProvider(timeInputProvider);
     }
 
     @GET
     @Produces("text/plain")
     public Response switchState() {
-        return Response.ok(lightStateSwitcher.switchStateOfLights()).build();
+        if (!lightStateController.canConnectToFacade()) {
+            return getErrorMessage();
+        }
+        return Response.ok(lightStateController.switchStateOfLights()).build();
+    }
+
+    private Response getErrorMessage() {
+        return Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                .entity("Could not connect to facade")
+                .build();
     }
 }

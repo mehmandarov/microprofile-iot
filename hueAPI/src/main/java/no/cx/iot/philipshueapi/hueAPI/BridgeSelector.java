@@ -7,13 +7,15 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import com.philips.lighting.hue.sdk.PHAccessPoint;
+
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
 import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @ApplicationScoped
-class BridgeSelector {
+public class BridgeSelector {
 
     @Inject
     @ConfigProperty(name = "useRealBridge", defaultValue = "false")
@@ -46,5 +48,11 @@ class BridgeSelector {
 
     Bridge getBridge() {
         return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
+    }
+
+    public void startPushlinkAuthentication(PHAccessPoint accessPoint) {
+        if (useRealBridge) {
+            sdk.startPushlinkAuthentication(accessPoint);
+        }
     }
 }

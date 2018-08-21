@@ -9,7 +9,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class HueURL {
 
     @Inject
-    @ConfigProperty(name="facadehost")
+    @ConfigProperty(name="facadehost", defaultValue = "localhost")
     private String host;
 
     @Inject
