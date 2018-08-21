@@ -1,13 +1,16 @@
 package no.cx.iot.philipshueapi.hueAPI;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 @ApplicationScoped
 public class HueProperties {
@@ -20,6 +23,9 @@ public class HueProperties {
     private void storeLastIPAddress(String ipAddress) {
         properties.setProperty(LAST_CONNECTED_IP, ipAddress);
     }
+
+    @Inject
+    private Logger logger;
 
     @PostConstruct
     public void setUp() {
@@ -57,6 +63,9 @@ public class HueProperties {
     private void loadPropertiesFromFile() {
         try(FileInputStream in = new FileInputStream(SECRETS_FILE_NAME)) {
             properties.load(in);
+        }
+        catch (FileNotFoundException fe) {
+            logger.warning("File doesn't exist. Not necessarily a problem. Doing nothing");
         }
         catch (IOException e) {
             throw new RuntimeException(e);
