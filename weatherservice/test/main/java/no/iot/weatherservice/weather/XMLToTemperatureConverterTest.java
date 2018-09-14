@@ -7,7 +7,6 @@ import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,7 +38,7 @@ public class XMLToTemperatureConverterTest {
 
     @Test
     public void parsesTemperatureFromExampleYrFileCorrectly() throws IOException {
-        String entireXML = readFile("exampleOfYrResponse.txt").stream().collect(Collectors.joining("\n"));
+        String entireXML = String.join("\n", readFile("exampleOfYrResponse.txt"));
 
         String temperature = converter.convert(entireXML);
 
@@ -48,7 +47,7 @@ public class XMLToTemperatureConverterTest {
 
     @Test
     public void parsesTemperatureFromChisinauResultsCorrectly() throws IOException {
-        String entireXML = readFile("chisinau.xml").stream().collect(Collectors.joining("\n"));
+        String entireXML = String.join("\n", readFile("chisinau.xml"));
 
         String temperature = converter.convert(entireXML);
 

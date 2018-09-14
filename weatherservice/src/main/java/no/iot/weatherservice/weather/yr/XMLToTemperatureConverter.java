@@ -5,26 +5,26 @@ import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import org.eaxy.Document;
+import org.eaxy.Xml;
+
 @RequestScoped
 public class XMLToTemperatureConverter {
 
     @Inject
     private Logger logger;
 
-    // Yes, this is obscure. But it works. At least atm. Should be improved.
-    public String convert(String xml) {
+    public String convert(String xmlAsString) {
         try {
+            Document xml = Xml.xml(xmlAsString);
             String country = getCountry(xml);
-
             if ("Norway".equals(country)) {
-                String[] observations = xml.split("<observations>", 2);
-                if (isProperObservation(observations)) {
-                    return getTemperature(observations[1]);
-                }
-            } else if (xml.contains("temperature")) {
-                String temperature = getTemperature(xml);
-                if (!temperature.contains("ERROR")) {
-                    return temperature;
+                return xml.find("observations", "weatherstation", "temperature").first().val();
+            }
+            else {
+                String val = xml.find("forecast", "tabular", "time", "temperature").first().val();
+                if (!val.contains("ERROR")) {
+                    return val;
                 }
             }
         }
@@ -34,30 +34,7 @@ public class XMLToTemperatureConverter {
         return "ERROR";
     }
 
-    private boolean isProperObservation(String[] observations) {
-        return observations.length > 1 && !observations[0].startsWith("ERROR");
-    }
-
-    private String getCountry(String xml) {
-        String[] splitOnCountry = xml
-                .split("country>", 3);
-        if (splitOnCountry.length == 0) {
-            return "ERROR";
-        }
-        return splitOnCountry[1]
-                .replace("</", "");
-    }
-
-    private String getTemperature(String xml) {
-        String observation = xml.split(getPatternBeforeTemperature(), 2)[1];
-        String onlyTemperature = observation.split("time", 2)[0];
-
-        return onlyTemperature.split("/>", 2)[0]
-                .replaceAll("\"", "")
-                .trim();
-    }
-
-    private String getPatternBeforeTemperature() {
-        return "<temperature unit=\"celsius\" value=";
+    private String getCountry(Document xml) {
+        return String.valueOf(xml.find("location", "country").first().children().iterator().next().text());
     }
 }

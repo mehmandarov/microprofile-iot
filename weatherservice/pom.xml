@@ -63,5 +63,10 @@
             <groupId>org.eclipse.microprofile.openapi</groupId>
             <artifactId>microprofile-openapi-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.eaxy</groupId>
+            <artifactId>eaxy</artifactId>
+            <version>0.2.1</version>
+        </dependency>
     </dependencies>
 </project>
