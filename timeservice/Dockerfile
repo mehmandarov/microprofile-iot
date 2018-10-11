@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM anapsix/alpine-java:8
 
 ARG JAR_FILE
 ARG PORT_NUMBER
