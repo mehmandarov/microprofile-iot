@@ -35,9 +35,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
+            <groupId>io.thorntail</groupId>
             <artifactId>microprofile</artifactId>
-            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -50,6 +49,10 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-api</artifactId>
         </dependency>
     </dependencies>
 </project>

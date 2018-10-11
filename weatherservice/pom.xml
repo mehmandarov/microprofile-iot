@@ -35,9 +35,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
+            <groupId>io.thorntail</groupId>
             <artifactId>microprofile</artifactId>
-            <type>pom</type>
         </dependency>
 
         <dependency>
@@ -59,6 +58,10 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eaxy</groupId>
