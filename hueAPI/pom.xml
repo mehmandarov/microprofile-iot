@@ -47,15 +47,10 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.thorntail</groupId>
+      <groupId>org.eclipse.microprofile</groupId>
       <artifactId>microprofile</artifactId>
+      <type>pom</type>
     </dependency>
-    <dependency>
-      <groupId>io.thorntail</groupId>
-      <artifactId>jaxrs</artifactId>
-    </dependency>
-
-
     <!-- Hue SDK -->
     <dependency>
       <groupId>no.cx.iot.philipshue</groupId>
