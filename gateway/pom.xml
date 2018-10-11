@@ -38,6 +38,11 @@
             <groupId>io.thorntail</groupId>
             <artifactId>microprofile</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <type>pom</type>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -63,15 +68,6 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <version>1.3</version>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>jaxrs</artifactId>
         </dependency>
 
 
