@@ -16,7 +16,7 @@ public class TimeURLProvider {
     private String host;
 
     @Inject
-    @ConfigProperty(name = "timePort", defaultValue = "8081")
+    @ConfigProperty(name = "timePort", defaultValue = "9081")
     private String port;
 
     @Inject
