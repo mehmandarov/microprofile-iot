@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -34,7 +33,7 @@ public class HttpConnector {
 
     public <T> T executeHTTPGet(String url, Class<T> clazz) throws IOException {
         Tuple<Integer, String> responsetext = getCloseableHttpResponse(url);
-        if (responsetext.getFirst() == HttpServletResponse.SC_OK) {
+        if (responsetext.getFirst() == 200) {
             return new ObjectMapper().readValue(responsetext.getSecond(), clazz);
         } else {
             return null;
