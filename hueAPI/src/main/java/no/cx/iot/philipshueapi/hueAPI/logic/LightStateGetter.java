@@ -6,7 +6,6 @@ import java.util.Optional;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.Brightness;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
@@ -31,7 +30,7 @@ class LightStateGetter {
     PHLightState getLastKnownLightState(Bridge bridge, int lightIndex, PHLight light) {
         PHLightState lastKnownLightState = bridge.getLastKnownLightState(light);
         if (lastKnownLightState == null || !lastKnownLightState.isReachable()) {
-            throw new HueAPIException("Light " + lightIndex + " is not reachable.");
+            throw new RuntimeException("Light " + lightIndex + " is not reachable.");
         }
         return lastKnownLightState;
     }

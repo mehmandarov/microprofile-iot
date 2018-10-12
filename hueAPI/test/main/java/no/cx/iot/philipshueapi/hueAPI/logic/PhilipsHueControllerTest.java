@@ -15,7 +15,6 @@ import com.philips.lighting.hue.sdk.utilities.impl.Color;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.philipshueapi.hueAPI.HueAPIException;
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 
 import static com.philips.lighting.model.PHLight.PHLightColorMode;
@@ -74,7 +73,7 @@ public class PhilipsHueControllerTest {
             philipsHueController.switchStateOfGivenLight(bridge, 0, 0, 0);
             fail();
         }
-        catch (HueAPIException e) {
+        catch (RuntimeException e) {
             verify(nonReachableLightsState, never()).setBrightness(anyInt());
         }
     }

@@ -41,7 +41,7 @@ public class BridgeSelector {
                 e.printStackTrace();
             }
             if (counter++ > 50) {
-                throw new HueAPIException("Waited too long for bridgeselection");
+                throw new RuntimeException("Waited too long for bridgeselection");
             }
         }
     }
