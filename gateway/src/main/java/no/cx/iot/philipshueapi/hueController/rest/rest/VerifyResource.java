@@ -10,7 +10,7 @@ public class VerifyResource {
 
     @GET
     @Produces("text/plain")
-    public Response doGet() {
-        return Response.ok("Hello from WildFly Swarm!").build();
+    public String doGet() {
+        return "Hello from WildFly Swarm!";
     }
 }

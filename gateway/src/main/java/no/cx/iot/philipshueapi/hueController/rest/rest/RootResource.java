@@ -5,7 +5,6 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 import no.cx.iot.philipshueapi.hueController.rest.lightController.LightStateController;
 import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
@@ -34,16 +33,10 @@ public class RootResource {
 
     @GET
     @Produces("text/plain")
-    public Response switchState() {
+    public String switchState() {
         if (!lightStateController.canConnectToFacade()) {
-            return getErrorMessage();
+            return "Could not connect to facade";
         }
-        return Response.ok(lightStateController.switchStateOfLights()).build();
-    }
-
-    private Response getErrorMessage() {
-        return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-                .entity("Could not connect to facade")
-                .build();
+        return lightStateController.switchStateOfLights();
     }
 }
