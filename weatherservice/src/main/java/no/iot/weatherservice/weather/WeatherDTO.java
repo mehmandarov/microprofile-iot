@@ -6,11 +6,7 @@ import lombok.Data;
 public class WeatherDTO {
     private final String temperature;
 
-    WeatherDTO(Temperature temperature) {
+    public WeatherDTO(Temperature temperature) {
         this.temperature = temperature.getTemperature();
-    }
-
-    WeatherDTO(String temperature) {
-        this.temperature = temperature;
     }
 }
