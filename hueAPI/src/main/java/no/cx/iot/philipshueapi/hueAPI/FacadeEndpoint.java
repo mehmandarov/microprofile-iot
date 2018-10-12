@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
+import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
 import no.cx.iot.philipshueapi.hueAPI.logic.PhilipsHueController;
 
 
@@ -33,19 +34,19 @@ public class FacadeEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes("text/plain")
 	@Path("/light/{light}/brightness/{brightness}/color/{color}")
-	public Response switchStateOfLight(@PathParam("light") int lightIndex,
-									   @PathParam("brightness") int brightness,
-									   @PathParam("color") int color) {
+	public LightState switchStateOfLight(@PathParam("light") int lightIndex,
+										 @PathParam("brightness") int brightness,
+										 @PathParam("color") int color) {
 		setupForSDKCall();
-        return wrapInResponse(() -> philipsHueController.switchStateOfGivenLight(getBridge(), lightIndex, brightness, color));
+        return philipsHueController.switchStateOfGivenLight(getBridge(), lightIndex, brightness, color);
     }
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/lights")
-	public Response getNumberOfLights() {
+	public Integer getNumberOfLights() {
 		setupForSDKCall();
-		return wrapInResponse(() -> philipsHueController.getNumberOfLights(getBridge()));
+		return philipsHueController.getNumberOfLights(getBridge());
 	}
 
 	private void setupForSDKCall() {
@@ -56,17 +57,4 @@ public class FacadeEndpoint {
 	private Bridge getBridge() {
 		return bridgeSelector.getBridge();
 	}
-
-	private <T> Response wrapInResponse(Supplier<T> responseTextSupplier) {
-        try {
-			T typedResponse = responseTextSupplier.get();
-			return Response.ok(typedResponse).build();
-        }
-        catch (HueAPIException e) {
-            logger.severe(e.getMessage());
-			return Response.status(Response.Status.SERVICE_UNAVAILABLE)
-					.entity(e.getMessage())
-					.build();
-        }
-    }
 }
