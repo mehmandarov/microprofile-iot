@@ -8,6 +8,8 @@ import java.util.stream.IntStream;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.metrics.annotation.Timed;
+
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
@@ -46,6 +48,7 @@ public class LightStateController {
         return wrapExceptions(connector::getNumberOfLights);
     }
 
+    @Timed(name = "switchState", absolute = true, description = "Time needed to switch state")
     private String switchStateOfLight(int lightIndex) {
         try {
             return Optional.of(lightIndex)
