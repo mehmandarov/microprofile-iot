@@ -8,7 +8,6 @@ import java.time.ZoneId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -19,23 +18,16 @@ import static org.mockito.Mockito.doReturn;
 @RunWith(MockitoJUnitRunner.class)
 public class ZonedDateTimeNowSupplierTest {
 
-    @Mock
-    private LocalDateTimeNowSupplier localDateTimeNowSupplier;
-
-    @Mock
-    private ZoneIdSupplier zoneIdSupplier;
-
     @InjectMocks
     @Spy
     private ZonedDateTimeNowSupplier zonedDateTimeNowSupplier;
 
     @Test
     public void includesTimeZoneInResult() {
-        doReturn(ZoneId.of("Europe/Moscow")).when(zoneIdSupplier).get();
+        doReturn(ZoneId.of("Europe/Moscow")).when(zonedDateTimeNowSupplier).getTimezone();
         LocalDateTime now = LocalDateTime.of(LocalDate.of(2010, 1, 1), LocalTime.of(12, 30, 0));
-        doReturn(now).when(localDateTimeNowSupplier).get();
 
-        String timeRepresentation = zonedDateTimeNowSupplier.get().getTimeRepresentation();
+        String timeRepresentation = zonedDateTimeNowSupplier.get(now).getTimeRepresentation();
 
         assertThat(timeRepresentation, is("2010-01-01T12:30+03:00[Europe/Moscow]"));
     }

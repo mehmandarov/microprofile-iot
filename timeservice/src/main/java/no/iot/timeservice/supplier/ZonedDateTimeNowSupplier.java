@@ -8,22 +8,29 @@ import java.util.function.Supplier;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import no.iot.timeservice.TimeDTO;
 
 @ApplicationScoped
 public class ZonedDateTimeNowSupplier implements Supplier<TimeDTO> {
 
     @Inject
-    private LocalDateTimeNowSupplier localDateTimeNowSupplier;
-
-    @Inject
-    private ZoneIdSupplier zoneIdSupplier;
+    @ConfigProperty(name = "user.timezone")
+    private String user_timezone;
 
     @Override
     public TimeDTO get() {
-        LocalDateTime now = localDateTimeNowSupplier.get();
-        ZoneId zoneId = zoneIdSupplier.get();
+        return get(LocalDateTime.now());
+    }
+
+    TimeDTO get(LocalDateTime now) {
+        ZoneId zoneId = getTimezone();
         ZonedDateTime zonedDateTime = ZonedDateTime.of(now, zoneId);
         return new TimeDTO(zonedDateTime);
+    }
+
+    ZoneId getTimezone() {
+        return ZoneId.of(user_timezone);
     }
 }
