@@ -30,6 +30,8 @@ public class XMLToTemperatureConverter {
         }
         catch (RuntimeException e) {
             logger.warning(e.getMessage());
+            e.printStackTrace();
+            throw e;
         }
         return "ERROR";
     }

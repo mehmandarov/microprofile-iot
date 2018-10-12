@@ -9,4 +9,8 @@ public class WeatherDTO {
     WeatherDTO(Temperature temperature) {
         this.temperature = temperature.getTemperature();
     }
+
+    WeatherDTO(String temperature) {
+        this.temperature = temperature;
+    }
 }

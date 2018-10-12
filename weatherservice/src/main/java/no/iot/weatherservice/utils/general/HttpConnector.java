@@ -13,7 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Retry;
 
 @ApplicationScoped
@@ -27,7 +27,7 @@ public class HttpConnector {
     private String encoding;
 
     @Retry
-    @Fallback(fallbackMethod = "fallback")
+    @CircuitBreaker
     public String executeHTTPGet(String url) throws IOException {
         logger.info(String.format("Invoking %s", url));
         HttpUriRequest request = new HttpGet(url);
@@ -36,10 +36,5 @@ public class HttpConnector {
         String responseText = IOUtils.toString(content, encoding);
         httpResponse.close();
         return responseText;
-    }
-
-
-    private String fallback(String url) {
-        return "ERROR: Could not connect to: " + url;
     }
 }
