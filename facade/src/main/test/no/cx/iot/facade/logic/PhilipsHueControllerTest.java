@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.facade.logic;
 
 import java.util.logging.Logger;
 
@@ -15,9 +15,8 @@ import com.philips.lighting.hue.sdk.utilities.impl.Color;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
+import no.cx.iot.facade.bridge.Bridge;
 
-import static com.philips.lighting.model.PHLight.PHLightColorMode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyInt;
@@ -27,6 +26,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class PhilipsHueControllerTest {
@@ -56,8 +56,8 @@ public class PhilipsHueControllerTest {
         int rgb = Color.rgb(magentaJava.getRed(), magentaJava.getGreen(), magentaJava.getBlue());
         assertEquals(magentaHue, rgb);
 
-        float[] calculateXY = PHUtilities.calculateXYFromRGB(200, 0, 200, PHLightColorMode.COLORMODE_XY.getValue());
-        int colorFromXY = PHUtilities.colorFromXY(calculateXY, PHLightColorMode.COLORMODE_XY.getValue());
+        float[] calculateXY = PHUtilities.calculateXYFromRGB(200, 0, 200, PHLight.PHLightColorMode.COLORMODE_XY.getValue());
+        int colorFromXY = PHUtilities.colorFromXY(calculateXY, PHLight.PHLightColorMode.COLORMODE_XY.getValue());
         java.awt.Color color = new java.awt.Color(colorFromXY);
         assertEquals(color, new java.awt.Color(254, 0, 254));
     }

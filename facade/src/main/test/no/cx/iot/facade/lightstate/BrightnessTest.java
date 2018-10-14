@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.lightstate;
+package no.cx.iot.facade.lightstate;
 
 import java.util.logging.Logger;
 
