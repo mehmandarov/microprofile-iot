@@ -10,7 +10,7 @@ import org.eclipse.microprofile.metrics.annotation.Counted;
 
 import no.cx.iot.philipshueapi.hueController.rest.lightController.LightStateController;
 import no.cx.iot.philipshueapi.hueController.rest.time.TimeRestConnector;
-import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
+import no.cx.iot.philipshueapi.hueController.rest.weather.WeatherRestConnector;
 
 @Path("/")
 public class RootResource {

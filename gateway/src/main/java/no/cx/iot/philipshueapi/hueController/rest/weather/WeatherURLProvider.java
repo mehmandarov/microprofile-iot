@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.weatherConnector;
+package no.cx.iot.philipshueapi.hueController.rest.weather;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

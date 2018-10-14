@@ -13,7 +13,7 @@ import no.cx.iot.philipshueapi.hueController.rest.InputSource;
 import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import no.cx.iot.philipshueapi.hueController.rest.time.TimeRestConnector;
-import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
+import no.cx.iot.philipshueapi.hueController.rest.weather.WeatherRestConnector;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
