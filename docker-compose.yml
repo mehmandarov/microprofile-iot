@@ -31,4 +31,4 @@ services:
         PORT_NUMBER: 8080
 secrets:
   huecredentials:
-    file: ./hueAPI/MyHue.properties
+    file: ./facade/MyHue.properties
