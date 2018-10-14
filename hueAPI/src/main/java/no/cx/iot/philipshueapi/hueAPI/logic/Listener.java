@@ -54,7 +54,9 @@ public class Listener implements PHSDKListener {
 
     @Override
     public void onError(int i, String s) {
-        logger.severe("Error: " + i + ": " + s);
+        String msg = "Error: " + i + ": " + s;
+        logger.severe(msg);
+        throw new RuntimeException(msg);
     }
 
     @Override

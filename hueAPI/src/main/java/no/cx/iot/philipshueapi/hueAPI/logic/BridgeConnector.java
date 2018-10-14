@@ -46,8 +46,10 @@ class BridgeConnector {
     }
 
     public void findBridges() {
-        PHBridgeSearchManager searchManager = (PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE);
-        searchManager.search(true, true);
+        if (sdk.useRealBridge()) {
+            PHBridgeSearchManager searchManager = (PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE);
+            searchManager.search(true, true);
+        }
     }
 
     private void connect(PHAccessPoint accessPoint) {

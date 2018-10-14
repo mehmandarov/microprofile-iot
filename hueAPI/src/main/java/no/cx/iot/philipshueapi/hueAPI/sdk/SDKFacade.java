@@ -1,46 +1,59 @@
 package no.cx.iot.philipshueapi.hueAPI.sdk;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.hue.sdk.PHNotificationManager;
 import com.philips.lighting.model.PHBridge;
 
-import javax.enterprise.context.ApplicationScoped;
-
 @ApplicationScoped
 public class SDKFacade {
+
+    @Inject
+    @ConfigProperty(name = "useRealBridge", defaultValue = "false")
+    private boolean useRealBridge;
+
+    public boolean useRealBridge() {
+        return useRealBridge;
+    }
 
     private PHHueSDK sdk;
 
     public SDKFacade() {
-        sdk = PHHueSDK.getInstance();
+        if (useRealBridge) sdk = PHHueSDK.getInstance();
     }
 
     public Object getSDKService(byte searchBridge) {
-        return sdk.getSDKService(searchBridge);
+        return useRealBridge ? sdk.getSDKService(searchBridge) : null;
     }
 
     public void connect(PHAccessPoint accessPoint) {
-        sdk.connect(accessPoint);
+        if (useRealBridge) sdk.connect(accessPoint);
     }
 
     public PHBridge getSelectedBridge() {
-        return sdk.getSelectedBridge();
+        return useRealBridge ? sdk.getSelectedBridge() : null;
     }
 
-    public PHNotificationManager getNotificationManager() {
-        return sdk.getNotificationManager();
+    PHNotificationManager getNotificationManager() {
+        return useRealBridge ? sdk.getNotificationManager() : null;
     }
 
     public void setSelectedBridge(PHBridge bridge) {
-        sdk.setSelectedBridge(bridge);
+        if (useRealBridge) {
+            sdk.setSelectedBridge(bridge);
+        }
     }
 
     public void enableHeartbeat(PHBridge bridge, int hbInterval) {
-        sdk.enableHeartbeat(bridge, hbInterval);
+        if (useRealBridge) sdk.enableHeartbeat(bridge, hbInterval);
     }
 
     public void startPushlinkAuthentication(PHAccessPoint accessPoint) {
-        sdk.startPushlinkAuthentication(accessPoint);
+        if (useRealBridge) sdk.startPushlinkAuthentication(accessPoint);
     }
 }
