@@ -27,7 +27,7 @@ class BridgeConnector {
     @Inject
     private HueProperties hueProperties;
 
-    public void connectToLastKnownAccessPoint() {
+    void connectToLastKnownAccessPoint() {
         Optional<String> username = Optional.ofNullable(hueProperties.getUsername());
         Optional<String> lastIpAddress = Optional.ofNullable(hueProperties.getLastConnectedIP());
 
@@ -35,7 +35,7 @@ class BridgeConnector {
             return;
         }
 
-        createAndConnectToAccessPoint(username.get(), lastIpAddress.get());
+        if (sdk.useRealBridge()) createAndConnectToAccessPoint(username.get(), lastIpAddress.get());
     }
 
     private void createAndConnectToAccessPoint(String username, String lastIpAddress) {
@@ -45,7 +45,7 @@ class BridgeConnector {
         connect(accessPoint);
     }
 
-    public void findBridges() {
+    void findBridges() {
         if (sdk.useRealBridge()) {
             PHBridgeSearchManager searchManager = (PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE);
             searchManager.search(true, true);
@@ -66,7 +66,7 @@ class BridgeConnector {
                 .map(PHBridgeConfiguration::getIpAddress);
     }
 
-    public void onBridgeConnected(PHBridge bridge, String username) {
+    void onBridgeConnected(PHBridge bridge, String username) {
         sdk.setSelectedBridge(bridge);
         sdk.enableHeartbeat(bridge, PHHueSDK.HB_INTERVAL);
         hueProperties.storeConnectionData(username, getLastIpAddress(bridge));
@@ -76,7 +76,7 @@ class BridgeConnector {
         return bridge.getResourceCache().getBridgeConfiguration().getIpAddress();
     }
 
-    public void connectToArbitraryAccessPoint(List<PHAccessPoint> list) {
+    void connectToArbitraryAccessPoint(List<PHAccessPoint> list) {
         list.stream()
                 .limit(1)
                 .forEach(this::connect);
