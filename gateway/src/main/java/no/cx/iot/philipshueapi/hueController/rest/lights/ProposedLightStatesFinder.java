@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.lightController;
+package no.cx.iot.philipshueapi.hueController.rest.lights;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,8 +11,6 @@ import javax.inject.Inject;
 
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.InputSource;
-import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 @ApplicationScoped
 class ProposedLightStatesFinder {

@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.lightController;
+package no.cx.iot.philipshueapi.hueController.rest.lights;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -11,6 +11,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
+import no.cx.iot.philipshueapi.hueController.rest.lights.LightStateController;
+import no.cx.iot.philipshueapi.hueController.rest.lights.ProposedLightStatesFinder;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;

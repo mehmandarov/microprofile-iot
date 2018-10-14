@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.lightController;
+package no.cx.iot.philipshueapi.hueController.rest.lights;
 
 import java.util.logging.Logger;
 
@@ -10,8 +10,6 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import no.cx.iot.philipshueapi.hueController.rest.InputSource;
-import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import no.cx.iot.philipshueapi.hueController.rest.time.TimeRestConnector;
 import no.cx.iot.philipshueapi.hueController.rest.weather.WeatherRestConnector;
 

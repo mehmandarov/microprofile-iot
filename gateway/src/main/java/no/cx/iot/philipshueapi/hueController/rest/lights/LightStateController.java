@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.lightController;
+package no.cx.iot.philipshueapi.hueController.rest.lights;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -12,7 +12,6 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
 import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
