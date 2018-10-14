@@ -32,7 +32,7 @@ public class FacadeEndpoint {
 										 @PathParam("brightness") int brightness,
 										 @PathParam("color") int color) {
 		philipsHueController.setup();
-        return philipsHueController.switchStateOfGivenLight(philipsHueController.getBridge(), lightIndex, brightness, color);
+        return philipsHueController.switchStateOfGivenLight(lightIndex, brightness, color);
     }
 
 	@GET
@@ -40,6 +40,6 @@ public class FacadeEndpoint {
 	@Path("/lights")
 	public Integer getNumberOfLights() {
 		philipsHueController.setup();
-		return philipsHueController.getNumberOfLights(philipsHueController.getBridge());
+		return philipsHueController.getNumberOfLights();
 	}
 }

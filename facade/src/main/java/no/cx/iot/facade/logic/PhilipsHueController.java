@@ -10,7 +10,6 @@ import com.philips.lighting.model.PHLightState;
 
 import no.cx.iot.facade.lightstate.LightState;
 import no.cx.iot.facade.sdk.Bridge;
-import no.cx.iot.facade.sdk.NotificationManagerAdapter;
 
 @SuppressWarnings("unused")
 @ApplicationScoped
@@ -28,17 +27,12 @@ public class PhilipsHueController {
     @Inject
     private BridgeConnector bridgeConnector;
 
-    @Inject
-    private NotificationManagerAdapter notificationManagerAdapter;
-
     public void setup() {
-        bridgeConnector.connectToLastKnownAccessPoint();
-        notificationManagerAdapter.registerSDKListener();
-        bridgeConnector.findBridges();
-        bridgeConnector.waitUntilBridgeIsSelected();
+        bridgeConnector.setup();
     }
 
-    public LightState switchStateOfGivenLight(Bridge bridge, int lightIndex, int brightness, int colour) {
+    public LightState switchStateOfGivenLight(int lightIndex, int brightness, int colour) {
+        Bridge bridge = getBridge();
         PHLight light = lightStateGetter.getGivenLight(bridge, lightIndex);
         PHLightState lastKnownLightState = lightStateGetter.getLastKnownLightState(bridge, lightIndex, light);
         updateLightState(bridge, brightness, colour, light, lastKnownLightState);
@@ -52,11 +46,11 @@ public class PhilipsHueController {
         colourSetter.setColorOnLight(bridge, colour, light, lastKnownLightState);
     }
 
-    public int getNumberOfLights(Bridge bridge) {
-        return lightStateGetter.getAllLights(bridge).size();
+    public int getNumberOfLights() {
+        return lightStateGetter.getAllLights(getBridge()).size();
     }
 
-    public Bridge getBridge() {
+    private Bridge getBridge() {
         return bridgeConnector.getBridge();
     }
 }

@@ -12,6 +12,7 @@ import com.philips.lighting.model.PHBridge;
 
 import no.cx.iot.facade.HueProperties;
 import no.cx.iot.facade.sdk.Bridge;
+import no.cx.iot.facade.sdk.NotificationManagerAdapter;
 import no.cx.iot.facade.sdk.SDKAdapter;
 
 @ApplicationScoped
@@ -26,7 +27,10 @@ class BridgeConnector {
     @Inject
     private HueProperties hueProperties;
 
-    void connectToLastKnownAccessPoint() {
+    @Inject
+    private NotificationManagerAdapter notificationManagerAdapter;
+
+    private void connectToLastKnownAccessPoint() {
         Optional<String> username = Optional.ofNullable(hueProperties.getUsername());
         Optional<String> lastIpAddress = Optional.ofNullable(hueProperties.getLastConnectedIP());
 
@@ -44,7 +48,7 @@ class BridgeConnector {
         connect(accessPoint);
     }
 
-    void findBridges() {
+    private void findBridges() {
         sdk.search(true, true);
     }
 
@@ -73,7 +77,7 @@ class BridgeConnector {
     }
 
 
-    void waitUntilBridgeIsSelected() { //TODO: Replace this with using awaitility
+    private void waitUntilBridgeIsSelected() { //TODO: Replace this with using awaitility
         int counter = 0;
         while (!sdk.isBridgeSelected()) {
             try {
@@ -93,4 +97,10 @@ class BridgeConnector {
         return sdk.getBridge();
     }
 
+    void setup() {
+        connectToLastKnownAccessPoint();
+        notificationManagerAdapter.registerSDKListener();
+        findBridges();
+        waitUntilBridgeIsSelected();
+    }
 }
