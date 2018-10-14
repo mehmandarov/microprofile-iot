@@ -22,10 +22,10 @@ public class NotificationManagerAdapter {
     }
 
     private void unregisterSDKListener() {
-        if (sdk.useRealBridge()) sdk.getNotificationManager().unregisterSDKListener(listener);
+        sdk.unregisterSDKListener(listener);
     }
 
     public void registerSDKListener() {
-        if (sdk.useRealBridge()) sdk.getNotificationManager().registerSDKListener(listener);
+        sdk.registerSDKListener(listener);
     }
 }

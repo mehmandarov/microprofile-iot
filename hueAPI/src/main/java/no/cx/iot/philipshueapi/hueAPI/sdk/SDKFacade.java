@@ -10,16 +10,17 @@ import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.hue.sdk.PHNotificationManager;
 import com.philips.lighting.model.PHBridge;
 
+import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
+import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
+import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
+import no.cx.iot.philipshueapi.hueAPI.logic.Listener;
+
 @ApplicationScoped
 public class SDKFacade {
 
     @Inject
     @ConfigProperty(name = "useRealBridge", defaultValue = "false")
     private boolean useRealBridge;
-
-    public boolean useRealBridge() {
-        return useRealBridge;
-    }
 
     private PHHueSDK sdk;
 
@@ -28,7 +29,7 @@ public class SDKFacade {
     }
 
     public Object getSDKService(byte searchBridge) {
-        return useRealBridge ? sdk.getSDKService(searchBridge) : null;
+        return useRealBridge ? sdk.getSDKService(searchBridge) : new EmptyPHBridgeSearchManager();
     }
 
     public void connect(PHAccessPoint accessPoint) {
@@ -55,5 +56,21 @@ public class SDKFacade {
 
     public void startPushlinkAuthentication(PHAccessPoint accessPoint) {
         if (useRealBridge) sdk.startPushlinkAuthentication(accessPoint);
+    }
+
+    public Bridge getBridge() {
+        return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
+    }
+
+    public void unregisterSDKListener(Listener listener) {
+        if (useRealBridge) getNotificationManager().unregisterSDKListener(listener);
+    }
+
+    public void registerSDKListener(Listener listener) {
+        if (useRealBridge) getNotificationManager().registerSDKListener(listener);
+    }
+
+    public boolean isBridgeSelected() {
+        return useRealBridge ? (sdk.getSelectedBridge() == null) : true;
     }
 }

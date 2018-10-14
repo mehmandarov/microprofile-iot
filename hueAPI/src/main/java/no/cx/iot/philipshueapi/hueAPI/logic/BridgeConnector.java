@@ -35,7 +35,7 @@ class BridgeConnector {
             return;
         }
 
-        if (sdk.useRealBridge()) createAndConnectToAccessPoint(username.get(), lastIpAddress.get());
+        createAndConnectToAccessPoint(username.get(), lastIpAddress.get());
     }
 
     private void createAndConnectToAccessPoint(String username, String lastIpAddress) {
@@ -46,10 +46,8 @@ class BridgeConnector {
     }
 
     void findBridges() {
-        if (sdk.useRealBridge()) {
-            PHBridgeSearchManager searchManager = (PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE);
-            searchManager.search(true, true);
-        }
+        PHBridgeSearchManager searchManager = (PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE);
+        searchManager.search(true, true);
     }
 
     private void connect(PHAccessPoint accessPoint) {

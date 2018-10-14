@@ -8,8 +8,6 @@ import javax.inject.Inject;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
-import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
-import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
 
 @ApplicationScoped
@@ -23,10 +21,7 @@ public class BridgeSelector {
 
     void waitUntilBridgeIsSelected() {
         int counter = 0;
-        if (!sdk.useRealBridge()) {
-            return;
-        }
-        while (sdk.getSelectedBridge() == null) {
+        while (!sdk.isBridgeSelected()) {
             try {
                 logger.info("Waiting for bridge selection");
                 Thread.sleep(400);
@@ -41,12 +36,10 @@ public class BridgeSelector {
     }
 
     Bridge getBridge() {
-        return sdk.useRealBridge() ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
+        return sdk.getBridge();
     }
 
     public void startPushlinkAuthentication(PHAccessPoint accessPoint) {
-        if (sdk.useRealBridge()) {
-            sdk.startPushlinkAuthentication(accessPoint);
-        }
+        sdk.startPushlinkAuthentication(accessPoint);
     }
 }
