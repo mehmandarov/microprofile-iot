@@ -1,4 +1,4 @@
-package no.cx.iot.facade.bridge;
+package no.cx.iot.facade.sdk;
 
 import java.util.List;
 

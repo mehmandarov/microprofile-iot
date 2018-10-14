@@ -11,7 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.sdk.Bridge;
 import no.cx.iot.facade.lightstate.LightState;
 import no.cx.iot.facade.logic.PhilipsHueController;
 

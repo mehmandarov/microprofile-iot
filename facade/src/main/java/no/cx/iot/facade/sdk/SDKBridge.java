@@ -1,4 +1,4 @@
-package no.cx.iot.facade.bridge;
+package no.cx.iot.facade.sdk;
 
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeResourcesCache;

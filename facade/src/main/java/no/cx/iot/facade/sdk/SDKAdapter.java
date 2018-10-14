@@ -14,9 +14,6 @@ import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHBridgeResourcesCache;
 
-import no.cx.iot.facade.bridge.Bridge;
-import no.cx.iot.facade.bridge.DummyBridge;
-import no.cx.iot.facade.bridge.SDKBridge;
 import no.cx.iot.facade.logic.Listener;
 
 @ApplicationScoped

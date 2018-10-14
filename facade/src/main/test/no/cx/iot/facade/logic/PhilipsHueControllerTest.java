@@ -15,7 +15,7 @@ import com.philips.lighting.hue.sdk.utilities.impl.Color;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.sdk.Bridge;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

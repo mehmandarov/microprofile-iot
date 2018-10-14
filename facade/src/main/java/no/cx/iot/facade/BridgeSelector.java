@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 
-import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.sdk.Bridge;
 import no.cx.iot.facade.sdk.SDKAdapter;
 
 @ApplicationScoped

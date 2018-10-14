@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.sdk.Bridge;
 import no.cx.iot.facade.lightstate.Brightness;
 import no.cx.iot.facade.lightstate.LightState;
 
