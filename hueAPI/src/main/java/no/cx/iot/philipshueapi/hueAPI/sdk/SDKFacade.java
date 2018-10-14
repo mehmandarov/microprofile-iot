@@ -37,8 +37,8 @@ public class SDKFacade {
         if (useRealBridge) sdk.connect(accessPoint);
     }
 
-    public PHBridge getSelectedBridge() {
-        return useRealBridge ? sdk.getSelectedBridge() : null;
+    private Optional<PHBridge> getSelectedBridge() {
+        return useRealBridge ? Optional.of(sdk.getSelectedBridge()) : Optional.empty();
     }
 
     PHNotificationManager getNotificationManager() {
@@ -76,11 +76,11 @@ public class SDKFacade {
     }
 
     public void enableHeartbeatHBInterval() {
-        if (useRealBridge) sdk.enableHeartbeat(getSelectedBridge(), PHHueSDK.HB_INTERVAL);
+        getSelectedBridge().ifPresent(bridge -> sdk.enableHeartbeat(bridge, PHHueSDK.HB_INTERVAL));
     }
 
     public Optional<String> getConnectedIPAddress() {
-        return Optional.ofNullable(getSelectedBridge())
+        return getSelectedBridge()
                 .map(PHBridge::getResourceCache)
                 .map(PHBridgeResourcesCache::getBridgeConfiguration)
                 .map(PHBridgeConfiguration::getIpAddress);
