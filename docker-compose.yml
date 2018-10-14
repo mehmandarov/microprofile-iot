@@ -5,9 +5,9 @@ services:
     ports:
       - "8083:8080"
     build:
-      context: ./hueAPI
+      context: ./facade
       args:
-        JAR_FILE: philips-hue-api-thorntail.jar
+        JAR_FILE: philips-hue-api-facade-thorntail.jar
         PORT_NUMBER: 8080
     secrets:
       - huecredentials

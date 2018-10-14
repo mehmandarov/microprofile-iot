@@ -11,7 +11,7 @@
 
     <modules>
         <module>gateway</module>
-        <module>hueAPI</module>
+        <module>facade</module>
         <module>timeservice</module>
         <module>weatherservice</module>
     </modules>
