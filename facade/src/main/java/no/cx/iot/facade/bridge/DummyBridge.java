@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.bridge;
+package no.cx.iot.facade.bridge;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +9,7 @@ import com.philips.lighting.model.*;
 import com.philips.lighting.model.rule.PHRule;
 import com.philips.lighting.model.sensor.PHSensor;
 import lombok.RequiredArgsConstructor;
-import no.cx.iot.philipshueapi.hueAPI.lightstate.InputSource;
+import no.cx.iot.facade.lightstate.InputSource;
 
 @RequiredArgsConstructor
 public class DummyBridge implements Bridge {

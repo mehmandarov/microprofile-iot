@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI;
+package no.cx.iot.facade;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

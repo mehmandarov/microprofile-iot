@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.sdk;
+package no.cx.iot.facade.sdk;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHHueSDK;

@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.sdk;
+package no.cx.iot.facade.sdk;
 
 import java.util.Optional;
 
@@ -14,10 +14,10 @@ import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHBridgeResourcesCache;
 
-import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
-import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
-import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
-import no.cx.iot.philipshueapi.hueAPI.logic.Listener;
+import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.bridge.DummyBridge;
+import no.cx.iot.facade.bridge.SDKBridge;
+import no.cx.iot.facade.logic.Listener;
 
 @ApplicationScoped
 public class SDKAdapter {

@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.facade.logic;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -6,7 +6,7 @@ import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
+import no.cx.iot.facade.bridge.Bridge;
 
 @ApplicationScoped
 public class ColourSetter {

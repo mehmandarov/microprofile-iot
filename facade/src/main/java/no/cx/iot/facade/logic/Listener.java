@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.facade.logic;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,8 +12,8 @@ import com.philips.lighting.hue.sdk.PHSDKListener;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHHueParsingError;
 
-import no.cx.iot.philipshueapi.hueAPI.BridgeSelector;
-import no.cx.iot.philipshueapi.hueAPI.HueProperties;
+import no.cx.iot.facade.BridgeSelector;
+import no.cx.iot.facade.HueProperties;
 
 @ApplicationScoped
 public class Listener implements PHSDKListener {

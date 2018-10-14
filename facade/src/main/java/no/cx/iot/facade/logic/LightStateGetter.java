@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.facade.logic;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +10,9 @@ import javax.inject.Inject;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
-import no.cx.iot.philipshueapi.hueAPI.lightstate.Brightness;
-import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
+import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.lightstate.Brightness;
+import no.cx.iot.facade.lightstate.LightState;
 
 @RequestScoped
 class LightStateGetter {

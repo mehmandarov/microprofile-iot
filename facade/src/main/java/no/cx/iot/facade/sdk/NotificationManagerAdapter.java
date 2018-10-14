@@ -1,10 +1,10 @@
-package no.cx.iot.philipshueapi.hueAPI.sdk;
+package no.cx.iot.facade.sdk;
 
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import no.cx.iot.philipshueapi.hueAPI.logic.Listener;
+import no.cx.iot.facade.logic.Listener;
 
 @ApplicationScoped
 @SuppressWarnings("unused")

@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.facade.logic;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.model.PHBridge;
 
-import no.cx.iot.philipshueapi.hueAPI.HueProperties;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKAdapter;
+import no.cx.iot.facade.HueProperties;
+import no.cx.iot.facade.sdk.SDKAdapter;
 
 @ApplicationScoped
 class BridgeConnector {

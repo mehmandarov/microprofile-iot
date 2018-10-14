@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI;
+package no.cx.iot.facade;
 
 import java.util.logging.Logger;
 
@@ -7,8 +7,8 @@ import javax.inject.Inject;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 
-import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKAdapter;
+import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.sdk.SDKAdapter;
 
 @ApplicationScoped
 public class BridgeSelector {

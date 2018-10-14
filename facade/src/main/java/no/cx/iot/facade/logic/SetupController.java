@@ -1,7 +1,7 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.facade.logic;
 
-import no.cx.iot.philipshueapi.hueAPI.HueProperties;
-import no.cx.iot.philipshueapi.hueAPI.sdk.NotificationManagerAdapter;
+import no.cx.iot.facade.HueProperties;
+import no.cx.iot.facade.sdk.NotificationManagerAdapter;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

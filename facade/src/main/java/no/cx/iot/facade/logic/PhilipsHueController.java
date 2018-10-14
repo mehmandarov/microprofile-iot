@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueAPI.logic;
+package no.cx.iot.facade.logic;
 
 import java.util.logging.Logger;
 
@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
-import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
+import no.cx.iot.facade.bridge.Bridge;
+import no.cx.iot.facade.lightstate.LightState;
 
 @ApplicationScoped
 public class PhilipsHueController {
