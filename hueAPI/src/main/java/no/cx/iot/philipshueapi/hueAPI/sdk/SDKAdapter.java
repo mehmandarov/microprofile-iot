@@ -21,7 +21,7 @@ import no.cx.iot.philipshueapi.hueAPI.bridge.SDKBridge;
 import no.cx.iot.philipshueapi.hueAPI.logic.Listener;
 
 @ApplicationScoped
-public class SDKFacade {
+public class SDKAdapter {
 
     @Inject
     @ConfigProperty(name = "useRealBridge", defaultValue = "false")
@@ -29,7 +29,7 @@ public class SDKFacade {
 
     private PHHueSDK sdk;
 
-    public SDKFacade() {
+    public SDKAdapter() {
         if (useRealBridge) sdk = PHHueSDK.getInstance();
     }
 

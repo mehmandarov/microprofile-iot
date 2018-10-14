@@ -8,13 +8,13 @@ import javax.inject.Inject;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
+import no.cx.iot.philipshueapi.hueAPI.sdk.SDKAdapter;
 
 @ApplicationScoped
 public class BridgeSelector {
 
     @Inject
-    private SDKFacade sdk;
+    private SDKAdapter sdk;
 
     @Inject
     private Logger logger;

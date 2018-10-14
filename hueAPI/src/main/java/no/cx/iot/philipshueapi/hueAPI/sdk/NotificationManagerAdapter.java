@@ -11,7 +11,7 @@ import no.cx.iot.philipshueapi.hueAPI.logic.Listener;
 public class NotificationManagerAdapter {
 
     @Inject
-    private SDKFacade sdk;
+    private SDKAdapter sdk;
 
     @Inject
     private Listener listener;

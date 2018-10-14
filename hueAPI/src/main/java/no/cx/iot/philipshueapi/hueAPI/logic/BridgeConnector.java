@@ -10,14 +10,14 @@ import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.model.PHBridge;
 
 import no.cx.iot.philipshueapi.hueAPI.HueProperties;
-import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
+import no.cx.iot.philipshueapi.hueAPI.sdk.SDKAdapter;
 
 @ApplicationScoped
 class BridgeConnector {
 
     @SuppressWarnings("unused")
     @Inject
-    private SDKFacade sdk;
+    private SDKAdapter sdk;
 
     @SuppressWarnings("unused")
     @Inject
