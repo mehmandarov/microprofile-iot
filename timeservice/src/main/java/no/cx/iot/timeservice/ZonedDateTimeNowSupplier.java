@@ -1,4 +1,4 @@
-package no.iot.timeservice;
+package no.cx.iot.timeservice;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

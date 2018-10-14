@@ -1,4 +1,4 @@
-package no.iot.timeservice;
+package no.cx.iot.timeservice;
 
 import java.util.Collections;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package no.iot.timeservice;
+package no.cx.iot.timeservice;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
