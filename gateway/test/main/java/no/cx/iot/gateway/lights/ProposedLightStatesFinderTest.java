@@ -24,7 +24,6 @@ public class ProposedLightStatesFinderTest {
     private Logger logger;
 
     @Spy
-    @InjectMocks
     private TimeRestConnector timeRestConnector;
 
     @Spy
@@ -41,8 +40,7 @@ public class ProposedLightStatesFinderTest {
 
     @Test
     public void usesTheInputProviderWithHighestPriorityAvailable() {
-        lightStatesFinder.addInputProvider(timeRestConnector);
-        lightStatesFinder.addInputProvider(weatherRestConnector);
+        lightStatesFinder.registerInputProviders();
         doReturn(true).when(weatherRestConnector).canConnect();
         doReturn(true).when(timeRestConnector).canConnect();
         doReturn(weatherLightState).when(weatherRestConnector).getNewStateForLight(0);
@@ -55,8 +53,7 @@ public class ProposedLightStatesFinderTest {
 
     @Test
     public void usesTheInputProviderChosesSecondIfFirstPriorityNotAvailable() {
-        lightStatesFinder.addInputProvider(timeRestConnector);
-        lightStatesFinder.addInputProvider(weatherRestConnector);
+        lightStatesFinder.registerInputProviders();
         doReturn(true).when(timeRestConnector).canConnect();
         doReturn(timeLightState).when(timeRestConnector).getNewStateForLight(0);
         doReturn(InputSource.WEATHER).when(weatherLightState).getInputSource();

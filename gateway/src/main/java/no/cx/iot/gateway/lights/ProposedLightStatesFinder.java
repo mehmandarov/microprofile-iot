@@ -6,18 +6,26 @@ import java.util.Set;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
+import no.cx.iot.gateway.time.TimeRestConnector;
+import no.cx.iot.gateway.weather.WeatherRestConnector;
 
 @ApplicationScoped
 class ProposedLightStatesFinder {
 
-    @SuppressWarnings("unused")
     @Inject
     private Logger logger;
+
+    @Inject
+    private WeatherRestConnector weatherInputProvider;
+
+    @Inject
+    private TimeRestConnector timeInputProvider;
 
     private Set<InputProvider> inputProviders;
 
@@ -25,8 +33,10 @@ class ProposedLightStatesFinder {
         inputProviders = new HashSet<>();
     }
 
-    void addInputProvider(InputProvider inputProvider) {
-        inputProviders.add(inputProvider);
+    @PostConstruct
+    void registerInputProviders() {
+        inputProviders.add(weatherInputProvider);
+        inputProviders.add(timeInputProvider);
     }
 
     LightState getNewStateForLight(int lightIndex) {

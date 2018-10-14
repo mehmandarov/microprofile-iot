@@ -10,12 +10,10 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
-import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
-import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.facade.FacadeConnector;
+import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
 
 @ApplicationScoped
-@SuppressWarnings("unused")
 public class LightStateController {
 
     @Inject
@@ -26,10 +24,6 @@ public class LightStateController {
 
     @Inject
     private Logger logger;
-
-    public void registerInputProvider(InputProvider inputProvider) {
-        proposedLightStatesFinder.addInputProvider(inputProvider);
-    }
 
     public String switchStateOfLights() {
         return IntStream.range(0, getAllLights())
