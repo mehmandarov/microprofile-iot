@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
+package no.cx.iot.philipshueapi.hueController.rest.facade;
 
 import org.junit.Test;
 

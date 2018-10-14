@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
-import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
+import no.cx.iot.philipshueapi.hueController.rest.facade.PhilipsHueConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 

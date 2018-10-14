@@ -9,10 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import no.cx.iot.philipshueapi.hueController.rest.hueAPI.PhilipsHueConnector;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-import no.cx.iot.philipshueapi.hueController.rest.lights.LightStateController;
-import no.cx.iot.philipshueapi.hueController.rest.lights.ProposedLightStatesFinder;
+import no.cx.iot.philipshueapi.hueController.rest.facade.PhilipsHueConnector;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;

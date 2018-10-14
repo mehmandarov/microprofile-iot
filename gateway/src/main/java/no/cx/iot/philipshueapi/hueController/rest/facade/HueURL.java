@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.hueAPI;
+package no.cx.iot.philipshueapi.hueController.rest.facade;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
