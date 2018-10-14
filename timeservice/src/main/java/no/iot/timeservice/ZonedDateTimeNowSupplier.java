@@ -1,4 +1,4 @@
-package no.iot.timeservice.supplier;
+package no.iot.timeservice;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -9,8 +9,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import no.iot.timeservice.TimeDTO;
 
 @ApplicationScoped
 public class ZonedDateTimeNowSupplier implements Supplier<TimeDTO> {

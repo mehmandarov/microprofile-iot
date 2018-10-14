@@ -1,12 +1,10 @@
-package no.iot.timeservice.utils;
+package no.iot.timeservice;
 
 import java.util.Collections;
 import java.util.Set;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-
-import no.iot.timeservice.TimeServiceEndpoint;
 
 @ApplicationPath("/timeservice")
 public class ApplicationEntryPoint extends Application {

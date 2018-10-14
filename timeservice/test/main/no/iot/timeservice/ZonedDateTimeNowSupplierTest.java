@@ -1,4 +1,4 @@
-package no.iot.timeservice.supplier;
+package no.iot.timeservice;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
