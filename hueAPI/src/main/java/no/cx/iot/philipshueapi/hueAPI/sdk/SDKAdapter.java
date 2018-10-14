@@ -10,7 +10,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
 import com.philips.lighting.hue.sdk.PHHueSDK;
-import com.philips.lighting.hue.sdk.PHNotificationManager;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHBridgeResourcesCache;
@@ -27,10 +26,10 @@ public class SDKAdapter {
     @ConfigProperty(name = "useRealBridge", defaultValue = "false")
     private boolean useRealBridge;
 
-    private PHHueSDK sdk;
+    private SDKFacade sdk;
 
     public SDKAdapter() {
-        if (useRealBridge) sdk = PHHueSDK.getInstance();
+        if (useRealBridge) sdk = new SDKFacade();
     }
 
     public void connect(PHAccessPoint accessPoint) {
@@ -39,10 +38,6 @@ public class SDKAdapter {
 
     private Optional<PHBridge> getSelectedBridge() {
         return useRealBridge ? Optional.of(sdk.getSelectedBridge()) : Optional.empty();
-    }
-
-    PHNotificationManager getNotificationManager() {
-        return useRealBridge ? sdk.getNotificationManager() : null;
     }
 
     public void setSelectedBridge(PHBridge bridge) {
@@ -60,11 +55,11 @@ public class SDKAdapter {
     }
 
     public void unregisterSDKListener(Listener listener) {
-        if (useRealBridge) getNotificationManager().unregisterSDKListener(listener);
+        if (useRealBridge) sdk.getNotificationManager().unregisterSDKListener(listener);
     }
 
     public void registerSDKListener(Listener listener) {
-        if (useRealBridge) getNotificationManager().registerSDKListener(listener);
+        if (useRealBridge) sdk.getNotificationManager().registerSDKListener(listener);
     }
 
     public boolean isBridgeSelected() {
