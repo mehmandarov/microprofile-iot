@@ -7,10 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
-import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.model.PHBridge;
-import com.philips.lighting.model.PHBridgeConfiguration;
-import com.philips.lighting.model.PHBridgeResourcesCache;
 
 import no.cx.iot.philipshueapi.hueAPI.HueProperties;
 import no.cx.iot.philipshueapi.hueAPI.sdk.SDKFacade;
@@ -49,22 +46,12 @@ class BridgeConnector {
     }
 
     private void connect(PHAccessPoint accessPoint) {
-        if (getConnectedIPAddress(sdk).isPresent()) {
-            return;
-        }
-        sdk.connect(accessPoint);
-    }
-
-    private Optional<String> getConnectedIPAddress(SDKFacade sdk) {
-        return Optional.ofNullable(sdk.getSelectedBridge())
-                .map(PHBridge::getResourceCache)
-                .map(PHBridgeResourcesCache::getBridgeConfiguration)
-                .map(PHBridgeConfiguration::getIpAddress);
+        sdk.getConnectedIPAddress().ifPresent(ip -> sdk.connect(accessPoint));
     }
 
     void onBridgeConnected(PHBridge bridge, String username) {
         sdk.setSelectedBridge(bridge);
-        sdk.enableHeartbeat(bridge, PHHueSDK.HB_INTERVAL);
+        sdk.enableHeartbeatHBInterval();
         hueProperties.storeConnectionData(username, getLastIpAddress(bridge));
     }
 

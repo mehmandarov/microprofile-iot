@@ -1,5 +1,7 @@
 package no.cx.iot.philipshueapi.hueAPI.sdk;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -10,6 +12,8 @@ import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.hue.sdk.PHNotificationManager;
 import com.philips.lighting.model.PHBridge;
+import com.philips.lighting.model.PHBridgeConfiguration;
+import com.philips.lighting.model.PHBridgeResourcesCache;
 
 import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.bridge.DummyBridge;
@@ -47,10 +51,6 @@ public class SDKFacade {
         }
     }
 
-    public void enableHeartbeat(PHBridge bridge, int hbInterval) {
-        if (useRealBridge) sdk.enableHeartbeat(bridge, hbInterval);
-    }
-
     public void startPushlinkAuthentication(PHAccessPoint accessPoint) {
         if (useRealBridge) sdk.startPushlinkAuthentication(accessPoint);
     }
@@ -74,4 +74,16 @@ public class SDKFacade {
     public void search(boolean b, boolean b1) {
         if (useRealBridge) ((PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE)).search(b, b1);
     }
+
+    public void enableHeartbeatHBInterval() {
+        if (useRealBridge) sdk.enableHeartbeat(getSelectedBridge(), PHHueSDK.HB_INTERVAL);
+    }
+
+    public Optional<String> getConnectedIPAddress() {
+        return Optional.ofNullable(getSelectedBridge())
+                .map(PHBridge::getResourceCache)
+                .map(PHBridgeResourcesCache::getBridgeConfiguration)
+                .map(PHBridgeConfiguration::getIpAddress);
+    }
+
 }
