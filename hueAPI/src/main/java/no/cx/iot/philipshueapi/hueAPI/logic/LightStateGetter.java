@@ -2,6 +2,10 @@ package no.cx.iot.philipshueapi.hueAPI.logic;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
@@ -10,7 +14,11 @@ import no.cx.iot.philipshueapi.hueAPI.bridge.Bridge;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.Brightness;
 import no.cx.iot.philipshueapi.hueAPI.lightstate.LightState;
 
+@RequestScoped
 class LightStateGetter {
+
+    @Inject
+    private Logger logger;
 
     PHLight getGivenLight(Bridge bridge, int lightIndex) {
         return getAllLights(bridge).get(lightIndex);
