@@ -1,5 +1,7 @@
 package no.cx.iot.philipshueapi.hueController.rest.weatherConnector;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 import lombok.Getter;
@@ -9,7 +11,6 @@ import no.cx.iot.philipshueapi.hueController.rest.infrastructure.HttpConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
-@Getter
 public class WeatherRestConnector implements InputProvider<Weather> {
 
     @Inject
@@ -19,15 +20,16 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     private WeatherURLProvider weatherURLProvider;
 
     @Inject
+    @Getter
     private WeatherToLightStateConverter converter;
 
     @Override
     public Weather getDataForLight(int lightIndex) {
-        return getWeather();
+        return wrapExceptions(this::getWeather);
     }
 
     @Override
-    public void testConnection() {
+    public void testConnection() throws IOException {
         getWeather();
     }
 
@@ -36,8 +38,8 @@ public class WeatherRestConnector implements InputProvider<Weather> {
         return InputSource.WEATHER.getPriority();
     }
 
-    private Weather getWeather() {
-        return wrapExceptions(() -> connector.executeHTTPGet(weatherURLProvider.getFullURL(), Weather.class));
+    private Weather getWeather() throws IOException {
+        return connector.executeHTTPGet(weatherURLProvider.getFullURL(), Weather.class);
     }
 
 }
