@@ -20,15 +20,12 @@ public class FacadeConnector implements Connector {
     @Inject
     private HttpConnector httpConnector;
 
-    @Inject
-    private FacadePathComposer facadePathComposer;
-
     public int getNumberOfLights() throws IOException {
         return getResponseText("lights", Integer.class);
     }
 
     public LightState switchStateOfLight(LightState newLightState) throws IOException {
-        return getResponseText(facadePathComposer.composePath(newLightState), LightState.class);
+        return getResponseText(facadeURL.composePath(newLightState), LightState.class);
     }
 
     private <T> T getResponseText(String path, Class<T> clazz) throws IOException {

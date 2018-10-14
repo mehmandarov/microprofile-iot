@@ -8,7 +8,8 @@ import no.cx.iot.gateway.lights.LightState;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class FacadePathComposerTest {
+
+public class FacadeURLTest {
 
     @Test
     public void hueURLIsComposedProperly() {
@@ -17,7 +18,6 @@ public class FacadePathComposerTest {
         newLightState.setBrightness(new Brightness(2));
         newLightState.setHueInt(3);
 
-        assertThat(new FacadePathComposer().composePath(newLightState), is("light/1/brightness/2/color/3"));
-
+        assertThat(new FacadeURL().composePath(newLightState), is("light/1/brightness/2/color/3"));
     }
 }

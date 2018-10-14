@@ -22,11 +22,8 @@ public class FacadeConnectorTest {
     @Mock
     private HttpConnector httpConnector;
 
-    @Mock
-    private FacadeURL facadeURL;
-
     @Spy
-    private FacadePathComposer facadePathComposer;
+    private FacadeURL facadeURL;
 
     @InjectMocks
     private FacadeConnector facadeConnector;
