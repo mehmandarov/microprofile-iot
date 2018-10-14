@@ -8,26 +8,36 @@ import javax.inject.Inject;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
+import no.cx.iot.facade.HueProperties;
 import no.cx.iot.facade.bridge.Bridge;
 import no.cx.iot.facade.lightstate.LightState;
+import no.cx.iot.facade.sdk.NotificationManagerAdapter;
 
 @ApplicationScoped
 public class PhilipsHueController {
 
     @Inject
-    private SetupController setupController;
-
-    @Inject
     private Logger logger;
 
     @Inject
-    private ColourSetter colorSetter;
+    private ColourSetter colourSetter;
 
     @Inject
     private LightStateGetter lightStateGetter;
 
+    @Inject
+    private HueProperties hueProperties;
+
+    @Inject
+    private BridgeConnector bridgeConnector;
+
+    @Inject
+    private NotificationManagerAdapter notificationManagerAdapter;
+
     public void setup() {
-        setupController.setup();
+        bridgeConnector.connectToLastKnownAccessPoint();
+        notificationManagerAdapter.registerSDKListener();
+        bridgeConnector.findBridges();
     }
 
     public LightState switchStateOfGivenLight(Bridge bridge, int lightIndex, int brightness, int color) {
@@ -36,7 +46,7 @@ public class PhilipsHueController {
         logger.fine("New brightness: " + brightness);
         lastKnownLightState.setBrightness(brightness);
         bridge.updateLightState(light, lastKnownLightState);
-        colorSetter.setColorOnLight(bridge, color, light, lastKnownLightState);
+        colourSetter.setColorOnLight(bridge, color, light, lastKnownLightState);
         return lightStateGetter.getLightState(bridge, lightIndex, lastKnownLightState);
     }
 
