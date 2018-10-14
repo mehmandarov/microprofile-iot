@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.timeConnector;
+package no.cx.iot.philipshueapi.hueController.rest.time;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;

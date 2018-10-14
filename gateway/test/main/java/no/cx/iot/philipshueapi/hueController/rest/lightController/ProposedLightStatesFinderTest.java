@@ -12,7 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import no.cx.iot.philipshueapi.hueController.rest.InputSource;
 import no.cx.iot.philipshueapi.hueController.rest.lights.Brightness;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
-import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
+import no.cx.iot.philipshueapi.hueController.rest.time.TimeRestConnector;
 import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
 import static org.hamcrest.core.Is.is;

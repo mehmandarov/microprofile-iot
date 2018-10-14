@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 
 import no.cx.iot.philipshueapi.hueController.rest.lightController.LightStateController;
-import no.cx.iot.philipshueapi.hueController.rest.timeConnector.TimeRestConnector;
+import no.cx.iot.philipshueapi.hueController.rest.time.TimeRestConnector;
 import no.cx.iot.philipshueapi.hueController.rest.weatherConnector.WeatherRestConnector;
 
 @Path("/")

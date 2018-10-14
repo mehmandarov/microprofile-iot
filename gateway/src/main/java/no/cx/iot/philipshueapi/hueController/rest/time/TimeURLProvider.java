@@ -1,4 +1,4 @@
-package no.cx.iot.philipshueapi.hueController.rest.timeConnector;
+package no.cx.iot.philipshueapi.hueController.rest.time;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
