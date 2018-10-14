@@ -41,9 +41,6 @@ public class PhilipsHueControllerTest {
     private Logger logger;
 
     @Mock
-    private ColourSetter colourSetter;
-
-    @Mock
     private Bridge bridge;
 
     @InjectMocks
@@ -70,7 +67,7 @@ public class PhilipsHueControllerTest {
         doCallRealMethod().when(lightStateGetter).getLastKnownLightState(eq(bridge), anyInt(), eq(nonReachableLight));
 
         try {
-            philipsHueController.switchStateOfGivenLight(bridge, 0, 0, 0);
+            philipsHueController.switchStateOfGivenLight( 0, 0, 0);
             fail();
         }
         catch (RuntimeException e) {

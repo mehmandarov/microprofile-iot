@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
@@ -17,9 +18,6 @@ public class PhilipsHueController {
 
     @Inject
     private Logger logger;
-
-    @Inject
-    private ColourSetter colourSetter;
 
     @Inject
     private LightStateGetter lightStateGetter;
@@ -43,7 +41,7 @@ public class PhilipsHueController {
         logger.fine("New brightness: " + brightness);
         lastKnownLightState.setBrightness(brightness);
         bridge.updateLightState(light, lastKnownLightState);
-        colourSetter.setColorOnLight(bridge, colour, light, lastKnownLightState);
+        setColorOnLight(bridge, colour, light, lastKnownLightState);
     }
 
     public int getNumberOfLights() {
@@ -52,5 +50,13 @@ public class PhilipsHueController {
 
     private Bridge getBridge() {
         return bridgeConnector.getBridge();
+    }
+
+    private void setColorOnLight(Bridge bridge, int color, PHLight light, PHLightState lastKnownLightState) {
+        lastKnownLightState.setColorMode(PHLight.PHLightColorMode.COLORMODE_XY);
+        float[] xy = PHUtilities.calculateXY(color, PHLight.PHLightColorMode.COLORMODE_XY.getValue());
+        lastKnownLightState.setX(xy[0], true);
+        lastKnownLightState.setY(xy[1], true);
+        bridge.updateLightState(light, lastKnownLightState);
     }
 }
