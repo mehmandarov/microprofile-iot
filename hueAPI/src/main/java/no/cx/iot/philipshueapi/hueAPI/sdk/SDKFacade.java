@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
+import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.hue.sdk.PHNotificationManager;
 import com.philips.lighting.model.PHBridge;
@@ -26,10 +27,6 @@ public class SDKFacade {
 
     public SDKFacade() {
         if (useRealBridge) sdk = PHHueSDK.getInstance();
-    }
-
-    public Object getSDKService(byte searchBridge) {
-        return useRealBridge ? sdk.getSDKService(searchBridge) : new EmptyPHBridgeSearchManager();
     }
 
     public void connect(PHAccessPoint accessPoint) {
@@ -72,5 +69,9 @@ public class SDKFacade {
 
     public boolean isBridgeSelected() {
         return useRealBridge ? (sdk.getSelectedBridge() == null) : true;
+    }
+
+    public void search(boolean b, boolean b1) {
+        if (useRealBridge) ((PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE)).search(b, b1);
     }
 }
