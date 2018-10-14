@@ -1,7 +1,6 @@
 package no.cx.iot.facade.logic;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,6 +12,8 @@ import com.philips.lighting.model.PHLightState;
 import no.cx.iot.facade.bridge.Bridge;
 import no.cx.iot.facade.lightstate.Brightness;
 import no.cx.iot.facade.lightstate.LightState;
+
+import static java.util.Optional.ofNullable;
 
 @RequestScoped
 class LightStateGetter {
@@ -29,17 +30,18 @@ class LightStateGetter {
     }
 
     LightState getLightState(Bridge bridge, int lightIndex, PHLightState lightState) {
-        Brightness brightness = Optional.ofNullable(lightState.getBrightness())
+        return new LightState(lightIndex, bridge.getInputSource(), getBrightness(lightState), lightState.getHue());
+    }
+
+    private Brightness getBrightness(PHLightState lightState) {
+        return ofNullable(lightState.getBrightness())
                 .map(Brightness::new)
                 .orElseGet(Brightness::getMaxBrightness);
-        return new LightState(lightIndex, bridge.getInputSource(), brightness, lightState.getHue());
     }
 
     PHLightState getLastKnownLightState(Bridge bridge, int lightIndex, PHLight light) {
-        PHLightState lastKnownLightState = bridge.getLastKnownLightState(light);
-        if (lastKnownLightState == null || !lastKnownLightState.isReachable()) {
-            throw new RuntimeException("Light " + lightIndex + " is not reachable.");
-        }
-        return lastKnownLightState;
+        return ofNullable(bridge.getLastKnownLightState(light))
+                .filter(PHLightState::isReachable)
+                .orElseThrow(() -> new RuntimeException("Light " + lightIndex + " is not reachable."));
     }
 }

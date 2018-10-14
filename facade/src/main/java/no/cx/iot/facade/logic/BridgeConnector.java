@@ -15,11 +15,9 @@ import no.cx.iot.facade.sdk.SDKAdapter;
 @ApplicationScoped
 class BridgeConnector {
 
-    @SuppressWarnings("unused")
     @Inject
     private SDKAdapter sdk;
 
-    @SuppressWarnings("unused")
     @Inject
     private HueProperties hueProperties;
 

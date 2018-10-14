@@ -18,11 +18,9 @@ import no.cx.iot.facade.HueProperties;
 @ApplicationScoped
 public class Listener implements PHSDKListener {
 
-    @SuppressWarnings("unused")
     @Inject
     private HueProperties hueProperties;
 
-    @SuppressWarnings("unused")
     @Inject
     private BridgeConnector bridgeConnector;
 
@@ -54,9 +52,7 @@ public class Listener implements PHSDKListener {
 
     @Override
     public void onError(int i, String s) {
-        String msg = "Error: " + i + ": " + s;
-        logger.severe(msg);
-        throw new RuntimeException(msg);
+        logger.severe("Error: " + i + ": " + s);
     }
 
     @Override
