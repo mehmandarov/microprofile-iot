@@ -8,9 +8,8 @@ import javax.inject.Inject;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import no.cx.iot.facade.HueProperties;
-import no.cx.iot.facade.sdk.Bridge;
 import no.cx.iot.facade.lightstate.LightState;
+import no.cx.iot.facade.sdk.Bridge;
 import no.cx.iot.facade.sdk.NotificationManagerAdapter;
 
 @SuppressWarnings("unused")
@@ -27,9 +26,6 @@ public class PhilipsHueController {
     private LightStateGetter lightStateGetter;
 
     @Inject
-    private HueProperties hueProperties;
-
-    @Inject
     private BridgeConnector bridgeConnector;
 
     @Inject
@@ -39,6 +35,7 @@ public class PhilipsHueController {
         bridgeConnector.connectToLastKnownAccessPoint();
         notificationManagerAdapter.registerSDKListener();
         bridgeConnector.findBridges();
+        bridgeConnector.waitUntilBridgeIsSelected();
     }
 
     public LightState switchStateOfGivenLight(Bridge bridge, int lightIndex, int brightness, int colour) {
@@ -57,5 +54,9 @@ public class PhilipsHueController {
 
     public int getNumberOfLights(Bridge bridge) {
         return lightStateGetter.getAllLights(bridge).size();
+    }
+
+    public Bridge getBridge() {
+        return bridgeConnector.getBridge();
     }
 }
