@@ -1,4 +1,4 @@
-package no.iot.weatherservice.weather;
+package no.cx.iot.weatherservice.weather;
 
 import lombok.Data;
 

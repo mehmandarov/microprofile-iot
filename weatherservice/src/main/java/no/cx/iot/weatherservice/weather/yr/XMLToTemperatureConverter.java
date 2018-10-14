@@ -1,4 +1,4 @@
-package no.iot.weatherservice.weather.yr;
+package no.cx.iot.weatherservice.weather.yr;
 
 import java.util.logging.Logger;
 

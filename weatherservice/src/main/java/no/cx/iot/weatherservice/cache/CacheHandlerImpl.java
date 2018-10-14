@@ -1,4 +1,4 @@
-package no.iot.weatherservice.cache;
+package no.cx.iot.weatherservice.cache;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,9 +20,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import no.iot.weatherservice.weather.Temperature;
-
-import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
+import no.cx.iot.weatherservice.utils.general.ExceptionWrapper;
+import no.cx.iot.weatherservice.weather.Temperature;
 
 
 @ApplicationScoped
@@ -41,9 +40,9 @@ public class CacheHandlerImpl implements CacheHandler {
     public void createCacheIfNotExisting() {
         path = Paths.get(filename);
         if (!Files.exists(path)) {
-            wrapExceptions(() -> Files.createFile(path));
+            ExceptionWrapper.wrapExceptions(() -> Files.createFile(path));
         }
-        Optional.ofNullable(wrapExceptions(this::readCache)).ifPresent(this::put);
+        Optional.ofNullable(ExceptionWrapper.wrapExceptions(this::readCache)).ifPresent(this::put);
     }
 
     private void put(CacheEntry entry) {
@@ -90,7 +89,7 @@ public class CacheHandlerImpl implements CacheHandler {
 
     @Override
     public void updateCache(String currentLocation, Temperature temperature) {
-        wrapExceptions(() -> save(currentLocation, LocalDateTime.now(), temperature));
+        ExceptionWrapper.wrapExceptions(() -> save(currentLocation, LocalDateTime.now(), temperature));
         put(currentLocation, LocalDateTime.now(), temperature);
     }
 

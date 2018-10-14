@@ -1,4 +1,4 @@
-package no.iot.weatherservice.cache;
+package no.cx.iot.weatherservice.cache;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;

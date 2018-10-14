@@ -1,4 +1,4 @@
-package no.iot.weatherservice.weather.yr;
+package no.cx.iot.weatherservice.weather.yr;
 
 import java.util.Optional;
 
@@ -7,12 +7,11 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import no.iot.weatherservice.weather.Temperature;
-import no.iot.weatherservice.cache.CacheHandler;
-import no.iot.weatherservice.utils.general.HttpConnector;
-import no.iot.weatherservice.weather.InputProvider;
-
-import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
+import no.cx.iot.weatherservice.cache.CacheHandler;
+import no.cx.iot.weatherservice.utils.general.ExceptionWrapper;
+import no.cx.iot.weatherservice.utils.general.HttpConnector;
+import no.cx.iot.weatherservice.weather.Temperature;
+import no.cx.iot.weatherservice.weather.InputProvider;
 
 @ApplicationScoped
 @SuppressWarnings("unused")
@@ -43,7 +42,7 @@ public class YrInputProvider implements InputProvider {
     }
 
     private Temperature getTemperatureFromYr() {
-        String responseFromYr = wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
+        String responseFromYr = ExceptionWrapper.wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
         return new Temperature(xmlToTemperatureConverter.convert(responseFromYr));
     }
 

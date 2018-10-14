@@ -1,4 +1,4 @@
-package no.iot.weatherservice.weather;
+package no.cx.iot.weatherservice.weather;
 
 
 import java.io.File;
@@ -18,7 +18,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.io.Files;
 
-import no.iot.weatherservice.weather.yr.XMLToTemperatureConverter;
+import no.cx.iot.weatherservice.weather.yr.XMLToTemperatureConverter;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;

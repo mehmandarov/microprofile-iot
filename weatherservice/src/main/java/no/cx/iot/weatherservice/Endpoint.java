@@ -1,4 +1,4 @@
-package no.iot.weatherservice;
+package no.cx.iot.weatherservice;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -9,8 +9,8 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
-import no.iot.weatherservice.weather.WeatherDTO;
-import no.iot.weatherservice.weather.InputProvider;
+import no.cx.iot.weatherservice.weather.InputProvider;
+import no.cx.iot.weatherservice.weather.WeatherDTO;
 
 @Path("/")
 public class Endpoint {

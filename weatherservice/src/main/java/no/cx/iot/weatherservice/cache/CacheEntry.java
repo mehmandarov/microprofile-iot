@@ -1,4 +1,4 @@
-package no.iot.weatherservice.cache;
+package no.cx.iot.weatherservice.cache;
 
 import java.time.LocalDateTime;
 
@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import no.iot.weatherservice.weather.Temperature;
+import no.cx.iot.weatherservice.weather.Temperature;
 
 @AllArgsConstructor
 @NoArgsConstructor
