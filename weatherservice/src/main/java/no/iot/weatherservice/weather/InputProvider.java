@@ -1,6 +1,6 @@
 package no.iot.weatherservice.weather;
 
 @FunctionalInterface
-public interface WeatherInputProvider {
+public interface InputProvider {
     Temperature getTemperature();
 }

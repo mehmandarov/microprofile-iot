@@ -11,7 +11,7 @@ import no.iot.weatherservice.weather.Temperature;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
-class WeatherCacheEntry {
+class CacheEntry {
     @Getter
     private String place;
     private TimeDTO time;
@@ -19,7 +19,7 @@ class WeatherCacheEntry {
     @Getter
     private Temperature temperature;
 
-    WeatherCacheEntry(String currentLocation, LocalDateTime now, Temperature temperature) {
+    CacheEntry(String currentLocation, LocalDateTime now, Temperature temperature) {
         this(currentLocation, new TimeDTO(now), temperature);
     }
 

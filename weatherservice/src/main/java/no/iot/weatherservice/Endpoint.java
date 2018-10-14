@@ -10,19 +10,19 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import no.iot.weatherservice.weather.WeatherDTO;
-import no.iot.weatherservice.weather.WeatherInputProvider;
+import no.iot.weatherservice.weather.InputProvider;
 
 @Path("/")
-public class WeatherServiceEndpoint {
+public class Endpoint {
 
     @Inject
-    private WeatherInputProvider weatherInputProvider;
+    private InputProvider inputProvider;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Get the current temperature")
     @APIResponse(name = "WeatherDTO")
     public WeatherDTO getWeather() {
-        return new WeatherDTO(weatherInputProvider.getTemperature());
+        return new WeatherDTO(inputProvider.getTemperature());
     }
 }

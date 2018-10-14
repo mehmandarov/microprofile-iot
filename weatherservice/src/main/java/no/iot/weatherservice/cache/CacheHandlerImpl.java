@@ -26,12 +26,12 @@ import static no.iot.weatherservice.utils.general.ExceptionWrapper.wrapException
 
 
 @ApplicationScoped
-public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
+public class CacheHandlerImpl implements CacheHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper(); // TODO inject
     private Path path;
 
-    private Map<String, WeatherCacheEntry> cache = new HashMap<>();
+    private Map<String, CacheEntry> cache = new HashMap<>();
 
     @Inject
     @ConfigProperty(name = "cacheFilename", defaultValue = "yr_cache.json")
@@ -46,18 +46,18 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
         Optional.ofNullable(wrapExceptions(this::readCache)).ifPresent(this::put);
     }
 
-    private void put(WeatherCacheEntry entry) {
+    private void put(CacheEntry entry) {
         cache.put(entry.getPlace(), entry);
     }
 
     private void put(String place, LocalDateTime time, Temperature temperature) {
-        cache.put(place, new WeatherCacheEntry(place, time, temperature));
+        cache.put(place, new CacheEntry(place, time, temperature));
     }
 
-    private WeatherCacheEntry readCache() throws IOException {
+    private CacheEntry readCache() throws IOException {
         return Files.size(path) == 0
                 ? null
-                : objectMapper.readValue(path.toFile(), WeatherCacheEntry.class);
+                : objectMapper.readValue(path.toFile(), CacheEntry.class);
     }
 
     private boolean save(String currentLocation, LocalDateTime now, Temperature temperature) throws IOException {
@@ -65,18 +65,18 @@ public class WeatherCacheHandlerImpl implements WeatherCacheHandler {
             createCacheIfNotExisting();
         }
 
-        writeToFile(new WeatherCacheEntry(currentLocation, now, temperature));
+        writeToFile(new CacheEntry(currentLocation, now, temperature));
         return true;
     }
 
-    private void writeToFile(WeatherCacheEntry cacheEntries) throws IOException {
+    private void writeToFile(CacheEntry cacheEntries) throws IOException {
         Files.write(path, Collections.singletonList(objectMapper.writeValueAsString(cacheEntries)), StandardOpenOption.APPEND);
     }
 
     @Override
     public Optional<Temperature> get(String currentLocation) {
         if (cache.containsKey(currentLocation)) {
-            WeatherCacheEntry cacheEntry = cache.get(currentLocation);
+            CacheEntry cacheEntry = cache.get(currentLocation);
             if (isNewlyUpdated(cacheEntry.getTime())) {
                 return Optional.of(cacheEntry.getTemperature());
             }
