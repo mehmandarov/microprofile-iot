@@ -8,7 +8,7 @@ import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class HuePathComposerTest {
+public class FacadePathComposerTest {
 
     @Test
     public void hueURLIsComposedProperly() {
@@ -17,7 +17,7 @@ public class HuePathComposerTest {
         newLightState.setBrightness(new Brightness(2));
         newLightState.setHueInt(3);
 
-        assertThat(new HuePathComposer().composePath(newLightState), is("light/1/brightness/2/color/3"));
+        assertThat(new FacadePathComposer().composePath(newLightState), is("light/1/brightness/2/color/3"));
 
     }
 }

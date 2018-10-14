@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import no.cx.iot.philipshueapi.hueController.rest.facade.PhilipsHueConnector;
+import no.cx.iot.philipshueapi.hueController.rest.facade.FacadeConnector;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 public class LightStateControllerTest {
 
     @Mock
-    private PhilipsHueConnector connector;
+    private FacadeConnector connector;
 
     @Mock
     private ProposedLightStatesFinder lightStatesFinder;

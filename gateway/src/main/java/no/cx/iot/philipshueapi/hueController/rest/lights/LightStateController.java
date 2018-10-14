@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import no.cx.iot.philipshueapi.hueController.rest.InputProvider;
-import no.cx.iot.philipshueapi.hueController.rest.facade.PhilipsHueConnector;
+import no.cx.iot.philipshueapi.hueController.rest.facade.FacadeConnector;
 
 import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.ExceptionWrapper.wrapExceptions;
 
@@ -20,7 +20,7 @@ import static no.cx.iot.philipshueapi.hueController.rest.infrastructure.Exceptio
 public class LightStateController {
 
     @Inject
-    private PhilipsHueConnector connector;
+    private FacadeConnector connector;
 
     @Inject
     private ProposedLightStatesFinder proposedLightStatesFinder;

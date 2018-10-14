@@ -7,7 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 @ApplicationScoped
-class HuePathComposer {
+class FacadePathComposer {
     String composePath(LightState newLightState) {
         return String.format("light/%s/brightness/%s/color/%s",
                 newLightState.getLightIndex(),

@@ -17,29 +17,29 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PhilipsHueConnectorTest {
+public class FacadeConnectorTest {
 
     @Mock
     private HttpConnector httpConnector;
 
     @Mock
-    private HueURL hueURL;
+    private FacadeURL facadeURL;
 
     @Spy
-    private HuePathComposer huePathComposer;
+    private FacadePathComposer facadePathComposer;
 
     @InjectMocks
-    private PhilipsHueConnector philipsHueConnector;
+    private FacadeConnector facadeConnector;
 
     @Test
     public void hueURLIsComposedProperly() throws IOException {
-        doReturn("localhozt/").when(hueURL).getFullURL();
+        doReturn("localhozt/").when(facadeURL).getFullURL();
         LightState newLightState = new LightState();
         newLightState.setLightIndex(1);
         newLightState.setBrightness(new Brightness(2));
         newLightState.setHueInt(3);
 
-        LightState s = philipsHueConnector.switchStateOfLight(newLightState);
+        LightState s = facadeConnector.switchStateOfLight(newLightState);
 
         verify(httpConnector).executeHTTPGet("localhozt/light/1/brightness/2/color/3", LightState.class);
     }

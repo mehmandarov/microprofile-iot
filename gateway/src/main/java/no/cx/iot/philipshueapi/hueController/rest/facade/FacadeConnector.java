@@ -11,28 +11,28 @@ import no.cx.iot.philipshueapi.hueController.rest.lights.LightState;
 
 @SuppressWarnings("unused")
 @ApplicationScoped
-public class PhilipsHueConnector implements Connector {
+public class FacadeConnector implements Connector {
 
     @Inject
     @SuppressWarnings("unused")
-    private HueURL hueURL;
+    private FacadeURL facadeURL;
 
     @Inject
     private HttpConnector httpConnector;
 
     @Inject
-    private HuePathComposer huePathComposer;
+    private FacadePathComposer facadePathComposer;
 
     public int getNumberOfLights() throws IOException {
         return getResponseText("lights", Integer.class);
     }
 
     public LightState switchStateOfLight(LightState newLightState) throws IOException {
-        return getResponseText(huePathComposer.composePath(newLightState), LightState.class);
+        return getResponseText(facadePathComposer.composePath(newLightState), LightState.class);
     }
 
     private <T> T getResponseText(String path, Class<T> clazz) throws IOException {
-        return httpConnector.executeHTTPGet(hueURL.getFullURL() + path, clazz);
+        return httpConnector.executeHTTPGet(facadeURL.getFullURL() + path, clazz);
     }
 
     @Override

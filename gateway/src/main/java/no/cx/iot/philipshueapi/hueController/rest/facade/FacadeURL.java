@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
-public class HueURL {
+public class FacadeURL {
 
     @Inject
     @ConfigProperty(name="facadehost", defaultValue = "localhost")
