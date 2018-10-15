@@ -17,7 +17,7 @@ public class SDKAdapterTest {
 
     @Test
     public void fakeBridgeWhenPropertyFalse() {
-        assertThat(sdkAdapter.getBridge(), is(instanceOf(DummyBridge.class)));
+        assertThat(sdkAdapter.getBridge(), is(instanceOf(FakeBridge.class)));
     }
 
     @Test

@@ -46,7 +46,7 @@ public class SDKAdapter {
     }
 
     public Bridge getBridge() {
-        return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new DummyBridge();
+        return useRealBridge ? new SDKBridge(sdk.getSelectedBridge()) : new FakeBridge();
     }
 
     public void unregisterSDKListener(Listener listener) {

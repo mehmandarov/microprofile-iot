@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import no.cx.iot.facade.lightstate.InputSource;
 
 @RequiredArgsConstructor
-public class DummyBridge implements Bridge {
+public class FakeBridge implements Bridge {
 
     @Override
     public PHBridgeResourcesCache getResourceCache() {
