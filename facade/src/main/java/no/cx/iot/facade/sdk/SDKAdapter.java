@@ -26,25 +26,23 @@ public class SDKAdapter {
     private SDKFacade sdk;
 
     public SDKAdapter() {
-        if (useRealBridge) sdk = new SDKFacade();
+        sdk = useRealBridge ? new RealSDKFacade() : new FakeSDKFacade();
     }
 
     public void connect(PHAccessPoint accessPoint) {
-        if (useRealBridge) sdk.connect(accessPoint);
+        sdk.connect(accessPoint);
     }
 
     private Optional<PHBridge> getSelectedBridge() {
-        return useRealBridge ? Optional.of(sdk.getSelectedBridge()) : Optional.empty();
+        return Optional.ofNullable(sdk.getSelectedBridge());
     }
 
     public void setSelectedBridge(PHBridge bridge) {
-        if (useRealBridge) {
-            sdk.setSelectedBridge(bridge);
-        }
+        sdk.setSelectedBridge(bridge);
     }
 
     public void startPushlinkAuthentication(PHAccessPoint accessPoint) {
-        if (useRealBridge) sdk.startPushlinkAuthentication(accessPoint);
+        sdk.startPushlinkAuthentication(accessPoint);
     }
 
     public Bridge getBridge() {
@@ -52,11 +50,11 @@ public class SDKAdapter {
     }
 
     public void unregisterSDKListener(Listener listener) {
-        if (useRealBridge) sdk.getNotificationManager().unregisterSDKListener(listener);
+        sdk.getNotificationManager().unregisterSDKListener(listener);
     }
 
     public void registerSDKListener(Listener listener) {
-        if (useRealBridge) sdk.getNotificationManager().registerSDKListener(listener);
+        sdk.getNotificationManager().registerSDKListener(listener);
     }
 
     public boolean isBridgeSelected() {
@@ -64,7 +62,7 @@ public class SDKAdapter {
     }
 
     public void search(boolean b, boolean b1) {
-        if (useRealBridge) ((PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE)).search(b, b1);
+        ((PHBridgeSearchManager) sdk.getSDKService(PHHueSDK.SEARCH_BRIDGE)).search(b, b1);
     }
 
     public void enableHeartbeatHBInterval() {

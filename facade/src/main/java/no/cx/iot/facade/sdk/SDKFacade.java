@@ -1,43 +1,21 @@
 package no.cx.iot.facade.sdk;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
-import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.hue.sdk.PHNotificationManager;
 import com.philips.lighting.model.PHBridge;
 
-class SDKFacade {
+public interface SDKFacade {
+    void connect(PHAccessPoint accessPoint);
 
-    private PHHueSDK sdk;
+    PHBridge getSelectedBridge();
 
-    SDKFacade() {
-        sdk = PHHueSDK.getInstance();
-    }
+    PHNotificationManager getNotificationManager();
 
-    void connect(PHAccessPoint accessPoint) {
-        sdk.connect(accessPoint);
-    }
+    void setSelectedBridge(PHBridge bridge);
 
-    PHBridge getSelectedBridge() {
-        return sdk.getSelectedBridge();
-    }
+    void startPushlinkAuthentication(PHAccessPoint accessPoint);
 
-    PHNotificationManager getNotificationManager() {
-        return sdk.getNotificationManager();
-    }
+    Object getSDKService(byte searchBridge);
 
-    void setSelectedBridge(PHBridge bridge) {
-        sdk.setSelectedBridge(bridge);
-    }
-
-    void startPushlinkAuthentication(PHAccessPoint accessPoint) {
-        sdk.startPushlinkAuthentication(accessPoint);
-    }
-
-    Object getSDKService(byte searchBridge) {
-        return sdk.getSDKService(searchBridge);
-    }
-
-    void enableHeartbeat(PHBridge bridge, int hbInterval) {
-        sdk.enableHeartbeat(bridge, hbInterval);
-    }
+    void enableHeartbeat(PHBridge bridge, int hbInterval);
 }
