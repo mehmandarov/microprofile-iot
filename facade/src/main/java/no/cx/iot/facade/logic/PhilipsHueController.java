@@ -12,6 +12,8 @@ import com.philips.lighting.model.PHLightState;
 import no.cx.iot.facade.lightstate.LightState;
 import no.cx.iot.facade.sdk.Bridge;
 
+import static com.philips.lighting.model.PHLight.PHLightColorMode.COLORMODE_XY;
+
 @SuppressWarnings("unused")
 @ApplicationScoped
 public class PhilipsHueController {
@@ -53,8 +55,8 @@ public class PhilipsHueController {
     }
 
     private void setColorOnLight(Bridge bridge, int color, PHLight light, PHLightState lastKnownLightState) {
-        lastKnownLightState.setColorMode(PHLight.PHLightColorMode.COLORMODE_XY);
-        float[] xy = PHUtilities.calculateXY(color, PHLight.PHLightColorMode.COLORMODE_XY.getValue());
+        lastKnownLightState.setColorMode(COLORMODE_XY);
+        float[] xy = PHUtilities.calculateXY(color, COLORMODE_XY.getValue());
         lastKnownLightState.setX(xy[0], true);
         lastKnownLightState.setY(xy[1], true);
         bridge.updateLightState(light, lastKnownLightState);
