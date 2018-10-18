@@ -26,7 +26,7 @@ public class HttpConnector {
     @ConfigProperty(name = "charset", defaultValue = "UTF-8")
     private String encoding;
 
-    @Retry
+    @Retry(maxRetries = 2)
     @CircuitBreaker
     public String executeHTTPGet(String url) throws IOException {
         logger.info(String.format("Invoking %s", url));

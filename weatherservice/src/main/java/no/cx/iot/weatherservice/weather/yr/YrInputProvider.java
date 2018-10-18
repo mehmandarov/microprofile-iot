@@ -3,7 +3,7 @@ package no.cx.iot.weatherservice.weather.yr;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import no.cx.iot.weatherservice.cache.CacheHandler;
 import no.cx.iot.weatherservice.utils.general.HttpConnector;
@@ -36,6 +36,7 @@ public class YrInputProvider implements InputProvider {
                 });
         }
 
+    @Timeout(2000)
     private Temperature getTemperatureFromYr() {
         String responseFromYr = wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
         return new Temperature(xmlToTemperatureConverter.convert(responseFromYr));
