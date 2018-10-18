@@ -1,25 +1,21 @@
 package no.cx.iot.weatherservice.weather.yr;
 
-import java.util.Optional;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import no.cx.iot.weatherservice.cache.CacheHandler;
-import no.cx.iot.weatherservice.utils.general.ExceptionWrapper;
 import no.cx.iot.weatherservice.utils.general.HttpConnector;
-import no.cx.iot.weatherservice.weather.Temperature;
 import no.cx.iot.weatherservice.weather.InputProvider;
+import no.cx.iot.weatherservice.weather.Temperature;
+
+import static no.cx.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
 @SuppressWarnings("unused")
 public class YrInputProvider implements InputProvider {
 
-    @Inject
-    @ConfigProperty(name = "location", defaultValue = "Oslo")
-    private String currentLocation;
     @Inject
     private YrURLProvider yrURLProvider;
     @Inject
@@ -31,18 +27,17 @@ public class YrInputProvider implements InputProvider {
 
     @Override
     public Temperature getTemperature() {
-        Optional<Temperature> temperatureFromNewlyUpdatedCache = cacheHandler.get(currentLocation);
-        if (temperatureFromNewlyUpdatedCache.isPresent()) {
-            return temperatureFromNewlyUpdatedCache.get();
+        return cacheHandler
+                .get(yrURLProvider.getCity())
+                .orElseGet(() -> {
+                    Temperature temperature = getTemperatureFromYr();
+                    cacheHandler.updateCache(yrURLProvider.getCity(), temperature);
+                    return temperature;
+                });
         }
 
-        Temperature temperature = getTemperatureFromYr();
-        cacheHandler.updateCache(currentLocation, temperature);
-        return temperature;
-    }
-
     private Temperature getTemperatureFromYr() {
-        String responseFromYr = ExceptionWrapper.wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
+        String responseFromYr = wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
         return new Temperature(xmlToTemperatureConverter.convert(responseFromYr));
     }
 

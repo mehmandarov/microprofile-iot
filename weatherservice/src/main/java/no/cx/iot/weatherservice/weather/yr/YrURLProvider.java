@@ -26,4 +26,8 @@ public class YrURLProvider {
     String getURL() {
         return yrURLStart + country + "/" + yrCityPart + yrURLEnd;
     }
+
+    String getCity() {
+        return yrCityPart;
+    }
 }
