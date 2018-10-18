@@ -20,8 +20,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import no.cx.iot.weatherservice.utils.general.ExceptionWrapper;
 import no.cx.iot.weatherservice.weather.Temperature;
+
+import static no.cx.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
 
 
 @ApplicationScoped
@@ -40,9 +41,9 @@ public class CacheHandlerImpl implements CacheHandler {
     public void createCacheIfNotExisting() {
         path = Paths.get(filename);
         if (!Files.exists(path)) {
-            ExceptionWrapper.wrapExceptions(() -> Files.createFile(path));
+            wrapExceptions(() -> Files.createFile(path));
         }
-        Optional.ofNullable(ExceptionWrapper.wrapExceptions(this::readCache)).ifPresent(this::put);
+        Optional.ofNullable(wrapExceptions(this::readCache)).ifPresent(this::put);
     }
 
     private void put(CacheEntry entry) {
@@ -59,12 +60,12 @@ public class CacheHandlerImpl implements CacheHandler {
                 : objectMapper.readValue(path.toFile(), CacheEntry.class);
     }
 
-    private boolean save(String currentLocation, LocalDateTime now, Temperature temperature) throws IOException {
+    private boolean save(String location, LocalDateTime now, Temperature temperature) throws IOException {
         if (path == null) {
             createCacheIfNotExisting();
         }
 
-        writeToFile(new CacheEntry(currentLocation, now, temperature));
+        writeToFile(new CacheEntry(location, now, temperature));
         return true;
     }
 
@@ -73,9 +74,9 @@ public class CacheHandlerImpl implements CacheHandler {
     }
 
     @Override
-    public Optional<Temperature> get(String currentLocation) {
-        if (cache.containsKey(currentLocation)) {
-            CacheEntry cacheEntry = cache.get(currentLocation);
+    public Optional<Temperature> get(String location) {
+        if (cache.containsKey(location)) {
+            CacheEntry cacheEntry = cache.get(location);
             if (isNewlyUpdated(cacheEntry.getTime())) {
                 return Optional.of(cacheEntry.getTemperature());
             }
@@ -88,9 +89,9 @@ public class CacheHandlerImpl implements CacheHandler {
     }
 
     @Override
-    public void updateCache(String currentLocation, Temperature temperature) {
-        ExceptionWrapper.wrapExceptions(() -> save(currentLocation, LocalDateTime.now(), temperature));
-        put(currentLocation, LocalDateTime.now(), temperature);
+    public void updateCache(String location, Temperature temperature) {
+        wrapExceptions(() -> save(location, LocalDateTime.now(), temperature));
+        put(location, LocalDateTime.now(), temperature);
     }
 
 }

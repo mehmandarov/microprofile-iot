@@ -5,7 +5,7 @@ import java.util.Optional;
 import no.cx.iot.weatherservice.weather.Temperature;
 
 public interface CacheHandler {
-    Optional<Temperature> get(String currentLocation);
+    Optional<Temperature> get(String location);
 
-    void updateCache(String currentLocation, Temperature temperature);
+    void updateCache(String location, Temperature temperature);
 }

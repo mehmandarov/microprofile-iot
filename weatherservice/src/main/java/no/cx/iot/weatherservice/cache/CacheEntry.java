@@ -19,8 +19,8 @@ class CacheEntry {
     @Getter
     private Temperature temperature;
 
-    CacheEntry(String currentLocation, LocalDateTime now, Temperature temperature) {
-        this(currentLocation, new TimeDTO(now), temperature);
+    CacheEntry(String location, LocalDateTime now, Temperature temperature) {
+        this(location, new TimeDTO(now), temperature);
     }
 
     LocalDateTime getTime() {
