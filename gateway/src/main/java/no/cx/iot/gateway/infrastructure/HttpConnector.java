@@ -61,7 +61,7 @@ public class HttpConnector {
     }
 
     @SuppressWarnings("unused") // This method is used through reflection by the fallback annotation in the above method
-    private Tuple<Integer, String> fallback(String url) {
+    public Tuple<Integer, String> fallback(String url) throws IOException {
         return new Tuple<>(418, "ERROR: Could not connect to: " + url);
     }
 }
