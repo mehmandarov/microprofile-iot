@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 import no.cx.iot.gateway.infrastructure.Connector;
 import no.cx.iot.gateway.infrastructure.HttpConnector;
 import no.cx.iot.gateway.lights.LightState;
@@ -20,12 +22,20 @@ public class FacadeConnector implements Connector {
     @Inject
     private HttpConnector httpConnector;
 
-    public int getNumberOfLights() throws IOException {
-        return getResponseText("lights", Integer.class);
+    @Inject
+    @RestClient
+    private FacadeEndpoint facadeEndpoint;
+
+    public int getNumberOfLights() {
+        return facadeEndpoint.getNumberOfLights();
     }
 
-    public LightState switchStateOfLight(LightState newLightState) throws IOException {
-        return getResponseText(facadeURL.composePath(newLightState), LightState.class);
+    public LightState switchStateOfLight(LightState newLightState) {
+        return facadeEndpoint.switchStateOfLight(
+                newLightState.getLightIndex(),
+                newLightState.getBrightnessInt(),
+                facadeURL.getColor(newLightState)
+        );
     }
 
     private <T> T getResponseText(String path, Class<T> clazz) throws IOException {

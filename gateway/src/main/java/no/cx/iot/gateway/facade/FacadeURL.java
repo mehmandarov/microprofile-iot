@@ -31,7 +31,7 @@ public class FacadeURL {
                 getColor(newLightState));
     }
 
-    private Integer getColor(LightState newLightState) {
+    Integer getColor(LightState newLightState) {
         return Optional.ofNullable(newLightState.getHueInt()).orElse(0);
     }
 }
