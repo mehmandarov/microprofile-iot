@@ -32,7 +32,7 @@ public class HealthChecker implements HealthCheck {
 
     private boolean canConnect() {
         try {
-            HttpUriRequest request = new HttpGet("http://localhost:8080/hue/verify");
+            HttpUriRequest request = new HttpGet("http://localhost:9080/hue/verify");
             CloseableHttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
             return httpResponse.getStatusLine().getStatusCode() == 200;
         } catch (Exception e) {
