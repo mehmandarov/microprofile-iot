@@ -11,7 +11,7 @@
 
     <modules>
         <module>gateway</module>
-        <module>hueAPI</module>
+        <module>facade</module>
         <module>timeservice</module>
         <module>weatherservice</module>
     </modules>
@@ -51,6 +51,13 @@
                 <type>pom</type>
             </dependency>
             <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>2.0.1</version>
+            <type>pom</type>
+            <scope>provided</scope>
+            </dependency>
+            <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.6</version>
@@ -64,6 +71,21 @@
                 <groupId>io.thorntail</groupId>
                 <artifactId>jaxrs</artifactId>
                 <version>${version.thorntail}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.9.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>2.9.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eaxy</groupId>
+                <artifactId>eaxy</artifactId>
+                <version>0.2.1</version>
             </dependency>
 
             <!-- HACK: yup, due to https://issues.jboss.org/browse/THORN-1890 we can't use mp-openapi here -->

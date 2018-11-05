@@ -5,16 +5,16 @@ services:
     ports:
       - "8083:8080"
     build:
-      context: ./hueAPI
+      context: ./facade
       args:
-        JAR_FILE: philips-hue-api-thorntail.jar
+        JAR_FILE: philips-hue-api-facade-thorntail.jar
         PORT_NUMBER: 8080
     secrets:
       - huecredentials
   timeservice:
     image: "iot:time-service"
     ports:
-      - "8081:8080"
+      - "9081:8080"
     build:
       context: ./timeservice
       args:
@@ -29,6 +29,7 @@ services:
       args:
         JAR_FILE: weatherservice-thorntail.jar
         PORT_NUMBER: 8080
+        JVM_OPTIONS: -Dcountry=Moldova -Dyr_city_part=Chisinau/Chişinău
 secrets:
   huecredentials:
-    file: ./hueAPI/MyHue.properties
+    file: ./facade/MyHue.properties
