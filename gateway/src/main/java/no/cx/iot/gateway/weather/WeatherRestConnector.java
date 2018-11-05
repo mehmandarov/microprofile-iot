@@ -4,16 +4,14 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
+
 import lombok.Getter;
-import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
-import no.cx.iot.gateway.infrastructure.HttpConnector;
+import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
 
 public class WeatherRestConnector implements InputProvider<Weather> {
-
-    @Inject
-    private HttpConnector connector;
 
     @Inject
     private WeatherURLProvider weatherURLProvider;
@@ -38,7 +36,11 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     }
 
     private Weather getWeather() throws IOException {
-        return connector.executeHTTPGet(weatherURLProvider.getFullURL(), Weather.class);
+        return RestClientBuilder.newBuilder()
+                .baseUrl(weatherURLProvider.getBaseURL())
+                .build(WeatherEndpoint.class)
+                .getWeather();
+
     }
 
 }

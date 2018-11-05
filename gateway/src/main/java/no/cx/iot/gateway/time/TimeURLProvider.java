@@ -1,5 +1,8 @@
 package no.cx.iot.gateway.time;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -19,11 +22,7 @@ public class TimeURLProvider {
     @ConfigProperty(name = "timePort", defaultValue = "9081")
     private String port;
 
-    @Inject
-    @ConfigProperty(name = "timePath", defaultValue = "timeservice")
-    private String path;
-
-    String getFullURL() {
-        return "http://" + getHost() + ":" + getPort() +"/" + getPath();
+    URL getBaseURL() throws MalformedURLException {
+        return new URL("http://" + getHost() + ":" + getPort());
     }
 }

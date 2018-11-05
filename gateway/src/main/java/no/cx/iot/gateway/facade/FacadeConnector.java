@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import no.cx.iot.gateway.infrastructure.Connector;
-import no.cx.iot.gateway.infrastructure.HttpConnector;
 import no.cx.iot.gateway.lights.LightState;
 
 @SuppressWarnings("unused")
@@ -18,9 +17,6 @@ public class FacadeConnector implements Connector {
     @Inject
     @SuppressWarnings("unused")
     private FacadeURL facadeURL;
-
-    @Inject
-    private HttpConnector httpConnector;
 
     @Inject
     @RestClient
@@ -36,10 +32,6 @@ public class FacadeConnector implements Connector {
                 newLightState.getBrightnessInt(),
                 facadeURL.getColor(newLightState)
         );
-    }
-
-    private <T> T getResponseText(String path, Class<T> clazz) throws IOException {
-        return httpConnector.executeHTTPGet(facadeURL.getFullURL() + path, clazz);
     }
 
     @Override

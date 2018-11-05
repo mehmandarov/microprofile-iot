@@ -6,11 +6,12 @@ import java.time.ZonedDateTime;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
+
 import lombok.Getter;
-import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
-import no.cx.iot.gateway.infrastructure.HttpConnector;
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
+import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
 
 @ApplicationScoped
 public class TimeRestConnector implements InputProvider<ZonedDateTime> {
@@ -22,8 +23,6 @@ public class TimeRestConnector implements InputProvider<ZonedDateTime> {
     @Getter
     private TimeToLightStateConverter converter;
 
-    @Inject
-    private HttpConnector connector;
 
     @Override
     public void testConnection() throws IOException {
@@ -36,7 +35,11 @@ public class TimeRestConnector implements InputProvider<ZonedDateTime> {
     }
 
     private ZonedDateTime getTime() throws IOException {
-        return connector.executeHTTPGet(timeURLProvider.getFullURL(), TimeDTO.class).getDateTime();
+        return RestClientBuilder.newBuilder()
+                .baseUrl(timeURLProvider.getBaseURL())
+                .build(TimeEndpoint.class)
+                .getCurrentTime()
+                .getDateTime();
     }
 
     @Override

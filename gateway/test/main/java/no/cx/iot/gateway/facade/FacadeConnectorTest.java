@@ -1,7 +1,5 @@
 package no.cx.iot.gateway.facade;
 
-import java.io.IOException;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -9,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import no.cx.iot.gateway.infrastructure.HttpConnector;
 import no.cx.iot.gateway.lights.Brightness;
 import no.cx.iot.gateway.lights.LightState;
 
@@ -20,7 +17,7 @@ import static org.mockito.Mockito.verify;
 public class FacadeConnectorTest {
 
     @Mock
-    private HttpConnector httpConnector;
+    private FacadeEndpoint facadeEndpoint;
 
     @Spy
     private FacadeURL facadeURL;
@@ -29,7 +26,7 @@ public class FacadeConnectorTest {
     private FacadeConnector facadeConnector;
 
     @Test
-    public void hueURLIsComposedProperly() throws IOException {
+    public void hueURLIsComposedProperly() {
         doReturn("localhozt/").when(facadeURL).getFullURL();
         LightState newLightState = new LightState();
         newLightState.setLightIndex(1);
@@ -38,7 +35,7 @@ public class FacadeConnectorTest {
 
         LightState s = facadeConnector.switchStateOfLight(newLightState);
 
-        verify(httpConnector).executeHTTPGet("localhozt/light/1/brightness/2/color/3", LightState.class);
+        verify(facadeEndpoint).switchStateOfLight(1, 2, 3);
     }
 
 }

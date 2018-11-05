@@ -1,5 +1,8 @@
 package no.cx.iot.gateway.weather;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -19,11 +22,7 @@ public class WeatherURLProvider {
     @ConfigProperty(name = "weatherPort", defaultValue = "8082")
     private String port;
 
-    @Inject
-    @ConfigProperty(name = "weatherPath", defaultValue = "weatherservice")
-    private String path;
-
-    String getFullURL() {
-        return "http://" + getHost() + ":" + getPort() +"/" + getPath();
+    URL getBaseURL() throws MalformedURLException {
+        return new URL("http://" + getHost() + ":" + getPort());
     }
 }
