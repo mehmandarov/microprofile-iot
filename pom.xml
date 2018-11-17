@@ -87,14 +87,6 @@
                 <artifactId>eaxy</artifactId>
                 <version>0.2.1</version>
             </dependency>
-
-            <!-- HACK: yup, due to https://issues.jboss.org/browse/THORN-1890 we can't use mp-openapi here -->
-            <dependency>
-                <groupId>org.eclipse.microprofile.openapi</groupId>
-                <artifactId>microprofile-openapi-api</artifactId>
-                <version>1.0.1</version>
-                <scope>compile</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

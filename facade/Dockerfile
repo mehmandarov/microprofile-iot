@@ -7,4 +7,4 @@ ENV MY_PORT_NUMBER=${PORT_NUMBER}
 
 EXPOSE ${MY_PORT_NUMBER}
 ADD target/${MY_JAR_FILE} /opt/${MY_JAR_FILE}
-ENTRYPOINT java -jar /opt/${MY_JAR_FILE} -Djava.net.preferIPv4Stack=true
+ENTRYPOINT java -jar /opt/${MY_JAR_FILE} -Djava.net.preferIPv4Stack=true -Dwildfly-swarm.useUberJar=true
