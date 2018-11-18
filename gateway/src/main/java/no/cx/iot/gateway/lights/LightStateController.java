@@ -11,13 +11,14 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import no.cx.iot.gateway.facade.FacadeConnector;
-import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
+
+import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
 public class LightStateController {
 
     @Inject
-    private FacadeConnector connector;
+    private FacadeConnector facade;
 
     @Inject
     private ProposedLightStatesFinder proposedLightStatesFinder;
@@ -33,11 +34,11 @@ public class LightStateController {
     }
 
     public boolean canConnectToFacade() {
-        return connector.canConnect();
+        return facade.canConnect();
     }
 
     private Integer getAllLights() {
-        return ExceptionWrapper.wrapExceptions(connector::getNumberOfLights);
+        return wrapExceptions(facade::getNumberOfLights);
     }
 
     @Timed(name = "switchState", absolute = true, description = "Time needed to switch state")
@@ -45,7 +46,7 @@ public class LightStateController {
         try {
             return Optional.of(lightIndex)
                     .map(proposedLightStatesFinder::getNewStateForLight)
-                    .map(lightState -> ExceptionWrapper.wrapExceptions(() -> connector.switchStateOfLight(lightState)))
+                    .map(lightState -> wrapExceptions(() -> facade.switchStateOfLight(lightState)))
                     .map(LightState::toString)
                     .orElse(null);
         }
