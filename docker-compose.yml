@@ -31,7 +31,7 @@ services:
       args:
         JAR_FILE: weatherservice-thorntail.jar
         PORT_NUMBER: 8080
-        JVM_OPTIONS: -Dcountry=Moldova -Dyr_city_part=Chisinau/Chişinău
+        JVM_OPTIONS: -Dcountry=Ukraina -Dyr_city_part=Kiev/Kiev
         TIMEZONE: Europe/Kiev
 secrets:
   huecredentials:
