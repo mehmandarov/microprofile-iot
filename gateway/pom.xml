@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>no.cx.iot.gateway</groupId>
     <artifactId>gateway</artifactId>
-    <name>Philips Hue Gateway</name>
+    <name>Gateway</name>
     <version>1.0.0</version>
     <packaging>war</packaging>
 
