@@ -63,11 +63,6 @@
                 <version>2.6</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.5.5</version>
-            </dependency>
-            <dependency>
                 <groupId>io.thorntail</groupId>
                 <artifactId>jaxrs</artifactId>
                 <version>${version.thorntail}</version>
