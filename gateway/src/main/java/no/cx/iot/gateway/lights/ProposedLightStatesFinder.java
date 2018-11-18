@@ -53,6 +53,7 @@ class ProposedLightStatesFinder {
     }
 
     public LightState getDefaultLightState(int lightIndex) {
+        logger.info("Changing to default light state for light " + lightIndex);
         return new LightState(lightIndex, InputSource.COMPUTED, Brightness.getMaxBrightness(), null);
     }
 }

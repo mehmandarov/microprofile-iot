@@ -27,6 +27,7 @@ public class LightStateController {
     private Logger logger;
 
     public String switchStateOfLights() {
+        logger.info("Switching state of lights");
         return IntStream.range(0, getAllLights())
                 .mapToObj(this::switchStateOfLight)
                 .peek(light -> logger.info("State of this light: " + light))

@@ -2,6 +2,7 @@ package no.cx.iot.gateway.facade;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -25,6 +26,9 @@ public class FacadeConnector implements Connector {
     private String port;
 
     @Inject
+    private Logger logger;
+
+    @Inject
     @RestClient
     private FacadeEndpoint facadeEndpoint;
 
@@ -33,15 +37,19 @@ public class FacadeConnector implements Connector {
     }
 
     public LightState switchStateOfLight(LightState newLightState) {
-        return facadeEndpoint.switchStateOfLight(
+        logger.info("Switching state to " + newLightState);
+        LightState newState = facadeEndpoint.switchStateOfLight(
                 newLightState.getLightIndex(),
                 newLightState.getBrightnessInt(),
                 getColor(newLightState)
         );
+        logger.info("New state: " + newState);
+        return newState;
     }
 
     @Override
     public void testConnection() throws IOException {
+        logger.info("Testing connection to facade");
         getNumberOfLights();
     }
 

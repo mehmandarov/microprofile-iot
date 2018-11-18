@@ -84,7 +84,7 @@ class BridgeConnector {
         int counter = 0;
         while (!sdk.isBridgeSelected()) {
             try {
-                logger.info("Waiting for bridge selection");
+                logger.warning("Waiting for bridge selection");
                 Thread.sleep(400);
             }
             catch (InterruptedException e) {

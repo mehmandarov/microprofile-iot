@@ -33,9 +33,10 @@ public class WeatherToLightStateConverter implements Converter<Weather> {
     @Override
     public LightState convert(int lightIndex, Weather weather) {
         int hue = new Color(r, g, b).getRGB();
-        int brightnessStrength = getBrightnessStrength(weather);
-        logger.warning("Converted " + weather + " to " + brightnessStrength);
-        return new LightState(lightIndex, InputSource.WEATHER, new Brightness(brightnessStrength), hue);
+        Brightness brightness = new Brightness(getBrightnessStrength(weather));
+        LightState lightState = new LightState(lightIndex, InputSource.WEATHER, brightness, hue);
+        logger.warning("Converted " + weather + " to " + lightState);
+        return lightState;
     }
 
     private int getBrightnessStrength(Weather weather) {

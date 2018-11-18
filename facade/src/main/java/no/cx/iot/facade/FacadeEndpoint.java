@@ -47,6 +47,7 @@ public class FacadeEndpoint {
 	@Path("/lights")
 	public Integer getNumberOfLights() {
 		philipsHueController.setup();
+		logger.info("Done setup");
 		return philipsHueController.getNumberOfLights();
 	}
 }
