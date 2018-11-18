@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.opentracing.Traced;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import lombok.Getter;
@@ -14,6 +15,7 @@ import no.cx.iot.gateway.InputSource;
 import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
 
 @ApplicationScoped
+@Traced
 public class TimeRestConnector implements InputProvider<ZonedDateTime> {
 
     @Inject

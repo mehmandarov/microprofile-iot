@@ -4,7 +4,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.opentracing.Traced;
 
+import io.opentracing.Tracer;
 import no.cx.iot.weatherservice.cache.CacheHandler;
 import no.cx.iot.weatherservice.utils.general.HttpConnector;
 import no.cx.iot.weatherservice.weather.InputProvider;
@@ -24,8 +26,11 @@ public class YrInputProvider implements InputProvider {
     private XMLToTemperatureConverter xmlToTemperatureConverter;
     @Inject
     private CacheHandler cacheHandler;
+    @Inject
+    private Tracer tracer;
 
     @Override
+    @Traced(operationName = "GetTemperature")
     public Temperature getTemperature() {
         return cacheHandler
                 .get(yrURLProvider.getCity())
@@ -34,15 +39,17 @@ public class YrInputProvider implements InputProvider {
                     cacheHandler.updateCache(yrURLProvider.getCity(), temperature);
                     return temperature;
                 });
-        }
+    }
 
     @Timeout(2000)
+    @Traced(operationName = "GetTemperatureFromYr")
     private Temperature getTemperatureFromYr() {
         String responseFromYr = wrapExceptions(() -> connector.executeHTTPGet(yrURLProvider.getURL()));
         return new Temperature(xmlToTemperatureConverter.convert(responseFromYr));
     }
 
     @Override
+    @Traced(false)
     public String toString() {
         return getClass().getSimpleName();
     }

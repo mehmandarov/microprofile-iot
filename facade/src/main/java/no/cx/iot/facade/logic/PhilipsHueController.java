@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.opentracing.Traced;
+
 import com.philips.lighting.hue.sdk.utilities.PHUtilities;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
@@ -16,6 +18,7 @@ import static com.philips.lighting.model.PHLight.PHLightColorMode.COLORMODE_XY;
 
 @SuppressWarnings("unused")
 @ApplicationScoped
+@Traced
 public class PhilipsHueController {
 
     @Inject

@@ -22,6 +22,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <failOnMissingWebXml>false</failOnMissingWebXml>
+        <version.jaeger>0.32.0</version.jaeger>
     </properties>
 
     <dependencyManagement>
@@ -87,6 +88,19 @@
                 <artifactId>eaxy</artifactId>
                 <version>0.2.1</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.jaegertracing</groupId>
+                <artifactId>jaeger-core</artifactId>
+                <version>${version.jaeger}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jaegertracing</groupId>
+                <artifactId>jaeger-tracerresolver</artifactId>
+                <version>${version.jaeger}</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

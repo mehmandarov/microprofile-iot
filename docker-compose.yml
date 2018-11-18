@@ -11,6 +11,11 @@ services:
         PORT_NUMBER: 8080
     secrets:
       - huecredentials
+    external_links:
+      - jaeger
+    networks:
+      - default
+      - jaeger-net
   timeservice:
     image: "iot:time-service"
     ports:
@@ -20,6 +25,11 @@ services:
       args:
         JAR_FILE: timeservice-thorntail.jar
         PORT_NUMBER: 8080
+    external_links:
+    - jaeger
+    networks:
+    - default
+    - jaeger-net
   weatherservice:
     image: "iot:weather-service"
     ports:
@@ -30,6 +40,14 @@ services:
         JAR_FILE: weatherservice-thorntail.jar
         PORT_NUMBER: 8080
         JVM_OPTIONS: -Dcountry=Moldova -Dyr_city_part=Chisinau/Chişinău
+    external_links:
+    - jaeger
+    networks:
+    - default
+    - jaeger-net
+networks:
+  jaeger-net:
+    external: true
 secrets:
   huecredentials:
     file: ./facade/MyHue.properties
