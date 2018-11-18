@@ -11,6 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import no.cx.iot.facade.lightstate.Brightness;
+import no.cx.iot.facade.lightstate.InputSource;
 import no.cx.iot.facade.lightstate.LightState;
 import no.cx.iot.facade.logic.PhilipsHueController;
 
@@ -32,7 +34,12 @@ public class FacadeEndpoint {
 										 @PathParam("brightness") int brightness,
 										 @PathParam("color") int color) {
 		philipsHueController.setup();
-        return philipsHueController.switchStateOfGivenLight(lightIndex, brightness, color);
+		try {
+			return philipsHueController.switchStateOfGivenLight(lightIndex, brightness, color);
+		}
+		catch (RuntimeException e) {
+			return new LightState(lightIndex, InputSource.ERROR, new Brightness(brightness), color);
+		}
     }
 
 	@GET
