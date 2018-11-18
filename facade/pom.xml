@@ -50,11 +50,6 @@
       <groupId>io.thorntail</groupId>
       <artifactId>microprofile</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.thorntail</groupId>
-      <artifactId>jaxrs</artifactId>
-    </dependency>
-
 
     <!-- Hue SDK -->
     <dependency>
@@ -73,7 +68,7 @@
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
+      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
