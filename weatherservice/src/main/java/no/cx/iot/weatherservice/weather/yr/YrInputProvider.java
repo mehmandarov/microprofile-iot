@@ -1,6 +1,5 @@
 package no.cx.iot.weatherservice.weather.yr;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,6 +12,8 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import no.cx.iot.weatherservice.cache.CacheHandler;
 import no.cx.iot.weatherservice.weather.InputProvider;
 import no.cx.iot.weatherservice.weather.Temperature;
+
+import static no.cx.iot.weatherservice.utils.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
 @SuppressWarnings("unused")
@@ -43,7 +44,7 @@ public class YrInputProvider implements InputProvider {
     @Timeout(2000)
     private Temperature getTemperatureFromYr() {
         String weather = RestClientBuilder.newBuilder()
-                .baseUrl(getURL())
+                .baseUrl(wrapExceptions(() -> new URL("http://www.yr.no/")))
                 .build(YrService.class)
                 .getWeather(country, yrCityPart);
 
@@ -53,14 +54,5 @@ public class YrInputProvider implements InputProvider {
     @Override
     public String toString() {
         return getClass().getSimpleName();
-    }
-
-
-    private URL getURL() {
-        try {
-            return new URL("http://www.yr.no/");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

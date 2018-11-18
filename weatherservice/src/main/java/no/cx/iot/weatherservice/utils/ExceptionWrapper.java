@@ -1,4 +1,4 @@
-package no.cx.iot.weatherservice.utils.general;
+package no.cx.iot.weatherservice.utils;
 
 import java.util.concurrent.Callable;
 
