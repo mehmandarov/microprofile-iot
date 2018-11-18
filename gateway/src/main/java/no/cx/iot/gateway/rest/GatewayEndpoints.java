@@ -10,7 +10,7 @@ import org.eclipse.microprofile.metrics.annotation.Counted;
 import no.cx.iot.gateway.lights.LightStateController;
 
 @Path("/")
-public class RootResource {
+public class GatewayEndpoints {
 
     @Inject
     private LightStateController lightStateController;
@@ -23,5 +23,12 @@ public class RootResource {
             return "Could not connect to facade";
         }
         return lightStateController.switchStateOfLights();
+    }
+
+    @GET
+    @Path("verify")
+    @Produces("text/plain")
+    public String doGet() {
+        return "Hello from OpenLiberty!";
     }
 }
