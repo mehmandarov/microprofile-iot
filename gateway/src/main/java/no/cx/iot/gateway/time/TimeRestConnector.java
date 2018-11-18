@@ -1,11 +1,13 @@
 package no.cx.iot.gateway.time;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.ZonedDateTime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import lombok.Getter;
@@ -17,7 +19,12 @@ import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
 public class TimeRestConnector implements InputProvider<ZonedDateTime> {
 
     @Inject
-    private TimeURLProvider timeURLProvider;
+    @ConfigProperty(name = "timeHost", defaultValue = "localhost")
+    private String host;
+
+    @Inject
+    @ConfigProperty(name = "timePort", defaultValue = "9081")
+    private String port;
 
     @Inject
     @Getter
@@ -36,7 +43,7 @@ public class TimeRestConnector implements InputProvider<ZonedDateTime> {
 
     private ZonedDateTime getTime() throws IOException {
         return RestClientBuilder.newBuilder()
-                .baseUrl(timeURLProvider.getBaseURL())
+                .baseUrl(new URL("http://" + host + ":" + host))
                 .build(TimeEndpoint.class)
                 .getCurrentTime()
                 .getDateTime();

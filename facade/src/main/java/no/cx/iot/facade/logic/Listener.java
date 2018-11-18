@@ -37,7 +37,6 @@ public class Listener implements PHSDKListener {
 
     @Override
     public void onAuthenticationRequired(PHAccessPoint accessPoint) {
-        logger.warning("Authentication required on " + accessPoint);
         bridgeConnector.startPushlinkAuthentication(accessPoint);
     }
 

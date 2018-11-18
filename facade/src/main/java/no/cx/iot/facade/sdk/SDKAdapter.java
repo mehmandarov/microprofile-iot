@@ -1,7 +1,9 @@
 package no.cx.iot.facade.sdk;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -23,9 +25,14 @@ public class SDKAdapter {
     @ConfigProperty(name = "useRealBridge", defaultValue = "false")
     private boolean useRealBridge;
 
+    @Inject
+    private Logger logger;
+
     private SDKFacade sdk;
 
-    public SDKAdapter() {
+    @PostConstruct
+    public void setup() {
+        logger.info("Using real bridge? " + useRealBridge);
         sdk = useRealBridge ? new RealSDKFacade() : new FakeSDKFacade();
     }
 
@@ -58,7 +65,7 @@ public class SDKAdapter {
     }
 
     public boolean isBridgeSelected() {
-        return useRealBridge ? (sdk.getSelectedBridge() == null) : true;
+        return useRealBridge ? (sdk.getSelectedBridge() != null) : true;
     }
 
     public void search(boolean b, boolean b1) {

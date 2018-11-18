@@ -1,4 +1,4 @@
-package no.cx.iot.weatherservice.utils.general;
+package no.cx.iot.weatherservice.utils;
 
 import java.util.logging.Logger;
 
@@ -13,4 +13,3 @@ public class LoggerProvider {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getSimpleName());
     }
 }
-

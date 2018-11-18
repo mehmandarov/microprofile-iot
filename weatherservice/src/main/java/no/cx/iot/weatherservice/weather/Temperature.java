@@ -22,7 +22,9 @@ public class Temperature {
         this.temperature = temperature;
     }
 
-    private void validate(String temperature) {
-        Double.parseDouble(temperature);
+    private void validate(String temperatureString) {
+        double temperature = Double.parseDouble(temperatureString);
+        assert temperature >= -273.15;
+        assert temperature < 100;
     }
 }

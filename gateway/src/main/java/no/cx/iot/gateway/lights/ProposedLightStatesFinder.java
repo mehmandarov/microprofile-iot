@@ -3,12 +3,13 @@ package no.cx.iot.gateway.lights;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+
+import org.eclipse.microprofile.faulttolerance.Fallback;
 
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
@@ -39,7 +40,8 @@ class ProposedLightStatesFinder {
         inputProviders.add(timeInputProvider);
     }
 
-    LightState getNewStateForLight(int lightIndex) {
+    @Fallback(fallbackMethod = "getDefaultLightState")
+    public LightState getNewStateForLight(int lightIndex) {
         return inputProviders.stream()
                 .sorted((a, b) -> Integer.compare(b.getPriority(), a.getPriority()))
                 .filter(InputProvider::canConnect)
@@ -47,10 +49,11 @@ class ProposedLightStatesFinder {
                 .filter(Objects::nonNull)
                 .limit(1)
                 .findAny()
-                .orElseGet(getDefaultLightState(lightIndex));
+                .orElseThrow(() -> new RuntimeException("Could not get new state for light, returning default"));
     }
 
-    private Supplier<LightState> getDefaultLightState(int lightIndex) {
-        return () -> new LightState(lightIndex, InputSource.COMPUTED, Brightness.getMaxBrightness(), null);
+    public LightState getDefaultLightState(int lightIndex) {
+        logger.info("Changing to default light state for light " + lightIndex);
+        return new LightState(lightIndex, InputSource.COMPUTED, Brightness.getMaxBrightness(), null);
     }
 }

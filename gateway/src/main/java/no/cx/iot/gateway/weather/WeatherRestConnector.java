@@ -1,9 +1,11 @@
 package no.cx.iot.gateway.weather;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import lombok.Getter;
@@ -14,7 +16,12 @@ import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
 public class WeatherRestConnector implements InputProvider<Weather> {
 
     @Inject
-    private WeatherURLProvider weatherURLProvider;
+    @ConfigProperty(name = "weatherHost", defaultValue = "localhost")
+    private String host;
+
+    @Inject
+    @ConfigProperty(name = "weatherPort", defaultValue = "8082")
+    private String port;
 
     @Inject
     @Getter
@@ -37,7 +44,7 @@ public class WeatherRestConnector implements InputProvider<Weather> {
 
     private Weather getWeather() throws IOException {
         return RestClientBuilder.newBuilder()
-                .baseUrl(weatherURLProvider.getBaseURL())
+                .baseUrl(new URL("http://" + host + ":" + port))
                 .build(WeatherEndpoint.class)
                 .getWeather();
 

@@ -1,4 +1,4 @@
-package no.cx.iot.weatherservice.utils.weather;
+package no.cx.iot.weatherservice.utils;
 
 import java.util.Collections;
 import java.util.Set;

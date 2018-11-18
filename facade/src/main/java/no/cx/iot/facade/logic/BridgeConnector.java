@@ -53,7 +53,10 @@ class BridgeConnector {
     }
 
     private void connect(PHAccessPoint accessPoint) {
-        sdk.getConnectedIPAddress().ifPresent(ip -> sdk.connect(accessPoint));
+        Optional<String> connectedIPAddress = sdk.getConnectedIPAddress();
+        if (!connectedIPAddress.isPresent()) {
+            sdk.connect(accessPoint);
+        }
     }
 
     void onBridgeConnected(PHBridge bridge, String username) {
@@ -81,7 +84,7 @@ class BridgeConnector {
         int counter = 0;
         while (!sdk.isBridgeSelected()) {
             try {
-                logger.info("Waiting for bridge selection");
+                logger.warning("Waiting for bridge selection");
                 Thread.sleep(400);
             }
             catch (InterruptedException e) {

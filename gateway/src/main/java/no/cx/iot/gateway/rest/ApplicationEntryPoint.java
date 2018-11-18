@@ -12,8 +12,7 @@ public class ApplicationEntryPoint extends Application {
 	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> classes = new HashSet<>();
-		classes.add(RootResource.class);
-		classes.add(VerifyResource.class);
+		classes.add(GatewayEndpoints.class);
 		return classes;
 	}
 }

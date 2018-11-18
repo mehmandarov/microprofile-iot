@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import no.cx.iot.weatherservice.weather.Temperature;
 
-import static no.cx.iot.weatherservice.utils.general.ExceptionWrapper.wrapExceptions;
+import static no.cx.iot.weatherservice.utils.ExceptionWrapper.wrapExceptions;
 
 
 @ApplicationScoped

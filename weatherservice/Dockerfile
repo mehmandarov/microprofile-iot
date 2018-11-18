@@ -3,10 +3,12 @@ FROM anapsix/alpine-java:8
 ARG JAR_FILE
 ARG PORT_NUMBER=8080
 ARG JVM_OPTIONS
+ARG TIMEZONE
+ENV TZ ${TIMEZONE}
 ENV MY_JAR_FILE=${JAR_FILE}
 ENV MY_PORT_NUMBER=${PORT_NUMBER}
 ENV MY_JVM_OPTIONS = ${JVM_OPTIONS}
 
 EXPOSE ${MY_PORT_NUMBER}
 ADD target/${MY_JAR_FILE} /opt/${MY_JAR_FILE}
-ENTRYPOINT java -jar /opt/${MY_JAR_FILE} -Djava.net.preferIPv4Stack=true ${MY_JVM_OPTIONS}
+ENTRYPOINT java -jar /opt/${MY_JAR_FILE} -Djava.net.preferIPv4Stack=true -Dwildfly-swarm.useUberJar=true ${MY_JVM_OPTIONS}
