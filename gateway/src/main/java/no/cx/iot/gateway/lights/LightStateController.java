@@ -34,6 +34,7 @@ public class LightStateController {
                 .collect(Collectors.joining("\n"));
     }
 
+    @Timed(absolute = true, name = "canConnect", description = "Can connect-checks to facade")
     public boolean canConnectToFacade() {
         return facade.canConnect();
     }
