@@ -4,14 +4,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.philips.lighting.model.*;
-
+import com.philips.lighting.model.PHBridgeConfiguration;
+import com.philips.lighting.model.PHBridgeResourcesCache;
+import com.philips.lighting.model.PHGroup;
+import com.philips.lighting.model.PHLight;
+import com.philips.lighting.model.PHLightState;
+import com.philips.lighting.model.PHScene;
+import com.philips.lighting.model.PHSchedule;
 import com.philips.lighting.model.rule.PHRule;
 import com.philips.lighting.model.sensor.PHSensor;
-import lombok.RequiredArgsConstructor;
+
 import no.cx.iot.facade.lightstate.InputSource;
 
-@RequiredArgsConstructor
 public class FakeBridge implements Bridge {
 
     @Override

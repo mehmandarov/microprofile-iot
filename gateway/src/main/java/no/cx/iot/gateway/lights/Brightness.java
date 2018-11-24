@@ -4,22 +4,20 @@ import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import no.cx.iot.gateway.infrastructure.LoggerProvider;
 
-@EqualsAndHashCode(exclude = "logger")
-@NoArgsConstructor
 public class Brightness {
 
-    @Getter
     private int brightness;
 
     @Inject
     private Logger logger;
 
     public static final int maxBrightness = 254;
+
+    public int getBrightness() {
+        return brightness;
+    }
 
     public static Brightness getMaxBrightness() {
         return new Brightness(maxBrightness);

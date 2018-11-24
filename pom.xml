@@ -39,11 +39,6 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.16.20</version>
-            </dependency>
-            <dependency>
                 <groupId>io.thorntail</groupId>
                 <artifactId>bom-all</artifactId>
                 <version>${version.thorntail}</version>

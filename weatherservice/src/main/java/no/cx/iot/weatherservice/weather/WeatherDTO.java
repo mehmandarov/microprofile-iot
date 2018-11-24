@@ -1,8 +1,5 @@
 package no.cx.iot.weatherservice.weather;
 
-import lombok.Data;
-
-@Data
 public class WeatherDTO {
     private final String temperature;
 

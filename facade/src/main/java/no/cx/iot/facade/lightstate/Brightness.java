@@ -2,17 +2,15 @@ package no.cx.iot.facade.lightstate;
 
 import java.util.logging.Logger;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import no.cx.iot.facade.LoggerProvider;
 
-@EqualsAndHashCode(exclude = "logger")
-@NoArgsConstructor
 public class Brightness {
 
-    @Getter
     private int brightness;
+
+    public int getBrightness() {
+        return brightness;
+    }
 
     private Logger logger;
 

@@ -5,13 +5,15 @@ import com.philips.lighting.model.PHBridgeResourcesCache;
 import com.philips.lighting.model.PHLight;
 import com.philips.lighting.model.PHLightState;
 
-import lombok.RequiredArgsConstructor;
 import no.cx.iot.facade.lightstate.InputSource;
 
-@RequiredArgsConstructor
 public class SDKBridge implements Bridge {
 
     private final PHBridge selectedBridge;
+
+    public SDKBridge(PHBridge selectedBridge) {
+        this.selectedBridge = selectedBridge;
+    }
 
 
     @Override

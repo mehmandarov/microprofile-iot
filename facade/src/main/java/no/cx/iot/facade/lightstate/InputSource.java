@@ -1,10 +1,5 @@
 package no.cx.iot.facade.lightstate;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-@Getter
 public enum InputSource {
     WEATHER(2),
     TIME(1),
@@ -14,4 +9,12 @@ public enum InputSource {
     ERROR(-3);
 
     private final Integer priority;
+
+    InputSource(Integer priority) {
+        this.priority = priority;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
 }

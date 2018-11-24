@@ -1,14 +1,5 @@
 package no.cx.iot.weatherservice.weather;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-@Getter
-@EqualsAndHashCode
-@ToString
-@NoArgsConstructor
 public class Temperature {
 
     private String temperature;
@@ -20,6 +11,10 @@ public class Temperature {
     public void setTemperature(String temperature) {
         validate(temperature);
         this.temperature = temperature;
+    }
+
+    public String getTemperature() {
+        return temperature;
     }
 
     private void validate(String temperatureString) {

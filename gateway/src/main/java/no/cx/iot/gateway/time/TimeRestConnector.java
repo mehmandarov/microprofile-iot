@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
-import lombok.Getter;
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
 import no.cx.iot.gateway.infrastructure.ExceptionWrapper;
@@ -27,9 +26,12 @@ public class TimeRestConnector implements InputProvider<ZonedDateTime> {
     private String port;
 
     @Inject
-    @Getter
     private TimeToLightStateConverter converter;
 
+    @Override
+    public TimeToLightStateConverter getConverter() {
+        return converter;
+    }
 
     @Override
     public void testConnection() throws IOException {

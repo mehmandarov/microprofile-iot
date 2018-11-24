@@ -2,25 +2,32 @@ package no.cx.iot.weatherservice.cache;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import no.cx.iot.weatherservice.weather.Temperature;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
 class CacheEntry {
-    @Getter
+
     private String place;
     private TimeDTO time;
 
-    @Getter
     private Temperature temperature;
+
+
+    public String getPlace() {
+        return place;
+    }
+
+    public Temperature getTemperature() {
+        return temperature;
+    }
 
     CacheEntry(String location, LocalDateTime now, Temperature temperature) {
         this(location, new TimeDTO(now), temperature);
+    }
+
+    private CacheEntry(String place, TimeDTO time, Temperature temperature) {
+        this.place = place;
+        this.time = time;
+        this.temperature = temperature;
     }
 
     LocalDateTime getTime() {
