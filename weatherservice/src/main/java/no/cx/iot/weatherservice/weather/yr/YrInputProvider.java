@@ -1,6 +1,7 @@
 package no.cx.iot.weatherservice.weather.yr;
 
 import java.net.URL;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -29,6 +30,8 @@ public class YrInputProvider implements InputProvider {
     private XMLToTemperatureConverter xmlToTemperatureConverter;
     @Inject
     private CacheHandler cacheHandler;
+    @Inject
+    private Logger logger;
 
     @Override
     public Temperature getTemperature() {
@@ -43,10 +46,13 @@ public class YrInputProvider implements InputProvider {
 
     @Timeout(2000)
     private Temperature getTemperatureFromYr() {
+        logger.info("Getting temperature from " + yrCityPart + ", " + country);
+
         String weather = RestClientBuilder.newBuilder()
                 .baseUrl(wrapExceptions(() -> new URL("http://www.yr.no/")))
                 .build(YrService.class)
                 .getWeather(country, yrCityPart);
+
 
         return new Temperature(xmlToTemperatureConverter.convert(weather));
     }
