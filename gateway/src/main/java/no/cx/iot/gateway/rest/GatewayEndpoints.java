@@ -26,6 +26,17 @@ public class GatewayEndpoints {
     }
 
     @GET
+    @Path("/resetlights")
+    @Counted(name = "reset", description = "Times lights are reset")
+    public String reset() {
+        if (!lightStateController.canConnectToFacade()) {
+            return "Could not connect to facade";
+        }
+        lightStateController.reset();
+        return "Successfully reset lights";
+    }
+
+    @GET
     @Path("verify")
     @Produces("text/plain")
     public String doGet() {

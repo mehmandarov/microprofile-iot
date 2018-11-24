@@ -30,6 +30,10 @@ public class Brightness {
         setBrightness(brightness);
     }
 
+    public static Brightness of(int brightness) {
+        return new Brightness(brightness);
+    }
+
     @Override
     public String toString() {
         return String.valueOf(brightness);

@@ -1,5 +1,6 @@
 package no.cx.iot.gateway.lights;
 
+import java.awt.Color;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import javax.inject.Inject;
 
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
+import no.cx.iot.gateway.InputSource;
 import no.cx.iot.gateway.facade.FacadeConnector;
 
 import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
@@ -64,4 +66,11 @@ public class LightStateController {
                 .orElseThrow(() -> new RuntimeException(e));
     }
 
+    public void reset() {
+        IntStream.range(0, facade.getNumberOfLights())
+                .forEach(index -> facade.switchStateOfLight(
+                        new LightState(index, InputSource.COMPUTED, Brightness.of(0), Color.white.getRGB())
+                        )
+                );
+    }
 }
