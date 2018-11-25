@@ -29,4 +29,8 @@ public interface FacadeEndpoint {
     @GET
     @Path("/lights")
     Integer getNumberOfLights();
+
+    @GET
+    @Path("/verify")
+    String verify();
 }

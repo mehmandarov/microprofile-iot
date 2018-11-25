@@ -50,4 +50,11 @@ public class FacadeEndpoint {
 		logger.info("Done setup, getting number of lights");
 		return philipsHueController.getNumberOfLights();
 	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/verify")
+	public String verify() {
+		return "Verified connection";
+	}
 }
