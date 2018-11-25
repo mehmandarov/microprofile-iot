@@ -1,39 +1,24 @@
 package no.cx.iot.gateway.lights;
 
-import java.awt.Color;
-import java.util.Optional;
+import java.io.Serializable;
 
 import no.cx.iot.gateway.InputSource;
 
-public class LightState {
-    private Integer lightIndex;
+public class LightState implements Serializable {
+
+    private int lightIndex;
     private InputSource inputSource;
     private Brightness brightness;
     private Integer hueInt;
 
-    public LightState(Integer lightIndex, InputSource inputSource, Brightness brightness, Integer hueInt) {
+    public LightState() {
+    }
+
+    public LightState(int lightIndex, InputSource inputSource, Brightness brightness, Integer hueInt) {
         this.lightIndex = lightIndex;
         this.inputSource = inputSource;
         this.brightness = brightness;
         this.hueInt = hueInt;
-    }
-
-    public Color getHue() {
-        return Optional.ofNullable(hueInt)
-                .map(Color::new)
-                .orElse(Color.RED);
-    }
-
-    public Integer getLightIndex() {
-        return lightIndex;
-    }
-
-    public int getBrightnessInt() {
-        return brightness.getBrightness();
-    }
-
-    public Integer getHueInt() {
-        return hueInt;
     }
 
     @Override
@@ -44,5 +29,37 @@ public class LightState {
                 ", brightness=" + brightness +
                 ", hueInt=" + hueInt +
                 '}';
+    }
+
+    public Integer getLightIndex() {
+        return lightIndex;
+    }
+
+    public InputSource getInputSource() {
+        return inputSource;
+    }
+
+    public Brightness getBrightness() {
+        return brightness;
+    }
+
+    public Integer getHueInt() {
+        return hueInt;
+    }
+
+    public void setLightIndex(int lightIndex) {
+        this.lightIndex = lightIndex;
+    }
+
+    public void setInputSource(InputSource inputSource) {
+        this.inputSource = inputSource;
+    }
+
+    public void setBrightness(Brightness brightness) {
+        this.brightness = brightness;
+    }
+
+    public void setHueInt(Integer hueInt) {
+        this.hueInt = hueInt;
     }
 }

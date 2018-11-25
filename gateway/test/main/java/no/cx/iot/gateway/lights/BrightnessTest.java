@@ -26,7 +26,7 @@ public class BrightnessTest {
     }
 
     private Brightness createBrightness(int i) {
-        brightness.setBrightness(i);
+        brightness.setBrightnessValue(i);
         return brightness;
     }
 

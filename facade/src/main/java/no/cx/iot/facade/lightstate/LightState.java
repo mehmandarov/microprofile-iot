@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class LightState implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private int lightIndex;
     private InputSource inputSource;
     private Brightness brightness;
@@ -35,5 +33,21 @@ public class LightState implements Serializable {
 
     public void setHueInt(Integer hueInt) {
         this.hueInt = hueInt;
+    }
+
+    public int getLightIndex() {
+        return lightIndex;
+    }
+
+    public InputSource getInputSource() {
+        return inputSource;
+    }
+
+    public Brightness getBrightness() {
+        return brightness;
+    }
+
+    public Integer getHueInt() {
+        return hueInt;
     }
 }

@@ -40,7 +40,7 @@ public class FacadeConnector implements Connector {
         logger.info("Switching state to " + newLightState);
         LightState newState = facadeEndpoint.switchStateOfLight(
                 newLightState.getLightIndex(),
-                newLightState.getBrightnessInt(),
+                newLightState.getBrightness().getBrightness(),
                 getColor(newLightState)
         );
         logger.info("New state: " + newState);

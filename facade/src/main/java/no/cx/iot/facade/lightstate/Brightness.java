@@ -8,21 +8,19 @@ import no.cx.iot.facade.LoggerProvider;
 public class Brightness implements Serializable {
 
     private int brightness;
+    private Logger logger;
+
+    private static final int maxBrightness = 254;
 
     public int getBrightness() {
         return brightness;
     }
-
-    private Logger logger;
-
-    private static final int maxBrightness = 254;
 
     public static Brightness getMaxBrightness() {
         return new Brightness(maxBrightness);
     }
 
     public Brightness() {
-        logger = LoggerProvider.getLogger(this.getClass());
     }
 
     public Brightness(int brightness) {
