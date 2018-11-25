@@ -1,10 +1,11 @@
 package no.cx.iot.facade.lightstate;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import no.cx.iot.facade.LoggerProvider;
 
-public class Brightness {
+public class Brightness implements Serializable {
 
     private int brightness;
 
@@ -18,6 +19,10 @@ public class Brightness {
 
     public static Brightness getMaxBrightness() {
         return new Brightness(maxBrightness);
+    }
+
+    public Brightness() {
+        logger = LoggerProvider.getLogger(this.getClass());
     }
 
     public Brightness(int brightness) {
