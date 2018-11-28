@@ -50,7 +50,7 @@ public class FacadeConnector implements Connector {
     @Override
     public void testConnection() throws IOException {
         logger.info("Testing connection to facade");
-        getNumberOfLights();
+        facadeEndpoint.verify();
     }
 
     private Integer getColor(LightState newLightState) {
