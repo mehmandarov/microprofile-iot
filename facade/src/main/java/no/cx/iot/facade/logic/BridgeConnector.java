@@ -2,10 +2,13 @@ package no.cx.iot.facade.logic;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+
+import org.awaitility.Duration;
 
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.model.PHBridge;
@@ -14,6 +17,8 @@ import no.cx.iot.facade.HueProperties;
 import no.cx.iot.facade.sdk.Bridge;
 import no.cx.iot.facade.sdk.NotificationManagerAdapter;
 import no.cx.iot.facade.sdk.SDKAdapter;
+
+import static org.awaitility.Awaitility.with;
 
 @ApplicationScoped
 class BridgeConnector {
@@ -80,20 +85,13 @@ class BridgeConnector {
     }
 
 
-    private void waitUntilBridgeIsSelected() { //TODO: Replace this with using awaitility
-        int counter = 0;
-        while (!sdk.isBridgeSelected()) {
-            try {
-                logger.warning("Waiting for bridge selection");
-                Thread.sleep(400);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (counter++ > 50) {
-                throw new RuntimeException("Waited too long for bridgeselection");
-            }
-        }
+    private void waitUntilBridgeIsSelected() {
+        with()
+                .conditionEvaluationListener(l -> System.out.println("Waiting for bridge selection"))
+                .await()
+                .pollInterval(Duration.FIVE_HUNDRED_MILLISECONDS)
+                .atMost(30, TimeUnit.SECONDS)
+                .until(sdk::isBridgeSelected);
     }
 
     Bridge getBridge() {
