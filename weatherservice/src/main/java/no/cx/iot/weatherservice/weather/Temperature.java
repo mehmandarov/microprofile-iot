@@ -22,4 +22,11 @@ public class Temperature {
         assert temperature >= -273.15;
         assert temperature < 100;
     }
+
+    @Override
+    public String toString() {
+        return "Temperature{" +
+                "temperature='" + temperature + '\'' +
+                '}';
+    }
 }

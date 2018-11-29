@@ -77,7 +77,7 @@ public class CacheHandlerImpl implements CacheHandler {
     public Optional<Temperature> get(String location) {
         if (cache.containsKey(location)) {
             CacheEntry cacheEntry = cache.get(location);
-            if (isNewlyUpdated(cacheEntry.getTime())) {
+            if (isNewlyUpdated(cacheEntry.getLocalDateTime())) {
                 return Optional.of(cacheEntry.getTemperature());
             }
         }
