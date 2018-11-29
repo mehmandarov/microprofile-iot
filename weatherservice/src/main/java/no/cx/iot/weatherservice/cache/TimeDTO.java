@@ -1,9 +1,14 @@
 package no.cx.iot.weatherservice.cache;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-class TimeDTO {
-    private final String timeRepresentation;
+public class TimeDTO implements Serializable {
+    private String timeRepresentation;
+
+    public TimeDTO() {
+
+    }
 
     TimeDTO(String timeRepresentation) {
         this.timeRepresentation = timeRepresentation;
@@ -15,6 +20,10 @@ class TimeDTO {
 
     public String getTimeRepresentation() {
         return timeRepresentation;
+    }
+
+    public void setTimeRepresentation(String timeRepresentation) {
+        this.timeRepresentation = timeRepresentation;
     }
 }
 

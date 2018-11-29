@@ -8,4 +8,12 @@ public class TimeDTO {
     public ZonedDateTime getDateTime() {
         return ZonedDateTime.parse(timeRepresentation);
     }
+
+    public String getTimeRepresentation() {
+        return timeRepresentation;
+    }
+
+    public void setTimeRepresentation(String timeRepresentation) {
+        this.timeRepresentation = timeRepresentation;
+    }
 }
