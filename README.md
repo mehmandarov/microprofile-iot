@@ -16,7 +16,7 @@ A detailed documentation and the description of the project can be found on a se
 ## Running the Project
 1. Build all the artifacts with Maven:
     ```
-    $ mvn clean install
+    $ mvn clean install -T 1C
     ```
 2. Start all the containers – ```facade```, ```weatherservice```, and ```timeservice```:
     ```
