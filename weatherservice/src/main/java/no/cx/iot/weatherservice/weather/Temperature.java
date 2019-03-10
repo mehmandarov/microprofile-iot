@@ -8,6 +8,10 @@ public class Temperature {
         setTemperature(temperature);
     }
 
+    public Temperature() {
+
+    }
+
     public void setTemperature(String temperature) {
         validate(temperature);
         this.temperature = temperature;
