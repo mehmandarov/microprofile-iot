@@ -17,7 +17,7 @@ import no.cx.iot.gateway.time.TimeRestConnector;
 import no.cx.iot.gateway.weather.WeatherRestConnector;
 
 @ApplicationScoped
-class ProposedLightStatesFinder {
+public class ProposedLightStatesFinder {
 
     @Inject
     private Logger logger;
