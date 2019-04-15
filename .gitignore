@@ -28,3 +28,4 @@ target/
 *lib/
 
 weatherservice/yr_cache.json
+*/.mvn/*
