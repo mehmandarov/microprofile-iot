@@ -17,11 +17,10 @@ services:
     ports:
       - "9081:8080"
     build:
-      context: ./timeservice
+      context: ./timeservice-v2
       args:
-        JAR_FILE: timeservice-thorntail.jar
         PORT_NUMBER: 8080
-        TIMEZONE: Europe/Kiev
+        TIMEZONE: Europe/Oslo
   weatherservice:
     image: "iot:weather-service"
     ports:

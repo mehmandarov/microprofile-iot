@@ -4,7 +4,15 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>no.cx.iot</groupId>
   <artifactId>timeservice-v2</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <name>IoT Time Service-Quarkus</name>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <parent>
+    <groupId>no.cx</groupId>
+    <artifactId>iot</artifactId>
+    <version>1.0</version>
+  </parent>
+
   <properties>
     <surefire-plugin.version>2.22.0</surefire-plugin.version>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -12,6 +20,7 @@
     <quarkus.version>0.12.0</quarkus.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -37,16 +46,20 @@
       <artifactId>quarkus-resteasy</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-junit5</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>

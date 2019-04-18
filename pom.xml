@@ -12,7 +12,7 @@
     <modules>
         <module>gateway</module>
         <module>facade</module>
-        <module>timeservice</module>
+        <module>timeservice-v2</module>
         <module>weatherservice</module>
     </modules>
 

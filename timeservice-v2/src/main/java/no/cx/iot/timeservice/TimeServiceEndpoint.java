@@ -9,12 +9,12 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 
 
-@Path("/")
+@Path("/timeservice")
 public class TimeServiceEndpoint {
 
     @SuppressWarnings("unused")
     @Inject
-    private ZonedDateTimeNowSupplier dateTimeNowSupplier;
+    ZonedDateTimeNowSupplier dateTimeNowSupplier;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
