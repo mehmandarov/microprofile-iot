@@ -19,6 +19,7 @@ services:
     build:
       context: ./timeservice-v2
       args:
+        JAR_FILE: timeservice-thorntail.jar
         PORT_NUMBER: 8080
         TIMEZONE: Europe/Oslo
   weatherservice:

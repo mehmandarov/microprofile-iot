@@ -2,9 +2,6 @@ package no.cx.iot.timeservice;
 
 import java.time.ZonedDateTime;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement
 public class TimeDTO {
     private String timeRepresentation;
 

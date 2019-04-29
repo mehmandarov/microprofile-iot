@@ -15,7 +15,7 @@ public class ZonedDateTimeNowSupplier implements Supplier<TimeDTO> {
 
     @Inject
     @ConfigProperty(name = "user.timezone")
-    private String user_timezone;
+    String user_timezone;
 
     @Override
     public TimeDTO get() {
