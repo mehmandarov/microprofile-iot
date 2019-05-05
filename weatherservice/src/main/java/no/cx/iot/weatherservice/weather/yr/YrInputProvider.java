@@ -35,6 +35,7 @@ public class YrInputProvider implements InputProvider {
 
     @Override
     public Temperature getTemperature() {
+        logger.info("Getting temperature for " + yrCityPart + ", " + country);
         return cacheHandler
                 .get(yrCityPart)
                 .orElseGet(() -> {
