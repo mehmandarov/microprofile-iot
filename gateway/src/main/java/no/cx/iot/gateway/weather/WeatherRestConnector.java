@@ -2,7 +2,6 @@ package no.cx.iot.gateway.weather;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -11,6 +10,7 @@ import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
+import no.cx.iot.gateway.infrastructure.Printer;
 
 import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
 
@@ -28,7 +28,7 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     private WeatherToLightStateConverter converter;
 
     @Inject
-    private Logger logger;
+    private Printer printer;
 
     @Override
     public WeatherToLightStateConverter getConverter() {
@@ -51,13 +51,13 @@ public class WeatherRestConnector implements InputProvider<Weather> {
     }
 
     private Weather getWeather() throws IOException {
-        logger.info("Constructing weather endpoint");
+        URL baseURL = new URL("http://" + host + ":" + port);
+        printer.println("Constructing weather endpoint at baseURL " + baseURL);
         WeatherEndpoint weatherEndpoint = RestClientBuilder.newBuilder()
-                .baseUrl(new URL("http://" + host + ":" + port))
+                .baseUrl(baseURL)
                 .build(WeatherEndpoint.class);
-        logger.info("Weather endpoint: " + weatherEndpoint);
-        return weatherEndpoint
-                .getWeather();
+        printer.println("Weather endpoint: " + weatherEndpoint);
+        return weatherEndpoint.getWeather();
 
     }
 

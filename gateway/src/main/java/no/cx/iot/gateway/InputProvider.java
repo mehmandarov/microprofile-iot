@@ -12,8 +12,7 @@ public interface InputProvider<T> extends Connector {
     T getDataForLight(int lightIndex);
 
     default LightState getNewStateForLight(int lightIndex) {
-        return ofNullable(
-                getDataForLight(lightIndex))
+        return ofNullable(getDataForLight(lightIndex))
                 .map(data -> getConverter().convert(lightIndex, data))
                 .orElse(null);
     }

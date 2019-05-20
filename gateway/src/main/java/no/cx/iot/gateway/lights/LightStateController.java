@@ -2,7 +2,6 @@ package no.cx.iot.gateway.lights;
 
 import java.awt.Color;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,6 +12,7 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import no.cx.iot.gateway.InputSource;
 import no.cx.iot.gateway.facade.FacadeConnector;
+import no.cx.iot.gateway.infrastructure.Printer;
 
 import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
 
@@ -26,13 +26,13 @@ public class LightStateController {
     private ProposedLightStatesFinder proposedLightStatesFinder;
 
     @Inject
-    private Logger logger;
+    private Printer printer;
 
     public String switchStateOfLights() {
-        logger.info("Switching state of lights");
+        printer.println("Switching state of lights");
         return IntStream.range(0, getAllLights())
                 .mapToObj(this::switchStateOfLight)
-                .peek(light -> logger.info("State of this light: " + light))
+                .peek(light -> printer.println("State of this light: " + light))
                 .collect(Collectors.joining("\n"));
     }
 

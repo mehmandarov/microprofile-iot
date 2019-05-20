@@ -2,17 +2,16 @@ package no.cx.iot.gateway.lights;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.eclipse.microprofile.faulttolerance.Fallback;
-
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
+import no.cx.iot.gateway.infrastructure.Printer;
 import no.cx.iot.gateway.time.TimeRestConnector;
 import no.cx.iot.gateway.weather.WeatherRestConnector;
 
@@ -20,13 +19,13 @@ import no.cx.iot.gateway.weather.WeatherRestConnector;
 public class ProposedLightStatesFinder {
 
     @Inject
-    private Logger logger;
-
-    @Inject
     private WeatherRestConnector weatherInputProvider;
 
     @Inject
     private TimeRestConnector timeInputProvider;
+
+    @Inject
+    Printer printer;
 
     private Set<InputProvider> inputProviders;
 
@@ -40,20 +39,22 @@ public class ProposedLightStatesFinder {
         inputProviders.add(timeInputProvider);
     }
 
-    @Fallback(fallbackMethod = "getDefaultLightState")
+   // @Fallback(fallbackMethod = "getDefaultLightState")
     public LightState getNewStateForLight(int lightIndex) {
-        return inputProviders.stream()
+        Optional<LightState> lightState = inputProviders.stream()
                 .sorted((a, b) -> Integer.compare(b.getPriority(), a.getPriority()))
                 .filter(InputProvider::canConnect)
                 .map(inputProvider -> inputProvider.getNewStateForLight(lightIndex))
                 .filter(Objects::nonNull)
                 .limit(1)
-                .findAny()
+                .findAny();
+        printer.println(lightState);
+        return lightState
                 .orElseThrow(() -> new RuntimeException("Could not get new state for light, returning default"));
     }
 
     public LightState getDefaultLightState(int lightIndex) {
-        logger.info("Changing to default light state for light " + lightIndex);
+        printer.println("Changing to default light state for light " + lightIndex);
         return new LightState(lightIndex, InputSource.COMPUTED, Brightness.getMaxBrightness(), null);
     }
 }
