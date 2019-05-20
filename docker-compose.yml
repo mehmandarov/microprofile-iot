@@ -8,6 +8,7 @@ services:
       context: ./facade
       args:
         JAR_FILE: philips-hue-api-facade-thorntail.jar
+        JVM_OPTIONS: -DuseRealBridge=true
         PORT_NUMBER: 8080
         TIMEZONE: Europe/Stockholm
     secrets:
