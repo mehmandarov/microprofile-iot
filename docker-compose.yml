@@ -9,7 +9,7 @@ services:
       args:
         JAR_FILE: philips-hue-api-facade-thorntail.jar
         PORT_NUMBER: 8080
-        TIMEZONE: Europe/Kiev
+        TIMEZONE: Europe/Stockholm
     secrets:
       - huecredentials
   timeservice:
@@ -21,7 +21,7 @@ services:
       args:
         JAR_FILE: timeservice-thorntail.jar
         PORT_NUMBER: 8080
-        TIMEZONE: Europe/Oslo
+        TIMEZONE: Europe/Stockholm
   weatherservice:
     image: "iot:weather-service"
     ports:
@@ -31,8 +31,8 @@ services:
       args:
         JAR_FILE: weatherservice-thorntail.jar
         PORT_NUMBER: 8080
-        JVM_OPTIONS: -Dcountry=Ukraina -Dyr_city_part=Kiev/Kiev
-        TIMEZONE: Europe/Kiev
+        JVM_OPTIONS: -Dcountry=Sverige -Dyr_city_part=Stockholm/Stockholm
+        TIMEZONE: Europe/Stockholm
 secrets:
   huecredentials:
     file: ./facade/MyHue.properties
