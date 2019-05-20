@@ -4,6 +4,7 @@ public class Weather {
     private String temperature;
 
     int getTemperatureInt() {
+        System.out.println(temperature);
         return (int) Double.parseDouble(temperature);
     }
 

@@ -9,6 +9,8 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.eclipse.microprofile.faulttolerance.Fallback;
+
 import no.cx.iot.gateway.InputProvider;
 import no.cx.iot.gateway.InputSource;
 import no.cx.iot.gateway.infrastructure.Printer;
@@ -39,7 +41,7 @@ public class ProposedLightStatesFinder {
         inputProviders.add(timeInputProvider);
     }
 
-   // @Fallback(fallbackMethod = "getDefaultLightState")
+    @Fallback(fallbackMethod = "getDefaultLightState")
     public LightState getNewStateForLight(int lightIndex) {
         Optional<LightState> lightState = inputProviders.stream()
                 .sorted((a, b) -> Integer.compare(b.getPriority(), a.getPriority()))
