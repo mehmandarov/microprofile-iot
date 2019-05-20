@@ -6,4 +6,9 @@ public class Weather {
     int getTemperatureInt() {
         return (int) Double.parseDouble(temperature);
     }
+
+    @Override
+    public String toString() {
+        return temperature;
+    }
 }

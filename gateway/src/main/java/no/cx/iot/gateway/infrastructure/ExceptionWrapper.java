@@ -7,6 +7,7 @@ public class ExceptionWrapper {
         try {
             return callable.call();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

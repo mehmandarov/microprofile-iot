@@ -55,6 +55,7 @@ public class LightStateController {
                     .orElse(null);
         }
         catch (Exception e) {
+            e.printStackTrace();
             return getErrorMessage(lightIndex, e);
         }
     }
