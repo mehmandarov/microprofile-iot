@@ -48,6 +48,7 @@ public class WeatherToLightStateConverter implements Converter<Weather> {
     }
 
     private int getAdjustment(int temperature) {
-        return (Math.abs(temperature) * 10) + (new Random().nextInt(200));
+        int factor = 1;
+        return (Math.abs(temperature) * factor) + (new Random().nextInt(200));
     }
 }
