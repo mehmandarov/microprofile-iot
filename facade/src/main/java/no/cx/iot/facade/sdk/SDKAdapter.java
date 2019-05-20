@@ -23,7 +23,7 @@ public class SDKAdapter {
 
     @Inject
     @ConfigProperty(name = "useRealBridge", defaultValue = "false")
-    private boolean useRealBridge;
+    boolean useRealBridge;
 
     @Inject
     private Logger logger;

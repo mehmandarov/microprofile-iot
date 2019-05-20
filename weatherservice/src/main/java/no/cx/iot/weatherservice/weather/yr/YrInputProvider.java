@@ -22,10 +22,10 @@ public class YrInputProvider implements InputProvider {
 
     @Inject
     @ConfigProperty(name = "country")
-    private String country;
+    String country;
     @Inject
     @ConfigProperty(name = "yr_city_part")
-    private String yrCityPart;
+    String yrCityPart;
     @Inject
     private XMLToTemperatureConverter xmlToTemperatureConverter;
     @Inject
