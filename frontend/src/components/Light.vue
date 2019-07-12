@@ -16,6 +16,10 @@ export default class Light extends Vue {
   public setNumber(newNumber: number) {
       this.number = newNumber;
   }
+
+  public setStatus(newStatus: string) {
+    this.status = newStatus;
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
   <div class="home">
     <div class="lights">
       <div v-for="light in lights" :key="light.number">
-        <Light status="Off" :number="light.number"/>
+        <Light :status="light.status" :number="light.number"/>
       </div>
     </div>
     <div id="buttons">
@@ -15,28 +15,41 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Light from '@/components/Light.vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+Vue.use(VueAxios, axios);
+
+const resetURL = 'http://localhost:8080/about#/about/';
+const setURL = 'http://localhost:8080/about#/about/';
 
 export default Vue.extend({
   data: () => ({
     lights: [] as Light[],
   }),
   mounted() {
-    this.createLight(0);
-    this.createLight(1);
-    this.createLight(2);
-    this.createLight(3);
+    this.createLight(0, 'off');
+    this.createLight(1, 'on');
+    this.createLight(2, 'off');
+    this.createLight(3, 'off');
   },
   methods: {
-    createLight: function(index: number) {
+    createLight: function(index: number, status: string) {
       const light = new Light();
       light.setNumber(index);
+      light.setStatus(status)
       this.lights.push(light);
     },
-    resetLights: () => {
+    resetLights: function() {
+      Vue.axios
+      .get(resetURL)
+      .then((callback: any) => this.lights.forEach((i) => i.setStatus('Off')));
       // todo
     },
-    setLights: () => {
-      // todo
+    setLights: function() {
+      Vue.axios
+      .get(resetURL)
+      .then((callback: any) => this.lights.forEach((i) => i.setStatus(callback.statusText)));
     },
   },
   components: {
@@ -71,5 +84,6 @@ export default Vue.extend({
       height: 300px;
       margin: 5px;
       width: 30%;
+      font-size: 4rem;
     };
 </style>
