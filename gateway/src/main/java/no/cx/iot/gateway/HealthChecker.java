@@ -22,7 +22,7 @@ public class HealthChecker implements HealthCheck {
         }
         else {
             return HealthCheckResponse.named(classname)
-                    .withData(classname, "Could not contact gateway")
+                    .withData(classname, "Gateway not running properly")
                     .down()
                     .build();
         }

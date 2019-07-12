@@ -17,7 +17,7 @@ import no.cx.iot.gateway.infrastructure.Printer;
 import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
-public class LightStateController {
+    public class LightStateController {
 
     @Inject
     private FacadeConnector facade;
