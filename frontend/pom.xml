@@ -44,7 +44,7 @@
                         <phase>generate-resources</phase>
 
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>run build</arguments>
                         </configuration>
                     </execution>
                 </executions>

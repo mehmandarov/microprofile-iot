@@ -53,3 +53,6 @@ yarn-error.log*
 
 npm.cmd
 frontend/node
+.project
+.classpath
+org.eclipse.*
