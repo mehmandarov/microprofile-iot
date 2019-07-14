@@ -34,19 +34,19 @@ export default Vue.extend({
     this.createLight(3, 'off');
   },
   methods: {
-    createLight: function(index: number, status: string) {
+    createLight(index: number, status: string) {
       const light = new Light();
       light.setNumber(index);
-      light.setStatus(status)
+      light.setStatus(status);
       this.lights.push(light);
     },
-    resetLights: function() {
+    resetLights() {
       Vue.axios
       .get(resetURL)
       .then((callback: any) => this.lights.forEach((i) => i.setStatus('Off')));
       // todo
     },
-    setLights: function() {
+    setLights() {
       Vue.axios
       .get(resetURL)
       .then((callback: any) => this.lights.forEach((i) => i.setStatus(callback.statusText)));
