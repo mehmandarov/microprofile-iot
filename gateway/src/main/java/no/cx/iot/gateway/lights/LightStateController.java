@@ -74,4 +74,8 @@ import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
                         )
                 );
     }
+
+    public int getNumberOfLights() {
+        return facade.getNumberOfLights();
+    }
 }

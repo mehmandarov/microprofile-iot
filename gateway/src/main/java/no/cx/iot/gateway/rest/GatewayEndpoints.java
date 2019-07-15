@@ -37,6 +37,15 @@ public class GatewayEndpoints {
     }
 
     @GET
+    @Path("lights")
+    public String getNumberOfLights() {
+        if (!lightStateController.canConnectToFacade()) {
+            return "Could not connect to facade";
+        }
+        return String.valueOf(lightStateController.getNumberOfLights());
+    }
+
+    @GET
     @Path("verify")
     @Produces("text/plain")
     public String doGet() {

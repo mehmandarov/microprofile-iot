@@ -14,4 +14,23 @@
     <webApplication type="war" id="gateway" location="gateway.war" contextRoot="/"/>
 
     <mpMetrics authentication="false"/>
+
+    <cors domain="/hue/resetlights/"
+          allowedOrigins="*"
+          allowedMethods="GET"
+          allowCredentials="true"
+          exposeHeaders="*"/>
+
+
+    <cors domain="/hue/"
+          allowedOrigins="*"
+          allowedMethods="GET"
+          allowCredentials="true"
+          exposeHeaders="*"/>
+
+    <cors domain="/hue/lights"
+          allowedOrigins="*"
+          allowedMethods="GET"
+          allowCredentials="true"
+          exposeHeaders="*"/>
 </server>

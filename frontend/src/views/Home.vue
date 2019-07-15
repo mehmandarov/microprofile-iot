@@ -20,18 +20,18 @@ import VueAxios from 'vue-axios';
 
 Vue.use(VueAxios, axios);
 
-const resetURL = 'http://localhost:8080/about#/about/';
-const setURL = 'http://localhost:8080/about#/about/';
+const numberOfLightsURL = 'http://localhost:9080/hue/lights/';
+const resetURL = 'http://localhost:9080/hue/resetlights/';
+const setURL = 'http://localhost:9080/hue/';
 
 export default Vue.extend({
   data: () => ({
     lights: [] as Light[],
   }),
   mounted() {
-    this.createLight(0, 'off');
-    this.createLight(1, 'on');
-    this.createLight(2, 'off');
-    this.createLight(3, 'off');
+      Vue.axios
+      .get(numberOfLightsURL)
+      .then((callback: any) => this.createLight(this.lights.length, 'Unknown'));
   },
   methods: {
     createLight(index: number, status: string) {
@@ -44,11 +44,10 @@ export default Vue.extend({
       Vue.axios
       .get(resetURL)
       .then((callback: any) => this.lights.forEach((i) => i.setStatus('Off')));
-      // todo
     },
     setLights() {
       Vue.axios
-      .get(resetURL)
+      .get(setURL)
       .then((callback: any) => this.lights.forEach((i) => i.setStatus(callback.statusText)));
     },
   },
