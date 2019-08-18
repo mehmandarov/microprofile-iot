@@ -1,8 +1,9 @@
 package no.cx.iot.facade.sdk;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.philips.lighting.model.PHBridgeConfiguration;
 import com.philips.lighting.model.PHBridgeResourcesCache;
@@ -95,8 +96,9 @@ public class FakeBridge implements Bridge {
 
     @Override
     public List<PHLight> getAllLights() {
-        PHLight phLight = new PHLight("a", "b", "c", "d");
-        return Collections.singletonList(phLight);
+        return IntStream.range(0, 5)
+        .mapToObj(i -> new PHLight("a", "b", "c", "d"))
+        .collect(Collectors.toList());
     }
 
     @Override
