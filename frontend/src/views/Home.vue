@@ -44,18 +44,21 @@ export default Vue.extend({
       light.setStatus(status);
       this.lights.push(light);
     },
-    setStatusOnLights(statusText: string) {
-      this.lights.forEach((i) => i.setStatus(statusText));
-    },
     resetLights() {
       Vue.axios
       .get(resetURL)
-      .then((callback: any) => this.setStatusOnLights('Off'));
+      .then((callback: any) => this.lights.forEach((i) => i.setStatus(('Off'))));
     },
     setLights() {
       Vue.axios
       .get(setURL)
-      .then((callback: any) => this.setStatusOnLights(callback.statusText));
+      .then((callback: any) => {
+        if (callback.status === 200) {
+          callback.data.forEach((light:any) => {
+            this.lights[light.lightIndex].setStatus(light.brightness.brightness);
+          });
+        }
+      });
     },
   },
   components: {
