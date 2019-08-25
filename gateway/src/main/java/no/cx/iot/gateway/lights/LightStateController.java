@@ -1,6 +1,7 @@
 package no.cx.iot.gateway.lights;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,7 +18,7 @@ import no.cx.iot.gateway.infrastructure.Printer;
 import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
 
 @ApplicationScoped
-    public class LightStateController {
+public class LightStateController {
 
     @Inject
     private FacadeConnector facade;
@@ -28,12 +29,12 @@ import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
     @Inject
     private Printer printer;
 
-    public String switchStateOfLights() {
+    public List<LightState> switchStateOfLights() {
         printer.println("Switching state of lights");
         return IntStream.range(0, getAllLights())
                 .mapToObj(this::switchStateOfLight)
                 .peek(light -> printer.println("State of this light: " + light))
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.toList());
     }
 
     @Timed(absolute = true, name = "canConnect", description = "Can connect-checks to facade")
@@ -46,25 +47,16 @@ import static no.cx.iot.gateway.infrastructure.ExceptionWrapper.wrapExceptions;
     }
 
     @Timed(name = "switchState", absolute = true, description = "Time needed to switch state")
-    private String switchStateOfLight(int lightIndex) {
+    private LightState switchStateOfLight(int lightIndex) {
         try {
             return Optional.of(lightIndex)
                     .map(proposedLightStatesFinder::getNewStateForLight)
                     .map(lightState -> wrapExceptions(() -> facade.switchStateOfLight(lightState)))
-                    .map(LightState::toString)
                     .orElse(null);
         }
         catch (Exception e) {
-            e.printStackTrace();
-            return getErrorMessage(lightIndex, e);
+            throw new RuntimeException(e);
         }
-    }
-
-    private String getErrorMessage(int lightIndex, Exception e) {
-        return Optional.ofNullable(e.getMessage())
-                .filter(message -> message.contains("is not reachable"))
-                .map(message -> "Light " + lightIndex + " is not reachable")
-                .orElseThrow(() -> new RuntimeException(e));
     }
 
     public void reset() {

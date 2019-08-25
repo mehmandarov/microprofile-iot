@@ -1,12 +1,16 @@
 package no.cx.iot.gateway.rest;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.metrics.annotation.Counted;
 
+import no.cx.iot.gateway.lights.LightState;
 import no.cx.iot.gateway.lights.LightStateController;
 
 @Path("/")
@@ -16,11 +20,11 @@ public class GatewayEndpoints {
     private LightStateController lightStateController;
 
     @GET
-    @Produces("text/plain")
-    @Counted(absolute = true, monotonic = true, description = "Number of requests to change the lights")
-    public String switchState() {
+    @Produces(MediaType.APPLICATION_JSON)
+    @Counted(absolute = true, description = "Number of requests to change the lights")
+    public List<LightState> switchState() {
         if (!lightStateController.canConnectToFacade()) {
-            return "Could not connect to facade";
+            throw new RuntimeException("Could not connect to facade");
         }
         return lightStateController.switchStateOfLights();
     }

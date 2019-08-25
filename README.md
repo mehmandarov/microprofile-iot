@@ -33,6 +33,11 @@ A detailed documentation and the description of the project can be found on a se
     $ cd gateway
     $ mvn liberty:run-server
     ```
+4. Run the frontend:
+    ```
+    $ npm run serve
+    ```
+5. Use the frontend from http://localhost:8080/
 
 ## Authors
 * [Mads Opheim][2]

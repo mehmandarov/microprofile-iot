@@ -24,8 +24,17 @@ export default class Light extends Vue {
 </script>
 
 <style scoped lang="scss">
-    img {
-        width: 5rem;
-        height: 5rem;
+    h1 {
+      margin: 3px;
     }
+    img {
+        width: 4rem;
+        height: 4rem;
+        margin: 0 3px 3px 3px;
+    }
+    div {
+      margin: 0 3px;
+      border: 1px dotted black;
+      padding: 0 5px;
+    };
 </style>

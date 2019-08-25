@@ -31,7 +31,11 @@ export default Vue.extend({
   mounted() {
       Vue.axios
       .get(numberOfLightsURL)
-      .then((callback: any) => this.createLight(this.lights.length, 'Unknown'));
+      .then((callback: any) => {
+        for (let i = 0; i < callback.data; i++) {
+          this.createLight(i, '-');
+        }
+      });
   },
   methods: {
     createLight(index: number, status: string) {
@@ -43,12 +47,18 @@ export default Vue.extend({
     resetLights() {
       Vue.axios
       .get(resetURL)
-      .then((callback: any) => this.lights.forEach((i) => i.setStatus('Off')));
+      .then((callback: any) => this.lights.forEach((i) => i.setStatus(('0'))));
     },
     setLights() {
       Vue.axios
       .get(setURL)
-      .then((callback: any) => this.lights.forEach((i) => i.setStatus(callback.statusText)));
+      .then((callback: any) => {
+        if (callback.status === 200) {
+          callback.data.forEach((light: any) => {
+            this.lights[light.lightIndex].setStatus(light.brightness.brightness);
+          });
+        }
+      });
     },
   },
   components: {
@@ -58,29 +68,15 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-    div.light {
-      float: left;
-      min-width: 15%;
-      margin: 10px;
-      border: 1px solid black;
-      padding: 10px;
-    };
     
     div.lights {
-      border: 1px solid blue;
-      margin: 0 auto;
-      width: 70%;
-    };
-
-    div#buttons {
-      clear: both;
-      min-width: 200px;
-      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
     };
 
     button {
-      min-height: 200px;
-      height: 300px;
+      height: 120px;
       margin: 5px;
       width: 30%;
       font-size: 4rem;
