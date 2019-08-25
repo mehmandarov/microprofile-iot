@@ -1,7 +1,6 @@
 package no.cx.iot.gateway.lights;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import no.cx.iot.gateway.facade.FacadeConnector;
+import no.cx.iot.gateway.infrastructure.Printer;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -27,7 +27,7 @@ public class LightStateControllerTest {
     private ProposedLightStatesFinder lightStatesFinder;
 
     @Mock
-    private Logger logger;
+    private Printer printer;
 
     @InjectMocks
     private LightStateController lightStateController;

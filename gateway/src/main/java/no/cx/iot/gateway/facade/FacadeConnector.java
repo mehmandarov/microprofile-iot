@@ -1,8 +1,6 @@
 package no.cx.iot.gateway.facade;
 
-import java.io.IOException;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -11,6 +9,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import no.cx.iot.gateway.infrastructure.Connector;
+import no.cx.iot.gateway.infrastructure.Printer;
 import no.cx.iot.gateway.lights.LightState;
 
 @SuppressWarnings("unused")
@@ -26,7 +25,7 @@ public class FacadeConnector implements Connector {
     private String port;
 
     @Inject
-    private Logger logger;
+    private Printer printer;
 
     @Inject
     @RestClient
@@ -37,19 +36,19 @@ public class FacadeConnector implements Connector {
     }
 
     public LightState switchStateOfLight(LightState newLightState) {
-        logger.info("Switching state to " + newLightState);
+        printer.println("Switching state to " + newLightState);
         LightState newState = facadeEndpoint.switchStateOfLight(
                 newLightState.getLightIndex(),
                 newLightState.getBrightness().getBrightness(),
                 getColor(newLightState)
         );
-        logger.info("New state: " + newState);
+        printer.println("New state: " + newState);
         return newState;
     }
 
     @Override
-    public void testConnection() throws IOException {
-        logger.info("Testing connection to facade");
+    public void testConnection() {
+        printer.println("Testing connection to facade");
         facadeEndpoint.verify();
     }
 

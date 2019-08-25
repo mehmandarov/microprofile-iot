@@ -1,14 +1,12 @@
 package no.cx.iot.gateway.lights;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 
-import no.cx.iot.gateway.infrastructure.LoggerProvider;
+import no.cx.iot.gateway.infrastructure.Printer;
 
 public class Brightness implements Serializable {
 
     private int brightness;
-    private Logger logger;
 
     public static final int maxBrightness = 254;
 
@@ -24,7 +22,6 @@ public class Brightness implements Serializable {
     }
 
     public Brightness(int brightness) {
-        logger = LoggerProvider.getLogger(this.getClass());
         setBrightnessValue(brightness);
     }
 
@@ -40,16 +37,8 @@ public class Brightness implements Serializable {
     void setBrightnessValue(int brightness) {
         this.brightness = Math.max(0, Math.min(brightness, maxBrightness));
         if (brightness < 0 || brightness > maxBrightness) {
-            logger.info("Input brightness was " + brightness +", adjusted to " + this.brightness);
+            new Printer().println("Input brightness was " + brightness +", adjusted to " + this.brightness);
         }
-    }
-
-    public Logger getLogger() {
-        return logger;
-    }
-
-    public void setLogger(Logger logger) {
-        this.logger = logger;
     }
 
     public void setBrightness(int brightness) {

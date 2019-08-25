@@ -1,7 +1,5 @@
 package no.cx.iot.gateway.lights;
 
-import java.util.logging.Logger;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,6 +8,7 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import no.cx.iot.gateway.InputSource;
+import no.cx.iot.gateway.infrastructure.Printer;
 import no.cx.iot.gateway.time.TimeRestConnector;
 import no.cx.iot.gateway.weather.WeatherRestConnector;
 
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.doReturn;
 public class ProposedLightStatesFinderTest {
 
     @Mock
-    private Logger logger;
+    private Printer printer;
 
     @Spy
     private TimeRestConnector timeRestConnector;

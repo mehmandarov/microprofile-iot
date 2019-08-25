@@ -1,11 +1,8 @@
 package no.cx.iot.gateway.lights;
 
-import java.util.logging.Logger;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -13,9 +10,6 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BrightnessTest {
-
-    @Mock
-    private Logger logger;
 
     @InjectMocks
     private Brightness brightness;
@@ -38,10 +32,5 @@ public class BrightnessTest {
     @Test
     public void tooHighBrightnessSetsBrightness254() {
         assertThat(createBrightness(255).getBrightness(), is(254));
-    }
-
-    @Test
-    public void equalsIgnoresLogger() {
-        assertThat(new Brightness(50), is(new Brightness(50)));
     }
 }
