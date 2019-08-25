@@ -72,17 +72,11 @@ export default Vue.extend({
     div.lights {
       display: flex;
       justify-content: center;
-    };
-
-    div#buttons {
-      clear: both;
-      min-width: 120px;
-      margin: 0 auto;
+      margin: 15px 0;
     };
 
     button {
-      min-height: 150px;
-      height: 150px;
+      height: 120px;
       margin: 5px;
       width: 30%;
       font-size: 4rem;
