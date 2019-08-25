@@ -17,7 +17,7 @@ public class GatewayEndpoints {
 
     @GET
     @Produces("text/plain")
-    @Counted(absolute = true, monotonic = true, description = "Number of requests to change the lights")
+    @Counted(absolute = true, description = "Number of requests to change the lights")
     public String switchState() {
         if (!lightStateController.canConnectToFacade()) {
             return "Could not connect to facade";
