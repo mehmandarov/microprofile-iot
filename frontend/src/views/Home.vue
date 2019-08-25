@@ -33,7 +33,7 @@ export default Vue.extend({
       .get(numberOfLightsURL)
       .then((callback: any) => {
         for (let i = 0; i < callback.data; i++) {
-          this.createLight(i, 'Unknown');
+          this.createLight(i, '-');
         }
       });
   },
@@ -47,14 +47,14 @@ export default Vue.extend({
     resetLights() {
       Vue.axios
       .get(resetURL)
-      .then((callback: any) => this.lights.forEach((i) => i.setStatus(('Off'))));
+      .then((callback: any) => this.lights.forEach((i) => i.setStatus(('0'))));
     },
     setLights() {
       Vue.axios
       .get(setURL)
       .then((callback: any) => {
         if (callback.status === 200) {
-          callback.data.forEach((light:any) => {
+          callback.data.forEach((light: any) => {
             this.lights[light.lightIndex].setStatus(light.brightness.brightness);
           });
         }
@@ -68,18 +68,10 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="scss">
-    div.light {
-      float: left;
-      min-width: 10%;
-      margin: 5px;
-      border: 1px solid black;
-      padding: 5px;
-    };
     
     div.lights {
-      border: 1px solid blue;
-      margin: 0 auto;
-      width: 80%;
+      display: flex;
+      justify-content: center;
     };
 
     div#buttons {

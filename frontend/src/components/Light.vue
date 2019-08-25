@@ -28,4 +28,9 @@ export default class Light extends Vue {
         width: 5rem;
         height: 5rem;
     }
+    div {
+      margin: 0 3px;
+      border: 1px dotted black;
+      padding: 3px;
+    };
 </style>
