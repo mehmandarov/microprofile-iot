@@ -4,17 +4,17 @@ import java.util.Random;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.Liveness;
 
-@Health
+@Liveness
 @ApplicationScoped
-public class HealthChecker implements HealthCheck {
+public class LivenessHealthChecker implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        String classname = HealthChecker.class.getSimpleName();
+        String classname = LivenessHealthChecker.class.getSimpleName();
         if (canConnect()) {
             return HealthCheckResponse.named(classname)
                     .up()
@@ -22,7 +22,7 @@ public class HealthChecker implements HealthCheck {
         }
         else {
             return HealthCheckResponse.named(classname)
-                    .withData(classname, "Gateway not running properly")
+                    .withData(classname, "Gateway not alive")
                     .down()
                     .build();
         }
