@@ -35,8 +35,13 @@ Detailed documentation and the description of the project can be found on a sepa
     ```
 4. Run the frontend:
     ```
+    $ cd frontend
     $ npm run serve
     ```
+   If you are running this for the first time, make sure to install all dependencies first with:
+   ```
+   $ npm install
+   ```
 5. Access the frontend from http://localhost:8080/
 
 ## Authors
