@@ -26,13 +26,15 @@ Detailed documentation and the description of the project can be found on a sepa
     The setup of the Docker containers and mapping of the ports with the host machine can be seen in the [docker-compose.yml][5] file.
 
 3. Start the gateway service: 
-    
     Note: this service can be started at any time. It will also be dockerized in the future.
 
     ```
     $ cd gateway
     $ mvn liberty:run-server
     ```
+   
+   Gateway service is now available at http://localhost:9080/hue.
+   
 4. Run the frontend:
     ```
     $ cd frontend
