@@ -24,7 +24,7 @@
     "@vue/cli-plugin-unit-jest": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
     "@vue/test-utils": "1.0.0-beta.29",
-    "axios": "^0.32.0",
+    "axios": "^0.33.0",
     "babel-core": "7.0.0-bridge.0",
     "sass": "^1.18.0",
     "sass-loader": "^13.2.0",
