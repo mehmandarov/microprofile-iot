@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "vue": "^2.6.10",
+    "vue": "^3.5.40",
     "vue-class-component": "^7.0.2",
-    "vue-property-decorator": "^8.1.0",
+    "vue-property-decorator": "^8.5.1",
     "vue-router": "^3.0.3"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-plugin-unit-jest": "^5.0.8",
     "@vue/cli-service": "^5.0.8",
-    "@vue/test-utils": "1.0.0-beta.29",
+    "@vue/test-utils": "2.4.11",
     "axios": "^0.33.0",
     "babel-core": "7.0.0-bridge.0",
     "sass": "^1.18.0",
